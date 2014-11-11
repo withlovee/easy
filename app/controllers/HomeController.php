@@ -18,7 +18,7 @@ class HomeController extends BaseController {
 	public function showWelcome()
 	{
 		// var_dump(Auth::user());
-		$data['price'] = Price::graph('CPF', 'price');
+		$data = array();
 		return View::make('hello', $data);
 		// $results = DB::select('select * from test where id = ?', array(2));
 		// var_dump($results);

@@ -27,24 +27,6 @@
     <div class="col-sm-10">
         <div class="checkbox">
             <label>
-                {{ Form::checkbox('report_instantly') }} รับรายงานทันทีที่เกิดปัญหา Out-of-Range Value
-            </label>
-        </div>
-    </div>
-</div>
-<div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-        <div class="checkbox">
-            <label>
-                {{ Form::checkbox('report_daily') }} รับรายงานประจำวัน
-            </label>
-        </div>
-    </div>
-</div>
-<div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-        <div class="checkbox">
-            <label>
                 {{ Form::checkbox('report_monthly') }} รับรายงานประจำเดือน
             </label>
         </div>
