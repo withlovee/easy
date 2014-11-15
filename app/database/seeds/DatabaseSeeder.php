@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder {
 		$this->call('UsersTableSeeder');
     $this->call('BidManagersTableSeeder');
     $this->call('ItemTableSeeder');
-    //$this->call('AdministratorsTableSeeder');
+    $this->call('AdministratorsTableSeeder');
     $this->call('SupportTicketsTableSeeder');
   }
 
@@ -76,28 +76,30 @@ class ItemTableSeeder extends Seeder{
    $item->endDateTime=null;
    $item->bidManagerId=null;
    $item->save();
-   $item->itemId='2';
-   $item->itemName='ที่วาง-ที่จับ มือถืออเนกประสงค์';
-   $item->picture='https://fbexternal-a.akamaihd.net/safe_image.php?d=AQBWUBt17aRrtrfk&w=254&h=133&url=https%3A%2F%2Fwww.facebook.com%2Fads%2Fimage%2F%3Fd%3DAQIvvP7Lj_5Kh5fEBjh3saMkiuYeBfZV_mahnynb5pd0f7fOPJ4e2omGytmBSKBP4Omo_TuR4AsHvFjMs4qCk5nKIyjhOMWgs5j7s_YONSynC0dutPEJXMqIEHaro06oUilGMv5l6OLs60K3Of_e8eme&cfs=1';
-   $item->price=145;
-   $item->brand='ASDFEECCD';
-   $item->model='CD012-33321';
-   $item->volumn='';
-   $item->property='เรียกกันอีกชื่อง่ายๆคือ one touch silicone stand เพียงแค่กดเบาๆก็สามารถ งอและวางบนนิ้วมือหรือตั้งเพื่อดูได้ บอกเลยว่าน่ารักสุดๆ ไม่มีนี่พลาดมากอะ !!!ไอเท็มเพื่อเพิ่มลูกเล่นในการถ่ายภาพด้วยเลนส์เสริมสำหรับติดโทรศัพท์มือถือ สามารถถ่ายภาพแบบมุมกว้าง, กลมนูนแบบฟิชอาย หรือขยายเพื่อถ่ายระยะใกล้ได้ง่ายดายจากโทรศัพท์มือถือของคุณ ใช้ได้กับทุกรุ่นและยี่ห้อ...ห้ามพลาดนะคะ!';
-   $item->size='';
-   $item->quantity=1;
-   $item->quality='';
-   $item->defect='';
-   $item->returnPolicy='ASDFEECCD';
-   $item->returnFee=50;
-   $item->shipping='แบบด่วน: 100 บาท<br>แบบมาตรฐาน: 50 บาท<br>แบบประหยัด: 30 บาท</td>';
-   $item->tax=7;
-   $item->others='ห่อของขวัญ';
-   $item->type='auction';
-   $item->endDateTime=date('d/m/Y',strtotime("30/11/2014"));
-   $item->bidManagerId=1;
-   $item->save();
+   $item2=new Item;
+   $item2->itemId='2';
+   $item2->itemName='ที่วาง-ที่จับ มือถืออเนกประสงค์';
+   $item2->picture='https://fbexternal-a.akamaihd.net/safe_image.php?d=AQBWUBt17aRrtrfk&w=254&h=133&url=https%3A%2F%2Fwww.facebook.com%2Fads%2Fimage%2F%3Fd%3DAQIvvP7Lj_5Kh5fEBjh3saMkiuYeBfZV_mahnynb5pd0f7fOPJ4e2omGytmBSKBP4Omo_TuR4AsHvFjMs4qCk5nKIyjhOMWgs5j7s_YONSynC0dutPEJXMqIEHaro06oUilGMv5l6OLs60K3Of_e8eme&cfs=1';
+   $item2->price=145;
+   $item2->brand='ASDFEECCD';
+   $item2->model='CD012-33321';
+   $item2->volumn='';
+   $item2->property='เรียกกันอีกชื่อง่ายๆคือ one touch silicone stand เพียงแค่กดเบาๆก็สามารถ งอและวางบนนิ้วมือหรือตั้งเพื่อดูได้ บอกเลยว่าน่ารักสุดๆ ไม่มีนี่พลาดมากอะ !!!ไอเท็มเพื่อเพิ่มลูกเล่นในการถ่ายภาพด้วยเลนส์เสริมสำหรับติดโทรศัพท์มือถือ สามารถถ่ายภาพแบบมุมกว้าง, กลมนูนแบบฟิชอาย หรือขยายเพื่อถ่ายระยะใกล้ได้ง่ายดายจากโทรศัพท์มือถือของคุณ ใช้ได้กับทุกรุ่นและยี่ห้อ...ห้ามพลาดนะคะ!';
+   $item2->size='';
+   $item2->quantity=1;
+   $item2->quality='';
+   $item2->defect='';
+   $item2->returnPolicy='ASDFEECCD';
+   $item2->returnFee=50;
+   $item2->shipping='แบบด่วน: 100 บาท<br>แบบมาตรฐาน: 50 บาท<br>แบบประหยัด: 30 บาท</td>';
+   $item2->tax=7;
+   $item2->others='ห่อของขวัญ';
+   $item2->type='auction';
+   $item2->endDateTime=date('d/m/Y',strtotime("30/11/2014"));
+   $item2->bidManagerId=1;
+   $item2->save();
  }
+}
 
  class AdministratorsTableSeeder extends Seeder {
 
