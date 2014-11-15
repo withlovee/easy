@@ -2,13 +2,19 @@
 
 class EmailHelper extends Eloquent {
 
-  function sendUserValidationEmail($username, $fullName, $email, $validationLink) {
+  function sendUserValidationEmail($email, $username, $fullName, $validationLink) {
 
-    $data = array('username' => $username, 'validationLink' => $validationLink);
+    $data = array(
+        'email' => $email,
+        'username' => $username,
+        'fullName' => $fullName,
+        'validationLink' => $validationLink
+      );
 
-    Mail::send('emails.UserValidation', $data, function($message) use ($email, $fullName){
-      $message->to($email,  $fullName)->subject('โปรดยืนยันการสมัครสมาชิกของคุณ');
+    Mail::queue('emails.UserValidation', $data, function($message) use ($data){
+      $message->to($data['email'],  $data['fullName'])->subject('โปรดยืนยันการสมัครสมาชิกของคุณ');
     });
+
 
   }
 
