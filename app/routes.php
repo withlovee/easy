@@ -22,7 +22,7 @@ Route::get('/', 'HomeController@showWelcome')->before('auth');
 
 // Confide routes
 Route::get('users', 'UsersController@index')->before('admin-auth');
-Route::get('users/create', 'UsersController@create')->before('admin-auth');
+Route::get('users/create', 'UsersController@create');
 Route::post('users', 'UsersController@store');
 Route::get('login', 'UsersController@login');
 Route::post('users/login', 'UsersController@doLogin');
