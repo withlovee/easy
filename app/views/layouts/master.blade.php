@@ -28,7 +28,7 @@
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 		</button>
-		<a class="navbar-brand" href="index.php" style="padding: 4px 15px;">
+		<a class="navbar-brand" href="{{ URL::to('/') }}" style="padding: 4px 15px;">
 			{{ HTML::image('img/logo.png', 'EASY') }}
 		</a>
 	</div>
@@ -74,20 +74,7 @@
 	</div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-@section('error')
-	@if (Session::get('error'))
-		<div class="alert alert-danger">
-			@if (is_array(Session::get('error')))
-				{{ head(Session::get('error')) }}
-			@else
-				{{{ Session::get('error') }}}
-			@endif
-		</div>
-	@endif
-	@if (Session::get('notice'))
-		<div class="alert alert-success">{{ Session::get('notice') }}</div>
-	@endif
-@show
+@section('wrapper')
 <div class="row wrapper">
 	<div class="col-md-9 content-wrapper content-white">
 		@yield('content')
@@ -96,6 +83,6 @@
 		@yield('sidebar')
 	</div><!--sidebar-->
 </div>
-
+@show
 </body>
 </html>
