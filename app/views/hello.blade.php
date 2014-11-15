@@ -26,7 +26,7 @@
 			<p>เป็นอีกหนึ่งทางเลือกของที่ชาร์ตแบตสำรองขนาดกระทัดรัด สามารถซื้อเป็นของขวัญให้ใครก็ได้ ในราคาเบาๆ อีกทั้งยังสามารถเป็นพวงกุญแจได้ในตัว</p>
 			<p>
 				<span href="#" class="btn btn-default" role="button" disabled="disabled">1,250 บาท</span>
-				<a href="detail.php" class="btn btn-primary" role="button">ดูรายละเอียด</a>
+				<a href="item/1" class="btn btn-primary" role="button">ดูรายละเอียด</a>
 			</p>
 		</div>
 		<!-- /.col-sm-9 -->
