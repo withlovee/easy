@@ -19,7 +19,7 @@ class CreateSupportTicketsTable extends Migration {
 			$table->foreign('reporterId')->references('id')->on('users');
 			$table->integer('reporteeId')->unsigned();
 			$table->foreign('reporteeId')->references('id')->on('users');
-			$table->integer('administratorId')->unsigned();
+			$table->integer('administratorId')->unsigned()->nullable();
 			$table->foreign('administratorId')->references('id')->on('administrators');
 			$table->string('title');
 			$table->string('content');
