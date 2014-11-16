@@ -13,6 +13,7 @@
 
 Route::get('/', 'HomeController@showWelcome')->before('auth');
 Route::get('/supportticket', 'SupportTicketController@showAll')->before('auth');
+Route::get('/supportticket/show/{id}', 'SupportTicketController@show')->before('auth');
 
 // Route::get('/', function()
 // {
