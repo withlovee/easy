@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder {
     $this->call('ItemTableSeeder');
     $this->call('AdministratorsTableSeeder');
     $this->call('SupportTicketsTableSeeder');
+    $this->call('ItemQuestionsTableSeeder');
+
   }
 
 }
@@ -41,7 +43,7 @@ class UsersTableSeeder extends Seeder {
       } else {
         Log::info('Created user "'.$user->username.'" <'.$user->email.'>');
       }
-/*
+      /*
   public function run() {
     $user = new User;
     $user->name = 'ณัฐพล';
@@ -62,9 +64,14 @@ class UsersTableSeeder extends Seeder {
     } else {
       Log::info('Created user "'.$user->username.'" <'.$user->email.'>');
     }
-  }
+  
 */
+     }
+  }
 }
+
+  
+
 
 
 class BidManagersTableSeeder extends Seeder{
@@ -125,7 +132,7 @@ class ItemTableSeeder extends Seeder{
  }
 }
 
- class AdministratorsTableSeeder extends Seeder {
+class AdministratorsTableSeeder extends Seeder {
 
   public function run()
   {
@@ -163,5 +170,44 @@ class SupportTicketsTableSeeder extends Seeder {
         Log::info('Created ticket >>'.$ticket->title);
       }
     }
+  }
+}
+
+class ItemQuestionsTableSeeder extends Seeder{
+  public function run(){
+    $itemQ=new ItemQuestion;
+    $itemQ->content = 'มีสีอะไรบ้าง';
+    $itemQ->answer='สีเขียว ฟ้า ชมพู';
+    $itemQ->userId=1;
+    $itemQ->itemId=1;
+    if(! $itemQ->save()) {
+      Log::info('Unable to create item Question');
+    } else {
+      Log::info('Created ticket >>'.$itemQ->content);
+    }
+    
+    $itemQ=new ItemQuestion;
+    $itemQ->content = 'มีแบบที่ไม่มีพวงกุญแจหรือไม่';
+    $itemQ->answer='ไม่มีค่ะ';
+    $itemQ->userId=1;
+    $itemQ->itemId=1;
+    if(! $itemQ->save()) {
+      Log::info('Unable to create item Question');
+    } else {
+      Log::info('Created ticket >>'.$itemQ->content);
+    }
+
+    $itemQ=new ItemQuestion;
+    $itemQ->content = 'มีสีเขียวหรือไม่ครับ';
+    $itemQ->answer='ไม่มีค่ะ';
+    $itemQ->userId=2;
+    $itemQ->itemId=2;
+    if(! $itemQ->save()) {
+      Log::info('Unable to create item Question');
+    } else {
+      Log::info('Created ticket >>'.$itemQ->content);
+    }
+
+
   }
 }
