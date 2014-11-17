@@ -47,3 +47,4 @@ Route::get('item/{id}', 'ItemController@showDirectItem');
 Route::post('item/{id}', 'ItemController@showDirectItem');
 Route::post('buy/{id}', 'ItemController@buyDirectItem');
 
+Route::post('/askQuestion', 'ItemQuestionController@create')->before('auth');

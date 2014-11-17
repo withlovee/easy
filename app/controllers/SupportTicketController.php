@@ -55,6 +55,8 @@ class SupportTicketController extends BaseController {
             return Redirect::back()->withInput()->withErrors($this->support_ticket->errors);
         }
 
+        //$input['']
+
 		// echo "<pre>";
 		// print_r($this->support_ticket);
 		// print_r($input);

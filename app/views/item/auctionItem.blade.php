@@ -1,4 +1,4 @@
-@extends('layouts.master', ['title' => 'DirectItem'])
+@extends('layouts.master', ['title' => 'AuctionItem'])
 @section('content')
 <div class="row item-header">
 	@include('layouts.error')
@@ -9,23 +9,56 @@
 	</div>
 	<!-- /.col-md-6 -->
 	<div class="col-md-7">
-		{{Form::open(array('method' => 'post'))}}
 		<h2>
 			{{$item->itemName}}
 		</h2>
-		<h3>สินค้าขายโดยตรง ราคา: {{$item->price}} บาท</h3>
+		<h3>สินค้าประมูล ราคาปัจจุบัน: {{$item->price}} บาท</h3>
 		<p>{{$item->property}}</p>
-		<p>
-			<!--{{ Form::number('amount','1',['min'=>'1'])}}-->
-			&nbsp;
-			<!--<a href="" class="btn btn-primary" data-toggle="modal" data-target="#myModal">ซื้อสินค้า</a>-->
-			{{ Form::button('ซื้อสินค้า',['class'=>"btn btn-primary", "data-toggle"=>"modal", "data-target"=>"#myModal"])}}
-			{{ Form::close()}}
-		</p>
+		<!-- Nav tabs -->
+		<ul class="nav nav-tabs" role="tablist">
+			<li role="presentation" class="active"><a href="#auc1" role="tab" data-toggle="tab">ประมูลแบบกดเอง</a></li>
+			<li role="presentation"><a href="#auc2" role="tab" data-toggle="tab">ประมูลอัตโนมัติ</a></li>
+		</ul>
+
+		<!-- Tab panes -->
+		<div class="tab-content">
+			<div role="tabpanel" class="tab-pane active" id="auc1">
+				<br>
+				<label for="">จำนวนราคาประมูลสูงสุด</label>
+				<div class="input-group" style="width: 200px;">
+					<input type="number" class="form-control" value="146">
+					<span class="input-group-addon">บาท</span>
+				</div><br>
+				<a href="" class="btn btn-primary" style="margin-top:-3px;" data-toggle="modal" data-target="#myModal">ประมูล</a>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="auc2">
+				<br>
+				<div class="row">
+					<div class="col-sm-6">
+						<label for="">จำนวนราคาประมูลสูงสุด</label>
+						<div class="input-group" style="width: 200px; float: left;">
+							<input type="number" class="form-control" value="146">
+							<span class="input-group-addon">บาท</span>
+						</div>
+					</div>
+					<!-- /.col-sm-6 -->
+					<div class="col-sm-6">
+						<label for="">จำนวนเงินที่เพิ่มในแต่ละครั้ง</label><br>
+						<div class="input-group" style="width: 200px; float: left;">
+							<input type="number" class="form-control" value="1">
+							<span class="input-group-addon">บาท</span>
+						</div>
+					</div>
+					<!-- /.col-sm-6 -->
+				</div>
+				<!-- /.row -->
+				<br>
+				<a href="" class="btn btn-primary" style="margin-top:-3px;" data-toggle="modal" data-target="#myModal">ประมูล</a>								
+			</div>
+		</div>
 	</div>
 	<!-- /.col-md-6 -->
 </div>
-<!-- /.row -->
 <br>
 <h2>เกี่ยวกับสินค้า</h2>
 <table class="table table-striped table-bordered item-info">
@@ -91,50 +124,7 @@
 		</div>
 		
 	@endforeach
-	<!--
-	<div class="panel panel-default">
-		<div class="panel-heading" role="tab" id="headingOne">
-			<h4 class="panel-title">
-				<a data-toggle="collapse" data-parent="#accordion" href="#q3" aria-expanded="true" aria-controls="q3">
-					<i class="glyphicon glyphicon-ok"></i> &nbsp; สินค้ามีแบบอื่นอีกไหม
-				</a>
-			</h4>
-		</div>
-		<div id="q3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-			<div class="panel-body">
-				ไม่มีแล้วครับ
-			</div>
-		</div>
-	</div>
-	<div class="panel panel-default">
-		<div class="panel-heading" role="tab" id="headingOne">
-			<h4 class="panel-title">
-				<a data-toggle="collapse" data-parent="#accordion" href="#q1" aria-expanded="true" aria-controls="q1">
-					<i class="glyphicon glyphicon-ok"></i> &nbsp; จัดส่งแบบไหนดีที่สุด
-				</a>
-			</h4>
-		</div>
-		<div id="q1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-			<div class="panel-body">
-				แบบด่วนจะมีความปลอดภัยและถึงผู้รับเร็วที่สุดครับ ทางผู้ขายจะส่ง Tracking Number ไปให้ท่านเมื่อจัดส่งเรียบร้อยแล้ว ท่านจะได้ของภายใน 24 ชั่วโมงครับ
-			</div>
-		</div>
-	</div>
-	<div class="panel panel-default">
-		<div class="panel-heading" role="tab" id="headingOne">
-			<h4 class="panel-title">
-				<a data-toggle="collapse" data-parent="#accordion" href="#q2" aria-expanded="true" aria-controls="q2">
-					<i class="glyphicon glyphicon-time"></i> &nbsp; มีสี่ม่วงอมชมพูไหม
-				</a>
-			</h4>
-		</div>
-		<div id="q2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-			<div class="panel-body">
-				ยังไม่มีคำตอบ
-			</div>
-		</div>
-	</div>
-	-->
+
 	<br><br>
 	<h2>ถามคำถามเกี่ยวกับสินค้าชิ้นนี้</h2>
 
@@ -237,4 +227,5 @@
 		</div>
 	</div>
 </div>
+
 @stop
