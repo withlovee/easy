@@ -42,7 +42,7 @@ class SupportTicketController extends BaseController {
 
 		if($support_ticket->administratorId != null){
 			$administratorId = $support_ticket->administratorId;
-			$support_ticket->administrator = User::find($administratorId)->username;
+			$support_ticket->administrator = Administrator::find($administratorId)->username;
 		}
 		return View::make('support_ticket.SupportTicket',['support_tickets' => $support_tickets,'support_ticket'=>$support_ticket]);	
 	}
@@ -70,7 +70,7 @@ class SupportTicketController extends BaseController {
 		$ticket = SupportTicket::find($id);
 		$ticket->answer = $input['content'];
 		$ticket->answered_at = date('Y-m-d h:i:s', time());
-		$ticket->administratorId = Auth::user()->id;
+		$ticket->administratorId = get_admin();
 
 		$ticket->save();
  	// echo "</pre>";

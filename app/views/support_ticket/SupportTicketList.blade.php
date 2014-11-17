@@ -24,7 +24,7 @@
 									</div>
 									<!-- /.col-sm-9 -->
 									<div class="col-sm-4 text-right">
-										<a href="report-manage.php" class="btn btn-info">ดูรายละเอียด</a>
+										<a href="supporttickets/show/{{$support_ticket->id}}" class="btn btn-info">ดูรายละเอียด</a>
 									</div>
 									<!-- /.col-sm-3 -->
 								</div>

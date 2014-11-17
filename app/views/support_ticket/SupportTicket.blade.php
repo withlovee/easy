@@ -20,17 +20,19 @@
 						<div class="context">
 								<p>{{$support_ticket->content}}</p>
 								<p>&nbsp;</p>
+								@if($support_ticket->administratorId != null)
+									<h4>ข้อความจากผู้ดูแลระบบ</h4>
+									<p>{{$support_ticket->answer}}</p>
+									<p>answered at : {{$support_ticket->answered_at}}</p>
+									<p>by : {{$support_ticket->administrator}}</p>
+								@endif
+								@if(is_admin())
 									<div class="form-group">
-									@if($support_ticket->administratorId != null)
-										<h4>ข้อความจากผู้ดูแลระบบ</h4>
-										<p>{{$support_ticket->answer}}</p>
-										<p>answered at : {{$support_ticket->answered_at}}</p>
-										<p>by : {{$support_ticket->administrator}}</p>
-									@endif
 										<label for="content">ตอบข้อร้องเรียน</label>
 										<textarea name="content" class="form-control" id="" cols="30" rows="5"></textarea>
 									</div>
 									<button type="submit" class="btn btn-primary">ตอบ</button>
+								@endif
 						</div><!--context-->
 					</div><!--thread-->
 @stop
