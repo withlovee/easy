@@ -49,6 +49,10 @@ Route::get('admin/login', 'AdministratorController@login');
 Route::post('admin/login', 'AdministratorController@doLogin');
 Route::get('admin/logout', 'AdministratorController@doLogout');
 
+/**
+ * Transaction
+ */
+Route::get('transaction/{id}', 'TransactionController@show');
 
 /**
  * Email API Test Route
