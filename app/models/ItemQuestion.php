@@ -3,13 +3,13 @@
 class ItemQuestion extends Eloquent
 {
 	protected $table = 'item_questions';
-	protected $fillable=array('content','answer','itemId','userId');
+	protected $fillable=array('content','answer','id','userId');
 
 	public $timestamps = false;
 
 	public static $rules = [
         'content' => 'required',
-        'itemId' => 'required',
+        'id' => 'required',
         'userId' => 'required'
     ];
 
@@ -29,7 +29,7 @@ class ItemQuestion extends Eloquent
     }
 
 	public function item(){
-		return $this->belongsTo('Item','itemId');
+		return $this->belongsTo('Item','id');
 	}
 
 	public function user(){

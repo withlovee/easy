@@ -20,7 +20,7 @@ class ItemQuestionController extends Controller
 	{
 		$input = Input::all();
 		$this->question->userId = Auth::user()->id;
-		$this->question->itemId = $input['itemId'];
+		$this->question->id = $input['id'];
 		$this->question->content = $input['content'];
 		$this->question->answer = '';
 		if (!$this->question->fill($input)->isValid()) {
@@ -29,7 +29,7 @@ class ItemQuestionController extends Controller
 
         $this->question->save();
 
-		return Redirect::action('ItemController@showDirectItem', array('id'=>$input['itemId']))->with('notice','คำถามของท่านถูกส่งไปยังผู้ขายเรียบร้อยแล้วค่ะ');
+		return Redirect::action('ItemController@showDirectItem', array('id'=>$input['id']))->with('notice','คำถามของท่านถูกส่งไปยังผู้ขายเรียบร้อยแล้วค่ะ');
     }
 
 

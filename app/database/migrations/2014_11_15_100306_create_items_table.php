@@ -14,8 +14,7 @@ class CreateItemsTable extends Migration {
 	{
 		Schema::create('items', function ($table) {
 			$table->increments('id');
-			$table->string('itemId')->unique();
-			$table->string('itemName');
+			$table->string('name');
 			$table->string('picture')->nullable();
 			$table->double('price');
 			$table->string('brand')->nullable();
