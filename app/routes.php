@@ -38,3 +38,15 @@ Route::get('users/reset_password/{token}', 'UsersController@resetPassword');
 Route::post('users/reset_password', 'UsersController@doResetPassword');
 Route::get('users/logout', 'UsersController@logout');
 
+
+
+/**
+ * Email API Test Route
+ * Will be deleted later
+ * 
+ * Nut
+ */
+
+Route::get('emailtest/sendUserValidationEmail/{email}', 'EmailHelperTestController@sendUserValidationEmail');
+Route::get('emailtest/sendPreviousAuctinWinnerEmail/{email}', 'EmailHelperTestController@sendPreviousAuctionWinnerEmail');
+
