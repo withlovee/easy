@@ -247,13 +247,8 @@ class UsersController extends Controller
 	}
 
 	public function show($id){
-		if (is_admin()) {
-			return View::make('emptypage');
-		}
-		else {
-			$user = User::find($id);
-			$feedbacks = Feedback::where('receiverId', '=', $id)->orderBy('created_at', 'desc')->get();
-		}
+		$user = User::find($id);
+		$feedbacks = Feedback::where('receiverId', '=', $id)->orderBy('created_at', 'desc')->get();
 
 		foreach ($feedbacks as $feedback) {
 			$senderId = $feedback->senderId;
