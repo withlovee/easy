@@ -10,10 +10,10 @@
 class UsersController extends Controller
 {
 
-	public function index(){
-		$users = User::orderBy('id', 'ASC')->get();
-		return View::make('users.index', compact('users'));
-	}
+	// public function index(){
+	// 	$users = User::orderBy('id', 'ASC')->get();
+	// 	return View::make('users.index', compact('users'));
+	// }
 
 	/**
 	 * Displays the form for account creation
@@ -127,29 +127,29 @@ class UsersController extends Controller
 	 *
 	 * @return  Illuminate\Http\Response
 	 */
-	public function forgotPassword()
-	{
-		return View::make('users.forgot_password');
-	}
+	// public function forgotPassword()
+	// {
+	// 	return View::make('users.forgot_password');
+	// }
 
-	/**
-	 * Attempt to send change password link to the given email
-	 *
-	 * @return  Illuminate\Http\Response
-	 */
-	public function doForgotPassword()
-	{
-		if (Confide::forgotPassword(Input::get('email'))) {
-			$notice_msg = Lang::get('confide::confide.alerts.password_forgot');
-			return Redirect::action('UsersController@login')
-				->with('notice', $notice_msg);
-		} else {
-			$error_msg = Lang::get('confide::confide.alerts.wrong_password_forgot');
-			return Redirect::action('UsersController@doForgotPassword')
-				->withInput()
-				->with('error', $error_msg);
-		}
-	}
+	// /**
+	//  * Attempt to send change password link to the given email
+	//  *
+	//  * @return  Illuminate\Http\Response
+	//  */
+	// public function doForgotPassword()
+	// {
+	// 	if (Confide::forgotPassword(Input::get('email'))) {
+	// 		$notice_msg = Lang::get('confide::confide.alerts.password_forgot');
+	// 		return Redirect::action('UsersController@login')
+	// 			->with('notice', $notice_msg);
+	// 	} else {
+	// 		$error_msg = Lang::get('confide::confide.alerts.wrong_password_forgot');
+	// 		return Redirect::action('UsersController@doForgotPassword')
+	// 			->withInput()
+	// 			->with('error', $error_msg);
+	// 	}
+	// }
 
 	/**
 	 * Shows the change password form with the given token
@@ -158,38 +158,38 @@ class UsersController extends Controller
 	 *
 	 * @return  Illuminate\Http\Response
 	 */
-	public function resetPassword($token)
-	{
-		return View::make('users.reset_password')
-				->with('token', $token);
-	}
+	// public function resetPassword($token)
+	// {
+	// 	return View::make('users.reset_password')
+	// 			->with('token', $token);
+	// }
 
 	/**
 	 * Attempt change password of the user
 	 *
 	 * @return  Illuminate\Http\Response
 	 */
-	public function doResetPassword()
-	{
-		$repo = App::make('UserRepository');
-		$input = array(
-			'token'                 =>Input::get('token'),
-			'password'              =>Input::get('password'),
-			'password_confirmation' =>Input::get('password_confirmation'),
-		);
+	// public function doResetPassword()
+	// {
+	// 	$repo = App::make('UserRepository');
+	// 	$input = array(
+	// 		'token'                 =>Input::get('token'),
+	// 		'password'              =>Input::get('password'),
+	// 		'password_confirmation' =>Input::get('password_confirmation'),
+	// 	);
 
-		// By passing an array with the token, password and confirmation
-		if ($repo->resetPassword($input)) {
-			$notice_msg = Lang::get('confide::confide.alerts.password_reset');
-			return Redirect::action('UsersController@login')
-				->with('notice', $notice_msg);
-		} else {
-			$error_msg = Lang::get('confide::confide.alerts.wrong_password_reset');
-			return Redirect::action('UsersController@resetPassword', array('token'=>$input['token']))
-				->withInput()
-				->with('error', $error_msg);
-		}
-	}
+	// 	// By passing an array with the token, password and confirmation
+	// 	if ($repo->resetPassword($input)) {
+	// 		$notice_msg = Lang::get('confide::confide.alerts.password_reset');
+	// 		return Redirect::action('UsersController@login')
+	// 			->with('notice', $notice_msg);
+	// 	} else {
+	// 		$error_msg = Lang::get('confide::confide.alerts.wrong_password_reset');
+	// 		return Redirect::action('UsersController@resetPassword', array('token'=>$input['token']))
+	// 			->withInput()
+	// 			->with('error', $error_msg);
+	// 	}
+	// }
 
 	/**
 	 * Log the user out of the application.
@@ -202,30 +202,30 @@ class UsersController extends Controller
 		return Redirect::to('/');
 	}
 
-	public function edit($id){
-		$user = User::find($id);
-		return View::make('users.edit', compact('user'));		
-	}
+	// public function edit($id){
+	// 	$user = User::find($id);
+	// 	return View::make('users.edit', compact('user'));		
+	// }
 
-	public function update($id){
-		$repo = App::make('UserRepository');
-		$user = $repo->update($id, Input::all());
-		$error = $user->errors()->all();
-		if(empty($error)) {
-			return Redirect::action('UsersController@index')
-				->with('notice', 'The user has been updated successfully.');
-		} else {
-			return Redirect::action('UsersController@edit', array($user->id))
-				->withInput(Input::except('password'))
-				->with('error', $error);
-		}
-	}
+	// public function update($id){
+	// 	$repo = App::make('UserRepository');
+	// 	$user = $repo->update($id, Input::all());
+	// 	$error = $user->errors()->all();
+	// 	if(empty($error)) {
+	// 		return Redirect::action('UsersController@index')
+	// 			->with('notice', 'The user has been updated successfully.');
+	// 	} else {
+	// 		return Redirect::action('UsersController@edit', array($user->id))
+	// 			->withInput(Input::except('password'))
+	// 			->with('error', $error);
+	// 	}
+	// }
 
-	public function destroy($id){
-		User::destroy($id);
-		return Redirect::action('UsersController@index')
-			->with('notice', 'The user has been deleted successfully.');
-	}
+	// public function destroy($id){
+	// 	User::destroy($id);
+	// 	return Redirect::action('UsersController@index')
+	// 		->with('notice', 'The user has been deleted successfully.');
+	// }
 
 	public function profile(){
 		$user = Auth::user();
@@ -244,5 +244,13 @@ class UsersController extends Controller
 				->withInput(Input::except('password'))
 				->with('error', $error);
 		}
+	}
+
+	public function show($id){
+		return 0;
+	}
+
+	public function ban($id){
+		return 0;
 	}
 }
