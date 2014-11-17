@@ -142,6 +142,30 @@ class ItemTableSeeder extends Seeder{
     $item2->bidManagerId=1;
     $item2->sellerId=6;
     $item2->save();
+
+    $rilakkuma=new Item;
+    $rilakkuma->id='3';
+    $rilakkuma->name='ตุ๊กตาหมี ริลัคคุมะ';
+    $rilakkuma->picture='http://g.lnwfile.com/ltvarq.jpg';
+    $rilakkuma->price=490;
+    $rilakkuma->brand='San-X';
+    $rilakkuma->model='rilakkuma';
+    $rilakkuma->volumn='';
+    $rilakkuma->property='ตุ๊กตาหมี  ริลัคคุมะ rilakkuma ถือช่อดอกไม้ 12นิ้ว';
+    $rilakkuma->size='';
+    $rilakkuma->quantity=1;
+    $rilakkuma->quality='';
+    $rilakkuma->defect='';
+    $rilakkuma->returnPolicy='ASDFEECCD';
+    $rilakkuma->returnFee=50;
+    $rilakkuma->shipping='แบบด่วน: 100 บาท<br>แบบมาตรฐาน: 50 บาท<br>แบบประหยัด: 30 บาท</td>';
+    $rilakkuma->tax=7;
+    $rilakkuma->others='ห่อของขวัญ';
+    $rilakkuma->type='direct';
+    $rilakkuma->endDateTime=null;
+    $rilakkuma->bidManagerId=null;
+    $rilakkuma->sellerId=6;
+    $rilakkuma->save();
   }
 }
 
