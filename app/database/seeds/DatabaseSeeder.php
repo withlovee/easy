@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder {
     $this->call('SupportTicketsTableSeeder');
     $this->call('ItemQuestionsTableSeeder');
 
+    $this->call('FeedbacksTableSeeder');
 
   }
 
@@ -200,5 +201,33 @@ class ItemQuestionsTableSeeder extends Seeder{
     }
 
 
+  }
+}
+
+class FeedbacksTableSeeder extends Seeder{
+  public function run(){
+    $feedback = new Feedback;
+    $feedback->senderId = 1;
+    $feedback->receiverId = 2;
+    $feedback->transactionId = 1;
+    $feedback->content = 'เยี่ยมมากๆ';
+    $feedback->score = 5;
+    if(! $feedback->save()) {
+      Log::info('Unable to create feedback');
+    } else {
+      Log::info('Created feedback >>'.$feedback->content);
+    }
+
+    $feedback = new Feedback;
+    $feedback->senderId = 3;
+    $feedback->receiverId = 2;
+    $feedback->transactionId = 2;
+    $feedback->content = 'กากมากๆ';
+    $feedback->score = 2;
+    if(! $feedback->save()) {
+      Log::info('Unable to create feedback');
+    } else {
+      Log::info('Created feedback >>'.$feedback->content);
+    }
   }
 }

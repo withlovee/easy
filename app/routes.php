@@ -42,6 +42,13 @@ Route::get('user/{id}', 'UsersController@show');
 Route::get('ban/{id}', 'UsersController@ban');
 
 /**
+ * Feedback
+ */
+
+Route::get('users/show/{id}', 'UsersController@show');
+
+
+/**
  * Admin
  */
 
