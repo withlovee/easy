@@ -4,7 +4,11 @@
 				<div class="thread">
 						<div class="row topic">
 							<div class="col-xs-1">
-								<img src="img/avatar_test.jpg" class="img-circle">
+								@if(is_null($support_ticket->administratorId))
+									<i class="pending glyphicon glyphicon-time"></i>
+								@else
+									<i class="thumb-up glyphicon glyphicon-ok"></i>
+								@endif
 							</div>
 							<div class="col-xs-11">
 								<h4>{{$support_ticket->title}}</h4>
