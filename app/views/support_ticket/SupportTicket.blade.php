@@ -7,39 +7,36 @@
 								<img src="img/avatar_test.jpg" class="img-circle">
 							</div>
 							<div class="col-xs-11">
-								<h4>โดนโกงกระเป๋า</h4>
+								<h4>{{$support_ticket->title}}</h4>
 								<p class="info">
-									<a href="member_profile.php" class="name"><strong>veevee</strong></a>
+									<a href="member_profile.php" class="name"><strong>{{$support_ticket->reporter}}</strong></a>
 									<span class="name">ร้องเรียน</span>
-									<a href="member_profile.php" class="name"><strong>cppanida</strong></a>
-									<span class="date">14 Dec 13, 15:35</span>
+									<a href="member_profile.php" class="name"><strong>{{$support_ticket->reportee}}</strong></a>
+									<span class="date">{{$support_ticket->created_at}}</span>
 								</p>
 							</div>
 						</div><!--topic-->
 						<hr class="topic-line">
 						<div class="context">
-								<p>เหตุเกิดเมื่อวันที่  17 ตุลาคม 2556 ดิฉันได้มีการตกลงสั่งซื้อกระเป๋า LV โดยผู้ขายสินค้าใช้ชื่อว่า เดือนเพ็ญ โดยจ่ายเงินด้วยบัตรเครดิตธนาคารกรุงเทพเป็นจำนวนเงิน 50,000 บาท  หลังจากจ่ายงิน คนร้ายก้อได้มีการออกใบเสร็จหลังจากได้รับเงินส่งกลับมาให้ด้วย และยังได้มีการโทรคุยกันเพื่อนัดเวลาและสถานที่รับสินค้าในวันที่ 20 ตุลาคม 2556  เวลา 10.30 น.</p>
-								<p>เมื่อถึงวันนัดรับสินค้าคนร้ายก็ได้หายตัวเข้ากลีบเมฆ และปิดมือถือ หมายเลข 084-9715853 ซึ่งดิฉันได้เอะใจ และลองเปิดเฟสหน้าร้านใน Facebook ตอนนั้นทันที  ปรากฎว่าเฟสหน้าร้านปิดตัวไปเเล้ว และขณะเดียวกันคนร้ายก้อลบกระทู้ขายใน Pantip Market ไปด้วย</p>
+								<p>{{$support_ticket->content}}</p>
 								<p>&nbsp;</p>
-								<div class="form-group">
-									<label for="content">ตอบข้อร้องเรียน</label>
-									<textarea name="content" class="form-control" id="" cols="30" rows="5"></textarea>
-								</div>
-								<button type="submit" class="btn btn-primary">ตอบ</button>
+								<form method="POST" action="/ducks" novalidate>
+									<div class="form-group">
+										<label for="content">ตอบข้อร้องเรียน</label>
+										<textarea name="content" class="form-control" id="" cols="30" rows="5"></textarea>
+									</div>
+									<button type="submit" class="btn btn-primary">ตอบ</button>
+								</form>
 						</div><!--context-->
 					</div><!--thread-->
 @stop
 @section('sidebar')
 				<h3>ข้อร้องเรียนอื่นๆ</h3>
 				<div class="list-group">
-					<a href="edit_profile.php" class="list-group-item">ยังไม่เสร็จ</a>
-					<a href="member_profile.php" class="list-group-item">ยังไม่เสร็จ</a>
-					<a href="transactions.php" class="list-group-item">Under Construction</a>
-					<a href="report.php" class="list-group-item">สินค้าชำรุดแล้วแม่ค้าไม่รับผิดชอบ</a>
-					<a href="member_profile.php" class="list-group-item">รอสินค้ามาเดือนนึงแล้วยังไม่ได้</a>
-					<a href="transactions.php" class="list-group-item">คนขายบอกว่าผมยังไม่จ่ายเงิน</a>
-					<a href="report.php" class="list-group-item">สินค้าชำรุดแล้วแม่ค้าไม่รับผิดชอบ</a>
-					<a href="reports.php" class="list-group-item"><strong>ดูทั้งหมด</strong></a>
+				@foreach ($support_tickets as $support_ticket)
+					<a href="supportticket/show/{{$support_ticket->id}}" class="list-group-item">{{$support_ticket->title}}</a>
+				@endforeach
+				<a href="supportticket" class="list-group-item"><strong>ดูทั้งหมด</strong></a>
 				</div>
 			</form>
 @stop

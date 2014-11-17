@@ -19,7 +19,15 @@ class SupportTicketController extends BaseController {
 
 	public function show($id)
 	{
-		return View::make('support_ticket.SupportTicket');	
+		$support_tickets = SupportTicket::all();
+
+		$support_ticket = SupportTicket::find($id);
+		$reporterId = $support_ticket->reporterId;
+		$support_ticket->reporter = User::find($reporterId)->username;
+
+		$reporteeId = $support_ticket->reporteeId;
+		$support_ticket->reportee = User::find($reporteeId)->username;
+		return View::make('support_ticket.SupportTicket',['support_tickets' => $support_tickets,'support_ticket'=>$support_ticket]);	
 	}
 
 }
