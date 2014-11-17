@@ -123,6 +123,7 @@ class ItemTableSeeder extends Seeder{
     $item->bidManagerId=null;
     $item->sellerId=7;
     $item->save();
+
     $item2=new Item;
     $item2->name='ที่วาง-ที่จับ มือถืออเนกประสงค์';
     $item2->picture='http://photo.oempromo.com/Prod_936/Folding-Cell-Phone-Holder_16780815.jpg';
@@ -151,7 +152,6 @@ class ItemTableSeeder extends Seeder{
     $item2->save();
 
     $rilakkuma=new Item;
-    $rilakkuma->id='3';
     $rilakkuma->name='ตุ๊กตาหมี ริลัคคุมะ';
     $rilakkuma->picture='http://g.lnwfile.com/ltvarq.jpg';
     $rilakkuma->price=490;

@@ -51,13 +51,32 @@
 			<div class="panel-heading" role="tab" id="headingOne">
 				<h4 class="panel-title">
 					<a data-toggle="collapse" data-parent="#accordion" href="#{{$question->id}}" aria-expanded="true" aria-controls="{{$question->id}}">
-						<i class="glyphicon glyphicon-ok"></i> &nbsp; {{ $question->content }}
+						@if($question->answer != null)
+						<i class="glyphicon glyphicon-ok"></i>
+						@else 
+						<i class="glyphicon glyphicon-time"></i>
+						@endif
+							&nbsp; {{ $question->content }}
 					</a>
 				</h4>
 			</div>
 			<div id="{{$question->id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
 				<div class="panel-body">
-					{{ $question->answer }}
+					@if($question->answer != null)
+						{{ $question->answer }}
+					@else 
+						<form class="form-horizontal" role="form" method="POST" action="{{{ URL::to('answerQuestion') }}}">		
+							{{Form::hidden('id',$question->id)}}
+							<div class="form-group">
+								<!--<textarea name="" id="" cols="30" rows="2" class="form-control" placeholder="คำถามที่ต้องการสอบถาม"></textarea>-->
+								{{ Form::textarea('answer', null, ['class' => 'form-control', 'cols' => 30, 'rows' => 2, 'placeholder' => 'กรุณาตอบคำถาม', 'required' => 'required']) }}
+							</div>
+							<div class="form-group">
+								<!--<input type="text" class="btn btn-primary btn-sm" value="ส่งคำถาม">-->
+								{{Form::submit("ส่งคำตอบ",array("class"=>"btn btn-primary btn-sm"))}}
+							</div>
+						</form>
+					@endif
 				</div>
 			</div>
 		</div>
