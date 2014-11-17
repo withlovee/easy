@@ -46,7 +46,7 @@
 				</ul>
 			</li>
 			<li>
-				<a href="report.php">ร้องเรียนปัญหา</a>
+				<a href="{{ URL::to('supporttickets/create') }}">ร้องเรียนปัญหา</a>
 			</li>
 		</ul>
 		@if(!Auth::check())

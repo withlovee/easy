@@ -18,7 +18,7 @@ Route::get('/supporttickets/show/{id}', 'SupportTicketController@show')->before(
 Route::post('/supporttickets/show/{id}','SupportTicketController@reply');
 
 Route::get('/supporttickets/create', 'SupportTicketController@create')->before('auth');
-Route::post('/supporttickets/', 'SupportTicketController@store')->before('auth');
+Route::post('/supporttickets', 'SupportTicketController@store')->before('auth');
 
 // Route::get('/', function()
 // {

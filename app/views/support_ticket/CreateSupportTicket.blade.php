@@ -40,7 +40,7 @@
 				</form>
 @stop
 @section('sidebar')
-				<a href="reports.php" type="button" class="create-btn btn btn-warning btn-lg btn-block">
+				<a href="{{ URL::to('supporttickets') }}" type="button" class="create-btn btn btn-warning btn-lg btn-block">
 					<span class="glyphicon glyphicon-arrow-left"></span>
 					กลับ
 				</a>
