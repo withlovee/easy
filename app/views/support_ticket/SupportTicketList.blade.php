@@ -1,5 +1,6 @@
 @extends('layouts.master', ['title' => 'จัดการข้อร้องเรียน'])
 @section('content')
+			@include('layouts.error')
 			<form role="form">	
 				<div class="thread">
 					@foreach ($support_tickets as $support_ticket)
