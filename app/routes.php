@@ -17,7 +17,7 @@ Route::get('/supportticket/show/{id}', 'SupportTicketController@show')->before('
 
 Route::post('/supportticket/show/{id}','SupportTicketController@reply');
 Route::get('/supportticket/create', 'SupportTicketController@create')->before('auth');
-Route::post('/supportticket/', 'SupportTicketController@store')->before('auth');
+Route::post('/supportticket', 'SupportTicketController@store')->before('auth');
 
 // Route::get('/', function()
 // {
@@ -42,5 +42,13 @@ Route::post('users/forgot_password', 'UsersController@doForgotPassword');
 Route::get('users/reset_password/{token}', 'UsersController@resetPassword');
 Route::post('users/reset_password', 'UsersController@doResetPassword');
 Route::get('users/logout', 'UsersController@logout');
+
+/**
+ * Admin
+ */
+
+Route::get('admin/login', 'AdministratorController@login');
+Route::post('admin/login', 'AdministratorController@doLogin');
+Route::get('admin/logout', 'AdministratorController@logout');
 
 
