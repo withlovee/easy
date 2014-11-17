@@ -18,10 +18,16 @@ class HomeController extends BaseController {
 	public function showWelcome()
 	{
 		// var_dump(Auth::user());
-		$n = 5;
-		$items = Item::orderBy('id', 'desc')->take($n)->get();
-		
-		return View::make('hello', ['items' => $items]);
+		$isShowAll = false;
+		if(Input::get('show') == 'all'){
+			$isShowAll = true;
+			$items = Item::orderBy('id', 'desc')->get();
+		}
+		else{
+			$n = 5;
+			$items = Item::orderBy('id', 'desc')->take($n)->get();
+		}
+		return View::make('hello', ['items' => $items, 'isShowAll' => $isShowAll]);
 		// $results = DB::select('select * from test where id = ?', array(2));
 		// var_dump($results);
 		// return '';

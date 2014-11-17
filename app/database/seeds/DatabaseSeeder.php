@@ -44,26 +44,43 @@ class UsersTableSeeder extends Seeder {
       } else {
         Log::info('Created user "'.$user->username.'" <'.$user->email.'>');
       }
-    }
+      
+      for ($i=1; $i <=5  ; $i++) { 
+        $user = new User;
+        $user->username = 'seller'.$i;
+        $user->email = 'seller'.$i.'@easy.com';
+        $user->password = '1234';
+        $user->password_confirmation = '1234';
+        $user->role = 'Seller';
+        $user->confirmation_code = md5(uniqid(mt_rand(), true));
+        $user->confirmed = true;
 
-    $user = new User;
-    $user->name = 'ณัฐพล';
-    $user->surname = 'พัฒนาวิจิตร';
-    $user->address = '12/23 ถนนพระราม 1 เขตปทุมวัน กรุงเทพฯ 10100';
-    $user->country = 'TH';
-    $user->telephone = '0850615555';
-    $user->username = 'nut';
-    $user->email = 'nut@easy.com';
-    $user->password = '1234';
-    $user->password_confirmation = '1234';
-    $user->confirmed = true;
-    $user->confirmation_code = md5(uniqid(mt_rand(), true));
-    $user->role = 'Seller';
+        if(! $user->save()) {
+          Log::info('Unable to create user '.$user->username, (array)$user->errors());
+        } else {
+          Log::info('Created user "'.$user->username.'" <'.$user->email.'>');
+        }
+      }
 
-    if(! $user->save()) {
-      Log::info('Unable to create user '.$user->username, (array)$user->errors());
-    } else {
-      Log::info('Created user "'.$user->username.'" <'.$user->email.'>');
+      $user = new User;
+      $user->name = 'ณัฐพล';
+      $user->surname = 'พัฒนาวิจิตร';
+      $user->address = '12/23 ถนนพระราม 1 เขตปทุมวัน กรุงเทพฯ 10100';
+      $user->country = 'TH';
+      $user->telephone = '0850615555';
+      $user->username = 'nut';
+      $user->email = 'nut@easy.com';
+      $user->password = '1234';
+      $user->password_confirmation = '1234';
+      $user->confirmed = true;
+      $user->confirmation_code = md5(uniqid(mt_rand(), true));
+      $user->role = 'Seller';
+
+      if(! $user->save()) {
+        Log::info('Unable to create user '.$user->username, (array)$user->errors());
+      } else {
+        Log::info('Created user "'.$user->username.'" <'.$user->email.'>');
+      }
     }
   }
 }
@@ -81,6 +98,7 @@ class BidManagersTableSeeder extends Seeder{
 
 class ItemTableSeeder extends Seeder{
   public function run(){
+    
     $item = new Item;
     $item->id='1';
     $item->name='ที่ชาร์ตแบตสำรองสีชมพูแบบพวงกุญแจ 2600mAh';
@@ -100,6 +118,7 @@ class ItemTableSeeder extends Seeder{
     $item->type='direct';
     $item->endDateTime=null;
     $item->bidManagerId=null;
+    $item->sellerId=7;
     $item->save();
     $item2=new Item;
     $item2->id='2';
@@ -122,6 +141,7 @@ class ItemTableSeeder extends Seeder{
     $item2->type='auction';
     $item2->endDateTime=date('d/m/Y',strtotime("30/11/2014"));
     $item2->bidManagerId=1;
+    $item2->sellerId=6;
     $item2->save();
   }
 }
@@ -177,7 +197,7 @@ class ItemQuestionsTableSeeder extends Seeder{
     } else {
       Log::info('Created ticket >>'.$itemQ->content);
     }
-    
+
     $itemQ=new ItemQuestion;
     $itemQ->content = 'มีแบบที่ไม่มีพวงกุญแจหรือไม่';
     $itemQ->answer='ไม่มีค่ะ';
