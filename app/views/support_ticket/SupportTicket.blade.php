@@ -32,9 +32,9 @@
 				<h3>ข้อร้องเรียนอื่นๆ</h3>
 				<div class="list-group">
 				@foreach ($support_tickets as $support_ticket)
-					<a href="supporttickets/show/{{$support_ticket->id}}" class="list-group-item">{{$support_ticket->title}}</a>
+					<a href="{{$support_ticket->id}}" class="list-group-item">{{$support_ticket->title}}</a>
 				@endforeach
-				<a href="supportticket" class="list-group-item"><strong>ดูทั้งหมด</strong></a>
+				<a href="{{ URL::to('supporttickets') }}" class="list-group-item"><strong>ดูทั้งหมด</strong></a>
 				</div>
 			</form>
 @stop
