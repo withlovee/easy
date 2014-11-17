@@ -17,7 +17,7 @@
    * @param String $email 
    * @param String $username 
    * @param String $fullname 
-   * @param Array $args Array of parameters required. itemId, itemName, currentBid,
+   * @param Array $args Array of parameters required. id, name, currentBid,
    * currentBidTimestamp, endAuctionTimestamp, and itemLink is required as a key-value of array.
    * @return type
    */
@@ -36,7 +36,7 @@
 
 เรียน คุณ  {{ $fullName }}<br><br>
 ขอบคุณที่เข้าร่วมการประมูลสินค้า<br>
-เลขที่สินค้า #{{ $itemId }} ชื่อสินค้า <strong>{{ $itemName }}</strong><br><br>
+เลขที่สินค้า #{{ $id }} ชื่อสินค้า <strong>{{ $name }}</strong><br><br>
 <strong>ขณะนี้ คุณแพ้การประมูล</strong><br><br>
 ราคาสินค้า ณ {{ strftime("%e %B %Y %R", $currentBidTimestamp) }} คือ <strong>{{ $currentBid }}</strong> <br>
 สิ้นสุดการประมูล ณ {{ strftime("%e %B %Y %R", $endAuctionTimestamp) }} <br>

@@ -13,8 +13,8 @@ class EmailHelperTestController extends BaseController {
 
   public function sendPreviousAuctionWinnerEmail($email, $username, $fullName) {
     $args = array(
-        'itemId'              => 'RILAK7677427',
-        'itemName'            => 'Rilakkuma ตุ๊กตาหมอนข้าง - สีน้ำตาล ขนาด 76 ซ.ม.',
+        'id'              => 'RILAK7677427',
+        'name'            => 'Rilakkuma ตุ๊กตาหมอนข้าง - สีน้ำตาล ขนาด 76 ซ.ม.',
         'currentBid'          => 350.0,
         'currentBidTimestamp' => time(),
         'endAuctionTimestamp' => time() + (7 * 24 * 60 * 60),

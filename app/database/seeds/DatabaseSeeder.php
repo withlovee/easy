@@ -81,8 +81,8 @@ class BidManagersTableSeeder extends Seeder{
 class ItemTableSeeder extends Seeder{
   public function run(){
     $item = new Item;
-    $item->itemId='1';
-    $item->itemName='ที่ชาร์ตแบตสำรองสีชมพูแบบพวงกุญแจ 2600mAh';
+    $item->id='1';
+    $item->name='ที่ชาร์ตแบตสำรองสีชมพูแบบพวงกุญแจ 2600mAh';
     $item->picture=null;
     $item->price=1250;
     $item->brand='ASDFEECCD';
@@ -101,8 +101,8 @@ class ItemTableSeeder extends Seeder{
     $item->bidManagerId=null;
     $item->save();
     $item2=new Item;
-    $item2->itemId='2';
-    $item2->itemName='ที่วาง-ที่จับ มือถืออเนกประสงค์';
+    $item2->id='2';
+    $item2->name='ที่วาง-ที่จับ มือถืออเนกประสงค์';
     $item2->picture='https://fbexternal-a.akamaihd.net/safe_image.php?d=AQBWUBt17aRrtrfk&w=254&h=133&url=https%3A%2F%2Fwww.facebook.com%2Fads%2Fimage%2F%3Fd%3DAQIvvP7Lj_5Kh5fEBjh3saMkiuYeBfZV_mahnynb5pd0f7fOPJ4e2omGytmBSKBP4Omo_TuR4AsHvFjMs4qCk5nKIyjhOMWgs5j7s_YONSynC0dutPEJXMqIEHaro06oUilGMv5l6OLs60K3Of_e8eme&cfs=1';
     $item2->price=145;
     $item2->brand='ASDFEECCD';
@@ -170,7 +170,7 @@ class ItemQuestionsTableSeeder extends Seeder{
     $itemQ->content = 'มีสีอะไรบ้าง';
     $itemQ->answer='สีเขียว ฟ้า ชมพู';
     $itemQ->userId=1;
-    $itemQ->itemId=1;
+    $itemQ->id=1;
     if(! $itemQ->save()) {
       Log::info('Unable to create item Question');
     } else {
@@ -181,7 +181,7 @@ class ItemQuestionsTableSeeder extends Seeder{
     $itemQ->content = 'มีแบบที่ไม่มีพวงกุญแจหรือไม่';
     $itemQ->answer='ไม่มีค่ะ';
     $itemQ->userId=1;
-    $itemQ->itemId=1;
+    $itemQ->id=1;
     if(! $itemQ->save()) {
       Log::info('Unable to create item Question');
     } else {
@@ -192,7 +192,7 @@ class ItemQuestionsTableSeeder extends Seeder{
     $itemQ->content = 'มีสีเขียวหรือไม่ครับ';
     $itemQ->answer='ไม่มีค่ะ';
     $itemQ->userId=2;
-    $itemQ->itemId=2;
+    $itemQ->id=2;
     if(! $itemQ->save()) {
       Log::info('Unable to create item Question');
     } else {

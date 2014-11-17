@@ -11,7 +11,7 @@
 	<div class="col-md-7">
 		{{Form::open(array('method' => 'post'))}}
 		<h2>
-			{{$item->itemName}}
+			{{$item->name}}
 		</h2>
 		<h3>สินค้าขายโดยตรง ราคา: {{$item->price}} บาท</h3>
 		<p>{{$item->property}}</p>
@@ -139,7 +139,7 @@
 	<h2>ถามคำถามเกี่ยวกับสินค้าชิ้นนี้</h2>
 
 	<form class="form-horizontal" role="form" method="POST" action="{{{ URL::to('askQuestion') }}}">		
-		{{Form::hidden('itemId',$item->itemId)}}
+		{{Form::hidden('id',$item->id)}}
 		<div class="form-group">
 			<!--<textarea name="" id="" cols="30" rows="2" class="form-control" placeholder="คำถามที่ต้องการสอบถาม"></textarea>-->
 			{{ Form::textarea('content', null, ['class' => 'form-control', 'cols' => 30, 'rows' => 2, 'placeholder' => 'กรุณากรอกคำถามที่ต้องการสอบถาม', 'required' => 'required']) }}
@@ -184,7 +184,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-				<h4 class="modal-title" id="myModalLabel">สั่งซื้อ{{$item->itemName}}</h4>
+				<h4 class="modal-title" id="myModalLabel">สั่งซื้อ{{$item->name}}</h4>
 			</div>
 			<div class="modal-body">
 				<form class="form-horizontal" role="form">

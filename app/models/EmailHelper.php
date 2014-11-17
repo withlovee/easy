@@ -32,7 +32,7 @@ class EmailHelper extends Eloquent {
    * @param String $email 
    * @param String $username 
    * @param String $fullname 
-   * @param Array $args Array of parameters required. itemId, itemName, currentBid,
+   * @param Array $args Array of parameters required. id, name, currentBid,
    * currentBidTimestamp, endAuctionTimestamp, and itemLink is required as a key-value of array.
    * @return type
    */
@@ -44,7 +44,7 @@ class EmailHelper extends Eloquent {
 
     Mail::queue('emails.PreviousAuctionWinner', $data, function($message) use ($data) {
       $message->to($data['email'], $data['fullName'])
-              ->subject('คุณถูกประมูลแซง! - '.$data['itemName']);
+              ->subject('คุณถูกประมูลแซง! - '.$data['name']);
     });
 
   }
