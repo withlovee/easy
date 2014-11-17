@@ -1,10 +1,6 @@
 @extends('layouts.master', ['title' => 'Dashboard'])
 @section('content')
-	<?php if(isset($_GET['success'])): ?>
-	<div class="alert alert-success" role="alert">
-		<p>คุณเข้าสู่ระบบเรียบร้อยแล้ว</p>
-	</div>
-	<?php endif; ?>
+	@include('layouts.error')
 	<h1 class="line">
 		<span class="text-left">
 			สินค้าล่าสุด

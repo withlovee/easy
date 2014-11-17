@@ -11,7 +11,7 @@ class SupportTicketController extends BaseController {
 
 	public function showAll()
 	{
-		if (Auth::user()->role == 'Admin') {
+		if (is_admin()) {
 			$support_tickets = SupportTicket::orderBy('created_at', 'desc')->get();
 		}
 		else {
@@ -49,7 +49,7 @@ class SupportTicketController extends BaseController {
 
 	public function create()
 	{
-		if(Auth::user()->role == 'Admin')		// MUST CHANGE, DONT KNOW HOW TO CHECK ADMIN NOW
+		if(is_admin())
 			return Redirect::action('SupportTicketController@showAll');
 
 		$users = User::all();

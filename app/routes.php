@@ -14,17 +14,12 @@
 Route::get('/', 'HomeController@showWelcome')->before('auth');
 Route::get('/supporttickets', 'SupportTicketController@showAll')->before('auth');
 
+
 Route::get('/supporttickets/show/{id}', 'SupportTicketController@show')->before('auth');
 Route::post('/supporttickets/show/{id}','SupportTicketController@reply');
 
 Route::get('/supporttickets/create', 'SupportTicketController@create')->before('auth');
-Route::post('/supporttickets/', 'SupportTicketController@store')->before('auth');
-
-// Route::get('/', function()
-// {
-// 	return View::make('hello');
-// });
-//
+Route::post('/supporttickets', 'SupportTicketController@store')->before('auth');
 
 // Confide routes
 Route::get('users', 'UsersController@index')->before('admin-auth');
@@ -43,6 +38,14 @@ Route::post('users/forgot_password', 'UsersController@doForgotPassword');
 Route::get('users/reset_password/{token}', 'UsersController@resetPassword');
 Route::post('users/reset_password', 'UsersController@doResetPassword');
 Route::get('users/logout', 'UsersController@logout');
+
+/**
+ * Admin
+ */
+
+Route::get('admin/login', 'AdministratorController@login');
+Route::post('admin/login', 'AdministratorController@doLogin');
+Route::get('admin/logout', 'AdministratorController@doLogout');
 
 
 /**

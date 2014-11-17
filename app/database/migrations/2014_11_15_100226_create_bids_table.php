@@ -19,7 +19,7 @@ class CreateBidsTable extends Migration {
 			$table->double('bid');
 			$table->string('type');
 			$table->integer('bidManagerId')->unsigned();
-			$table->foreign('bidManagerId')->references('id')->on('bid_managers');
+			// $table->foreign('bidManagerId')->references('id')->on('bid_managers');
 		});
 	}
 
