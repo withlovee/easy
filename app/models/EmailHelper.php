@@ -71,5 +71,9 @@ class EmailHelper extends Eloquent {
 
   }
 
+  function sendInvoiceEmail() {
+    
+  }
+
 
 }
