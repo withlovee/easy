@@ -42,7 +42,7 @@ class EmailHelper extends Eloquent {
     $data['username'] = $username;
     $data['fullName'] = $fullName;
 
-    Mail::queue('emails.PreviousAuctionWinnerEmail', $data, function($message) use ($data) {
+    Mail::queue('emails.PreviousAuctionWinner', $data, function($message) use ($data) {
       $message->to($data['email'], $data['fullName'])
               ->subject('คุณถูกประมูลแซง! - '.$data['itemName']);
     });

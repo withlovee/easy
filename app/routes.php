@@ -47,6 +47,6 @@ Route::get('users/logout', 'UsersController@logout');
  * Nut
  */
 
-Route::get('emailtest/sendUserValidationEmail/{email}', 'EmailHelperTestController@sendUserValidationEmail');
-Route::get('emailtest/sendPreviousAuctinWinnerEmail/{email}', 'EmailHelperTestController@sendPreviousAuctionWinnerEmail');
+Route::get('emailtest/sendUserValidationEmail/{email}/{username}/{fullName}', 'EmailHelperTestController@sendUserValidationEmail');
+Route::get('emailtest/sendPreviousAuctionWinnerEmail/{email}/{username}/{fullName}', 'EmailHelperTestController@sendPreviousAuctionWinnerEmail');
 
