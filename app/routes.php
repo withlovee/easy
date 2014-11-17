@@ -57,16 +57,6 @@ Route::post('admin/login', 'AdministratorController@doLogin');
 Route::get('admin/logout', 'AdministratorController@doLogout');
 
 
-/**
- * Email API Test Route
- * Will be deleted later
- * 
- * Nut
- */
-
-Route::get('emailtest/sendUserValidationEmail/{email}/{username}/{fullName}', 'EmailHelperTestController@sendUserValidationEmail');
-Route::get('emailtest/sendPreviousAuctionWinnerEmail/{email}/{username}/{fullName}', 'EmailHelperTestController@sendPreviousAuctionWinnerEmail');
-Route::get('emailtest/sendAuctionResultEmail/{email}/{username}/{fullName}', 'EmailHelperTestController@sendAuctionResultEmail');
 
 
 Route::get('item/{id}', 'ItemController@showDirectItem');
@@ -74,3 +64,21 @@ Route::post('item/{id}', 'ItemController@showDirectItem');
 Route::post('buy/{id}', 'ItemController@buyDirectItem');
 
 Route::post('/askQuestion', 'ItemQuestionController@create')->before('auth');
+
+
+
+
+
+
+
+
+
+/**
+ * Email API Test Route
+ * Will be deleted later
+ * 
+ * Nut
+ */
+
+Route::get('emailtest/sendPreviousAuctionWinnerEmail', 'EmailHelperTestController@sendPreviousAuctionWinnerEmail');
+Route::get('emailtest/sendAuctionResultEmail', 'EmailHelperTestController@sendAuctionResultEmail');
