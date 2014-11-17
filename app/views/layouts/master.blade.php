@@ -28,63 +28,69 @@
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 		</button>
-		{{ HTML::link('/', 'System', ['class' => 'navbar-brand']) }}
+		<a class="navbar-brand" href="{{ URL::to('/') }}" style="padding: 4px 15px;">
+			{{ HTML::image('img/logo.png', 'EASY') }}
+		</a>
 	</div>
 
 	<!-- Collect the nav links, forms, and other content for toggling -->
 	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		<ul class="nav navbar-nav">
-			<li>{{ HTML::link('/', 'Home') }}</li>
-		</ul>
-		@if(!Auth::check())
-		<ul class="nav navbar-nav navbar-right">
-			<li>{{ HTML::link('login', 'Login') }}</li>
-		</ul>
-		@else
-		<ul class="nav navbar-nav navbar-right">
-			@if(Auth::user()->role == 'Admin')
-			<li>{{ HTML::link('users', 'Manage Users') }}</li>
-			@endif
+			<li>{{ HTML::link('/', 'หน้าหลัก') }}</li>
 			<li class="dropdown">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Hello, {{ Auth::user()->username }} <span class="caret"></span></a>
-				<ul class="dropdown-menu" role="menu">
-					<li>{{ HTML::link('users/profile', 'Edit Profile') }}</li>
-					<li class="divider"></li>
-					<li>{{ HTML::link('users/logout', 'Logout') }}</li>
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">ซื้อสินค้า <b class="caret"></b></a>
+				<ul class="dropdown-menu">
+					<li><a href="all.php">ทั้งหมด</a></li>
+					<li><a href="all-auction.php">สินค้าประมูล</a></li>
+					<li><a href="all-direct.php">สินค้าขายโดยตรง</a></li>
 				</ul>
 			</li>
+
+			@if(is_admin())
+			<li>{{ HTML::link('/supporttickets', 'จัดการข้อร้องเรียน') }}</li>
+			@elseif(is_user())
+			<li>{{ HTML::link('/supporttickets/create', 'ร้องเรียนปัญหา') }}</li>
+			@endif
 		</ul>
-		@endif
+		<ul class="nav navbar-nav navbar-right">
+			@if(is_guest())
+			<li>{{ HTML::link('login', 'เข้าสู่ระบบ') }}</li>
+			<li>{{ HTML::link('users/create', 'สมัครสมาชิก') }}</li>
+			<li>{{ HTML::link('admin/login', 'สำหรับผู้ดูแล') }}</li>
+			@endif
+			@if(is_user())
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">สวัสดี, {{ Auth::user()->username }} <span class="caret"></span></a>
+				<ul class="dropdown-menu" role="menu">
+					<li>{{ HTML::link('users/profile', 'แก้ไขข้อมูลส่วนตัว') }}</li>
+					<li><a href="member_profile.php">ดู Feedback</a></li>
+					<li><a href="transactions.php">ดูประวัติการสั่งซื้อ</a></li>
+					<li class="divider"></li>
+					<li>{{ HTML::link('users/logout', 'ออกจากระบบ') }}</li>
+				</ul>
+			</li>
+			@endif
+			@if(is_admin())
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">สวัสดี, {{ Administrator::find(get_admin())->username }} <span class="caret"></span></a>
+				<ul class="dropdown-menu" role="menu">
+					<li>{{ HTML::link('admin/logout', 'ออกจากระบบ') }}</li>
+				</ul>
+			</li>
+			@endif
+		</ul>
 	</div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-<section class="content-wrapper">
-	<div class="container">
-	<div class="page-header">
-		<h1 class="left">{{ $title }}</h1>
-		@yield('header-buttons')
-		<div class="clear"></div>
-	</div>
-	<!--/.page-header -->
-		@section('error')
-			@if (Session::get('error'))
-				<div class="alert alert-danger">
-					@if (is_array(Session::get('error')))
-						{{ head(Session::get('error')) }}
-					@else
-						{{{ Session::get('error') }}}
-					@endif
-				</div>
-			@endif
-			@if (Session::get('notice'))
-				<div class="alert alert-success">{{ Session::get('notice') }}</div>
-			@endif
-		@show
+@section('wrapper')
+<div class="row wrapper">
+	<div class="col-md-9 content-wrapper content-white">
 		@yield('content')
-
 	</div>
-	<!-- /.container -->
-</section>
-<!-- /.content-wrapper -->
+	<div class="col-md-3 sidebar-wrapper" id="sidebar">
+		@yield('sidebar')
+	</div><!--sidebar-->
+</div>
+@show
 </body>
 </html>

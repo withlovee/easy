@@ -11,18 +11,19 @@
 |
 */
 
-Route::get('/', 'HomeController@showWelcome')->before('auth');
+Route::get('/', 'HomeController@showWelcome');
+Route::get('/supporttickets', 'SupportTicketController@showAll')->before('auth');
 
 
-// Route::get('/', function()
-// {
-// 	return View::make('hello');
-// });
-//
+Route::get('/supporttickets/show/{id}', 'SupportTicketController@show')->before('auth');
+Route::post('/supporttickets/show/{id}','SupportTicketController@reply');
+
+Route::get('/supporttickets/create', 'SupportTicketController@create')->before('auth');
+Route::post('/supporttickets', 'SupportTicketController@store')->before('auth');
 
 // Confide routes
 Route::get('users', 'UsersController@index')->before('admin-auth');
-Route::get('users/create', 'UsersController@create')->before('admin-auth');
+Route::get('users/create', 'UsersController@create');
 Route::post('users', 'UsersController@store');
 Route::get('login', 'UsersController@login');
 Route::post('users/login', 'UsersController@doLogin');
@@ -38,6 +39,13 @@ Route::get('users/reset_password/{token}', 'UsersController@resetPassword');
 Route::post('users/reset_password', 'UsersController@doResetPassword');
 Route::get('users/logout', 'UsersController@logout');
 
+/**
+ * Admin
+ */
+
+Route::get('admin/login', 'AdministratorController@login');
+Route::post('admin/login', 'AdministratorController@doLogin');
+Route::get('admin/logout', 'AdministratorController@doLogout');
 
 
 /**
@@ -51,3 +59,9 @@ Route::get('emailtest/sendUserValidationEmail/{email}/{username}/{fullName}', 'E
 Route::get('emailtest/sendPreviousAuctionWinnerEmail/{email}/{username}/{fullName}', 'EmailHelperTestController@sendPreviousAuctionWinnerEmail');
 Route::get('emailtest/sendAuctionResultEmail/{email}/{username}/{fullName}', 'EmailHelperTestController@sendAuctionResultEmail');
 
+
+Route::get('item/{id}', 'ItemController@showDirectItem');
+Route::post('item/{id}', 'ItemController@showDirectItem');
+Route::post('buy/{id}', 'ItemController@buyDirectItem');
+
+Route::post('/askQuestion', 'ItemQuestionController@create')->before('auth');

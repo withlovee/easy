@@ -34,20 +34,20 @@ class UsersController extends Controller
 	{
 		$repo = App::make('UserRepository');
 		$user = $repo->signup(Input::all());
-
+		var_dump($user);
 		if ($user->id) {
-			// if (Config::get('confide::signup_email')) {
-			// 	Mail::queueOn(
-			// 		Config::get('confide::email_queue'),
-			// 		Config::get('confide::email_account_confirmation'),
-			// 		compact('user'),
-			// 		function ($message) use ($user) {
-			// 			$message
-			// 				->to($user->email, $user->username)
-			// 				->subject(Lang::get('confide::confide.email.account_confirmation.subject'));
-			// 		}
-			// 	);
-			// }
+			if (Config::get('confide::signup_email')) {
+				Mail::queueOn(
+					Config::get('confide::email_queue'),
+					Config::get('confide::email_account_confirmation'),
+					compact('user'),
+					function ($message) use ($user) {
+						$message
+							->to($user->email, $user->username)
+							->subject(Lang::get('confide::confide.email.account_confirmation.subject'));
+					}
+				);
+			}
 
 			return Redirect::action('UsersController@index')
 				->with('notice', Lang::get('confide::confide.alerts.account_created'));

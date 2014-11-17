@@ -19,13 +19,7 @@ class UserRepository
      */
     public function signup($input)
     {
-        $user = new User;
-
-        $user->username = array_get($input, 'username');
-        $user->email    = array_get($input, 'email');
-        $user->password = array_get($input, 'password');
-        $user->confirmed = true;
-        $user->report_monthly = array_get($input, 'report_monthly') == 1;
+        $user = new User($input);
 
         // The password confirmation will be removed from model
         // before saving. This field will be used in Ardent's
@@ -37,7 +31,7 @@ class UserRepository
 
         // Save if valid. Password field will be hashed before save
         $this->save($user);
-
+        
         return $user;
     }
     public function update($id, $input)
@@ -62,9 +56,12 @@ class UserRepository
     }
     public function profile($input){
         $user = Auth::user();
-        $user->username = array_get($input, 'username');
-        $user->email    = array_get($input, 'email');
-        $user->report_monthly = array_get($input, 'report_monthly') == 1;
+        $user->name      = array_get($input, 'name');
+        $user->surname   = array_get($input, 'surname');
+        $user->address   = array_get($input, 'address');
+        $user->country   = array_get($input, 'country');
+        $user->telephone = array_get($input, 'telephone');
+        $user->email     = array_get($input, 'email');
 
         // The password confirmation will be removed from model
         // before saving. This field will be used in Ardent's
