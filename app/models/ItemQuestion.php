@@ -7,6 +7,27 @@ class ItemQuestion extends Eloquent
 
 	public $timestamps = false;
 
+	public static $rules = [
+        'content' => 'required',
+        'itemId' => 'required',
+        'userId' => 'required'
+    ];
+
+    public $errors;
+
+    public function isValid()
+    {
+        $validation = Validator::make($this->attributes, static::$rules);
+
+        if($validation->passes()) {
+            return true;
+        }
+
+        $this->errors = $validation->messages();
+
+        return false;
+    }
+
 	public function item(){
 		return $this->belongsTo('Item','itemId');
 	}

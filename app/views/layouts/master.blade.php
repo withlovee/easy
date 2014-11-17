@@ -45,10 +45,11 @@
 					<li><a href="all-direct.php">สินค้าขายโดยตรง</a></li>
 				</ul>
 			</li>
+
 			@if(is_admin())
 			<li>{{ HTML::link('/supporttickets', 'จัดการข้อร้องเรียน') }}</li>
 			@elseif(is_user())
-			<li>{{ HTML::link('/supporttickets', 'ร้องเรียนปัญหา') }}</li>
+			<li>{{ HTML::link('/supporttickets/create', 'ร้องเรียนปัญหา') }}</li>
 			@endif
 		</ul>
 		<ul class="nav navbar-nav navbar-right">

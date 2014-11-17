@@ -31,7 +31,12 @@ class SupportTicketController extends BaseController {
 
 	public function show($id)
 	{
-		$support_tickets = SupportTicket::all();
+		if (is_admin()) {
+			$support_tickets = SupportTicket::orderBy('created_at', 'desc')->get();
+		}
+		else {
+			$support_tickets = SupportTicket::where('reporterId', '=', Auth::user()->id)->orderBy('created_at', 'desc')->get();
+		}
 
 		$support_ticket = SupportTicket::find($id);
 		$reporterId = $support_ticket->reporterId;
@@ -42,7 +47,7 @@ class SupportTicketController extends BaseController {
 
 		if($support_ticket->administratorId != null){
 			$administratorId = $support_ticket->administratorId;
-			$support_ticket->administrator = User::find($administratorId)->username;
+			$support_ticket->administrator = Administrator::find($administratorId)->username;
 		}
 		return View::make('support_ticket.SupportTicket',['support_tickets' => $support_tickets,'support_ticket'=>$support_ticket]);	
 	}
@@ -70,7 +75,7 @@ class SupportTicketController extends BaseController {
 		$ticket = SupportTicket::find($id);
 		$ticket->answer = $input['content'];
 		$ticket->answered_at = date('Y-m-d h:i:s', time());
-		$ticket->administratorId = Auth::user()->id;
+		$ticket->administratorId = get_admin();
 
 		$ticket->save();
  	// echo "</pre>";
@@ -89,6 +94,8 @@ class SupportTicketController extends BaseController {
 		if (!$this->support_ticket->fill($input)->isValid()) {
             return Redirect::back()->withInput()->withErrors($this->support_ticket->errors);
         }
+
+        //$input['']
 
 		// echo "<pre>";
 		// print_r($this->support_ticket);
