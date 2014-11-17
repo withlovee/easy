@@ -45,20 +45,20 @@
 					<li><a href="all-direct.php">สินค้าขายโดยตรง</a></li>
 				</ul>
 			</li>
-			<li>
-				<a href="{{ URL::to('supporttickets/create') }}">ร้องเรียนปัญหา</a>
-			</li>
+
+			@if(is_admin())
+			<li>{{ HTML::link('/supportticket', 'จัดการข้อร้องเรียน') }}</li>
+			@elseif(is_user())
+			<li>{{ HTML::link('/supportticket', 'ร้องเรียนปัญหา') }}</li>
+			@endif
 		</ul>
-		@if(!Auth::check())
 		<ul class="nav navbar-nav navbar-right">
+			@if(is_guest())
 			<li>{{ HTML::link('login', 'เข้าสู่ระบบ') }}</li>
 			<li>{{ HTML::link('users/create', 'สมัครสมาชิก') }}</li>
-		</ul>
-		@else
-		<ul class="nav navbar-nav navbar-right">
-			@if(Auth::user()->role == 'Admin')
-			<li>{{ HTML::link('users', 'Manage Users') }}</li>
+			<li>{{ HTML::link('admin/login', 'สำหรับผู้ดูแล') }}</li>
 			@endif
+			@if(is_user())
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">สวัสดี, {{ Auth::user()->username }} <span class="caret"></span></a>
 				<ul class="dropdown-menu" role="menu">
@@ -69,8 +69,16 @@
 					<li>{{ HTML::link('users/logout', 'ออกจากระบบ') }}</li>
 				</ul>
 			</li>
+			@endif
+			@if(is_admin())
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">สวัสดี, {{ Administrator::find(get_admin())->username }} <span class="caret"></span></a>
+				<ul class="dropdown-menu" role="menu">
+					<li>{{ HTML::link('admin/logout', 'ออกจากระบบ') }}</li>
+				</ul>
+			</li>
+			@endif
 		</ul>
-		@endif
 	</div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>

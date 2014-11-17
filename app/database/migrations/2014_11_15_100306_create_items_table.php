@@ -35,7 +35,7 @@ class CreateItemsTable extends Migration {
 			$table->dateTime('endDateTime')->nullable();
 			$table->integer('amount')->nullable();
 			$table->integer('bidManagerId')->unsigned()->nullable();
-			$table->foreign('bidManagerId')->references('id')->on('bid_managers');
+			// $table->foreign('bidManagerId')->references('id')->on('bid_managers');
 		});
 	}
 
