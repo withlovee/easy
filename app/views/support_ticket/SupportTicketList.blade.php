@@ -42,9 +42,10 @@
 				</div>
 				<h3>ข้อร้องเรียนอื่นๆ</h3>
 				<div class="list-group">
-				@foreach ($support_tickets as $support_ticket)
-					<a href="supporttickets/show/{{$support_ticket->id}}" class="list-group-item">{{$support_ticket->title}}</a>
-				@endforeach
+					
+				@for ($i = 0; $i < 5; $i++)
+					<a href="{{$support_tickets[$i]->id}}" class="list-group-item">{{$support_tickets[$i]->title}}</a>
+				@endfor
 				<a href="supporttickets" class="list-group-item"><strong>ดูทั้งหมด</strong></a>
 				</div>
 
