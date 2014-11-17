@@ -36,7 +36,7 @@
 		<div class="form-group">
 			<label for="role" class="col-sm-3 control-label">สมัครเป็น</label>
 			<div class="col-sm-3">
-				{{ Form::select('role', array('' => 'กรุณาเลือก', 'ผู้ขาย' => 'ผู้ขาย', 'ผู้ซื้อ' => 'ผู้ซื้อ'), null, ['class' => 'form-control', 'required' => 'required']) }}
+				{{ Form::select('role', array('' => 'กรุณาเลือก', 'Seller' => 'ผู้ขาย', 'Buyer' => 'ผู้ซื้อ'), null, ['class' => 'form-control', 'required' => 'required']) }}
 			</div>
 			<div class="col-sm-6 help-text">เลือกว่าจะสมัครเป็นผู้ซื้อหรือผู้ขาย</div>
 		</div><!--form-group-->

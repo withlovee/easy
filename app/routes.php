@@ -12,16 +12,14 @@
 */
 
 Route::get('/', 'HomeController@showWelcome')->before('auth');
-Route::get('/supportticket', 'SupportTicketController@showAll')->before('auth');
-Route::get('/supportticket/show/{id}', 'SupportTicketController@show')->before('auth');
-Route::get('/supportticket/create', 'SupportTicketController@create')->before('auth');
-Route::post('/supportticket/', 'SupportTicketController@store')->before('auth');
+Route::get('/supporttickets', 'SupportTicketController@showAll')->before('auth');
 
-// Route::get('/', function()
-// {
-// 	return View::make('hello');
-// });
-//
+
+Route::get('/supporttickets/show/{id}', 'SupportTicketController@show')->before('auth');
+Route::post('/supporttickets/show/{id}','SupportTicketController@reply');
+
+Route::get('/supporttickets/create', 'SupportTicketController@create')->before('auth');
+Route::post('/supporttickets', 'SupportTicketController@store')->before('auth');
 
 // Confide routes
 Route::get('users', 'UsersController@index')->before('admin-auth');
@@ -41,6 +39,24 @@ Route::get('users/reset_password/{token}', 'UsersController@resetPassword');
 Route::post('users/reset_password', 'UsersController@doResetPassword');
 Route::get('users/logout', 'UsersController@logout');
 
+/**
+ * Admin
+ */
+
+Route::get('admin/login', 'AdministratorController@login');
+Route::post('admin/login', 'AdministratorController@doLogin');
+Route::get('admin/logout', 'AdministratorController@doLogout');
+
+
+/**
+ * Email API Test Route
+ * Will be deleted later
+ * 
+ * Nut
+ */
+
+Route::get('emailtest/sendUserValidationEmail/{email}/{username}/{fullName}', 'EmailHelperTestController@sendUserValidationEmail');
+Route::get('emailtest/sendPreviousAuctionWinnerEmail/{email}/{username}/{fullName}', 'EmailHelperTestController@sendPreviousAuctionWinnerEmail');
 
 
 Route::get('item/{id}', 'ItemController@showDirectItem');

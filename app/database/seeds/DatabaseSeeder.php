@@ -13,7 +13,6 @@ class DatabaseSeeder extends Seeder {
 		Eloquent::unguard();
 
 		$this->call('UsersTableSeeder');
-
     $this->call('BidManagersTableSeeder');
     $this->call('ItemTableSeeder');
     $this->call('AdministratorsTableSeeder');
@@ -44,39 +43,29 @@ class UsersTableSeeder extends Seeder {
       } else {
         Log::info('Created user "'.$user->username.'" <'.$user->email.'>');
       }
+    }
 
-   
-/*
-
-  public function run() {
     $user = new User;
     $user->name = 'ณัฐพล';
     $user->surname = 'พัฒนาวิจิตร';
     $user->address = '12/23 ถนนพระราม 1 เขตปทุมวัน กรุงเทพฯ 10100';
     $user->country = 'TH';
     $user->telephone = '0850615555';
-    $user->username = 'admin';
-    $user->email = 'admin@easy.com';
+    $user->username = 'nut';
+    $user->email = 'nut@easy.com';
     $user->password = '1234';
     $user->password_confirmation = '1234';
     $user->confirmed = true;
     $user->confirmation_code = md5(uniqid(mt_rand(), true));
-    $user->role = 'ผู้ซื้อ';
+    $user->role = 'Seller';
 
     if(! $user->save()) {
       Log::info('Unable to create user '.$user->username, (array)$user->errors());
     } else {
       Log::info('Created user "'.$user->username.'" <'.$user->email.'>');
     }
-  
-*/
-     }
   }
 }
-
-  
-
-
 
 class BidManagersTableSeeder extends Seeder{
   public function run(){
@@ -141,8 +130,8 @@ class AdministratorsTableSeeder extends Seeder {
   public function run()
   {
     $admin = new Administrator;
-    $admin->username = 'administrator';
-    $admin->password = '1234';
+    $admin->username = 'admin';
+    $admin->password = sha1('1234');
 
     if(! $admin->save()) {
       Log::info('Unable to create admin '.$admin->username, (array)$admin->errors());

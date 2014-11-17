@@ -35,7 +35,7 @@ App::after(function($request, $response)
 
 Route::filter('auth', function()
 {
-	if (Auth::guest())
+	if (Auth::guest() && !Session::has('admin'))
 	{
 		if (Request::ajax())
 		{
@@ -50,12 +50,12 @@ Route::filter('auth', function()
 
 Route::filter('admin-auth', function()
 {
-	if(Auth::guest()){
+	if(!Auth::check() and !Session::has('admin')){
 		if(Request::ajax()){
 			return Response::make('Unauthorized', 401);
 		}
 		else{
-			return Redirect::guest('login');
+			return Redirect::to('admin/login');
 		}
 	}
 	elseif(Auth::user()->role != 'Admin'){

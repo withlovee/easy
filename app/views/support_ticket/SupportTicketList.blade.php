@@ -5,12 +5,16 @@
 					@foreach ($support_tickets as $support_ticket)
 						<div class="row topic">
 							<div class="col-xs-1">
-								<i class="pending glyphicon glyphicon-time"></i>
+								@if(is_null($support_ticket->administratorId))
+									<i class="pending glyphicon glyphicon-time"></i>
+								@else
+									<i class="thumb-up glyphicon glyphicon-ok"></i>
+								@endif
 							</div>
 							<div class="col-xs-11">
 								<div class="row">
 									<div class="col-sm-8">
-										<h4>{{ link_to("/supportticket/show/$support_ticket->id",$support_ticket->title) }}</h4>
+										<h4>{{ link_to("/supporttickets/show/$support_ticket->id",$support_ticket->title) }}</h4>
 										<p class="info">
 											<a href="member_profile.php" class="name"><strong>{{$support_ticket->reporter}}</strong></a>
 											<span class="name">ร้องเรียน</span>
@@ -38,14 +42,10 @@
 				</div>
 				<h3>ข้อร้องเรียนอื่นๆ</h3>
 				<div class="list-group">
-					<a href="edit_profile.php" class="list-group-item">คนขายไม่ยอมส่งของ</a>
-					<a href="member_profile.php" class="list-group-item">รอสินค้ามาเดือนนึงแล้วยังไม่ได้ซักที</a>
-					<a href="transactions.php" class="list-group-item">คนขายบอกว่าผมยังไม่จ่ายเงิน</a>
-					<a href="report.php" class="list-group-item">สินค้าชำรุดแล้วแม่ค้าไม่รับผิดชอบ</a>
-					<a href="member_profile.php" class="list-group-item">รอสินค้ามาเดือนนึงแล้วยังไม่ได้</a>
-					<a href="transactions.php" class="list-group-item">คนขายบอกว่าผมยังไม่จ่ายเงิน</a>
-					<a href="report.php" class="list-group-item">สินค้าชำรุดแล้วแม่ค้าไม่รับผิดชอบ</a>
-					<a href="reports.php" class="list-group-item"><strong>ดูทั้งหมด</strong></a>
+				@foreach ($support_tickets as $support_ticket)
+					<a href="supporttickets/show/{{$support_ticket->id}}" class="list-group-item">{{$support_ticket->title}}</a>
+				@endforeach
+				<a href="supporttickets" class="list-group-item"><strong>ดูทั้งหมด</strong></a>
 				</div>
 
 			</div><!--sidebar-->

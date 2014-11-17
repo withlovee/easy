@@ -17,9 +17,9 @@ class CreateBidItemQuestionsTable extends Migration {
 			$table->string('content',512);
 			$table->string('answer',512);
 			$table->integer('userId')->unsigned();
-			$table->foreign('userId')->references('id')->on('users');
+			// $table->foreign('userId')->references('id')->on('users');
 			$table->integer('itemId')->unsigned();
-			$table->foreign('itemId')->references('id')->on('items');
+			// $table->foreign('itemId')->references('id')->on('items');
 		});
 	}
 

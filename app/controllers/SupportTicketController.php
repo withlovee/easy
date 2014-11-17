@@ -11,8 +11,13 @@ class SupportTicketController extends BaseController {
 
 	public function showAll()
 	{
-		//$data = array();
-		$support_tickets = SupportTicket::all();
+		if (is_admin()) {
+			$support_tickets = SupportTicket::orderBy('created_at', 'desc')->get();
+		}
+		else {
+			$support_tickets = SupportTicket::where('reporterId', '=', Auth::user()->id)->orderBy('created_at', 'desc')->get();
+		}
+
 		foreach ($support_tickets as $support_ticket) {
 			$reporterId = $support_ticket->reporterId;
 			$support_ticket->reporter = User::find($reporterId)->username;
@@ -20,18 +25,31 @@ class SupportTicketController extends BaseController {
 			$reporteeId = $support_ticket->reporteeId;
 			$support_ticket->reportee = User::find($reporteeId)->username;
 		}
-		//
+
 		return View::make('support_ticket.SupportTicketList', ['support_tickets' => $support_tickets]);
 	}
 
 	public function show($id)
 	{
-		return View::make('support_ticket.SupportTicket');	
+		$support_tickets = SupportTicket::all();
+
+		$support_ticket = SupportTicket::find($id);
+		$reporterId = $support_ticket->reporterId;
+		$support_ticket->reporter = User::find($reporterId)->username;
+
+		$reporteeId = $support_ticket->reporteeId;
+		$support_ticket->reportee = User::find($reporteeId)->username;
+
+		if($support_ticket->administratorId != null){
+			$administratorId = $support_ticket->administratorId;
+			$support_ticket->administrator = User::find($administratorId)->username;
+		}
+		return View::make('support_ticket.SupportTicket',['support_tickets' => $support_tickets,'support_ticket'=>$support_ticket]);	
 	}
 
 	public function create()
 	{
-		if(Auth::user()->role == 'Admin')		// MUST CHANGE, DONT KNOW HOW TO CHECK ADMIN NOW
+		if(is_admin())
 			return Redirect::action('SupportTicketController@showAll');
 
 		$users = User::all();
@@ -43,6 +61,23 @@ class SupportTicketController extends BaseController {
 		}
 		return View::make('support_ticket.CreateSupportTicket',
 			['list_users' => $list_users]);
+	}
+
+	public function reply($id)
+	{
+
+		$input = Input::all();
+		$ticket = SupportTicket::find($id);
+		$ticket->answer = $input['content'];
+		$ticket->answered_at = date('Y-m-d h:i:s', time());
+		$ticket->administratorId = Auth::user()->id;
+
+		$ticket->save();
+ 	// echo "</pre>";
+		//return View::make('emptypage');
+
+		// $input['content']
+		 return Redirect::back();
 	}
 
 	public function store()
