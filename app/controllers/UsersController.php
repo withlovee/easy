@@ -247,7 +247,21 @@ class UsersController extends Controller
 	}
 
 	public function show($id){
-		return 0;
+		if (is_admin()) {
+			return View::make('emptypage');
+		}
+		else {
+			$user = User::find($id);
+			$feedbacks = Feedback::where('receiverId', '=', $id)->orderBy('created_at', 'desc')->get();
+		}
+
+		foreach ($feedbacks as $feedback) {
+			$senderId = $feedback->senderId;
+			$feedback->sender = User::find($senderId)->username;
+		}
+
+		return View::make('users.member_profile', 
+			['user' => $user, 'feedbacks' => $feedbacks]);
 	}
 
 	public function ban($id){
