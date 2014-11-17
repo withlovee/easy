@@ -34,6 +34,11 @@ class SupportTicketController extends BaseController {
 
 		$reporteeId = $support_ticket->reporteeId;
 		$support_ticket->reportee = User::find($reporteeId)->username;
+
+		if($support_ticket->administratorId != null){
+			$administratorId = $support_ticket->administratorId;
+			$support_ticket->administrator = User::find($administratorId)->username;
+		}
 		return View::make('support_ticket.SupportTicket',['support_tickets' => $support_tickets,'support_ticket'=>$support_ticket]);	
 	}
 
@@ -59,17 +64,15 @@ class SupportTicketController extends BaseController {
 		$input = Input::all();
 		$ticket = SupportTicket::find($id);
 		$ticket->answer = $input['content'];
-		$ticket->answered_at = date('Y-d-m h:i:s', time());
+		$ticket->answered_at = date('Y-m-d h:i:s', time());
+		$ticket->administratorId = Auth::user()->id;
 
-		echo "<pre>";
-		print_r($input);
-		print_r($id);
-		print_r($ticket);
-		echo "</pre>";
-		return View::make('emptypage');
+		$ticket->save();
+ 	// echo "</pre>";
+		//return View::make('emptypage');
 
 		// $input['content']
-		// return Redirect::back();
+		 return Redirect::back();
 	}
 
 	public function store()
