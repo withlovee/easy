@@ -18,8 +18,10 @@ class HomeController extends BaseController {
 	public function showWelcome()
 	{
 		// var_dump(Auth::user());
-		$data = array();
-		return View::make('hello', $data);
+		$n = 5;
+		$items = Item::orderBy('id', 'desc')->take($n)->get();
+		
+		return View::make('hello', ['items' => $items]);
 		// $results = DB::select('select * from test where id = ?', array(2));
 		// var_dump($results);
 		// return '';

@@ -13,6 +13,7 @@ class SupportTicketController extends BaseController {
 	{
 		if (is_admin()) {
 			$support_tickets = SupportTicket::orderBy('created_at', 'desc')->get();
+			
 		}
 		else {
 			$support_tickets = SupportTicket::where('reporterId', '=', Auth::user()->id)->orderBy('created_at', 'desc')->get();
