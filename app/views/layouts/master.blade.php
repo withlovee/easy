@@ -46,9 +46,9 @@
 				</ul>
 			</li>
 			@if(is_admin())
-			<li>{{ HTML::link('/supportticket', 'จัดการข้อร้องเรียน') }}</li>
+			<li>{{ HTML::link('/supporttickets', 'จัดการข้อร้องเรียน') }}</li>
 			@elseif(is_user())
-			<li>{{ HTML::link('/supportticket', 'ร้องเรียนปัญหา') }}</li>
+			<li>{{ HTML::link('/supporttickets', 'ร้องเรียนปัญหา') }}</li>
 			@endif
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
