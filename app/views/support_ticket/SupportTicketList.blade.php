@@ -44,9 +44,9 @@
 				<div class="list-group">
 					
 				@for ($i = 0; $i < 5 && $i < count($support_tickets); $i++)
-					<a href="{{$support_tickets[$i]->id}}" class="list-group-item">{{$support_tickets[$i]->title}}</a>
+					<a href="{{ URL::to('supporttickets/show/'.$support_tickets[$i]->id) }}" class="list-group-item">{{$support_tickets[$i]->title}}</a>
 				@endfor
-				<a href="supporttickets" class="list-group-item"><strong>ดูทั้งหมด</strong></a>
+				<a href="{{ URL::to('supporttickets') }}" class="list-group-item"><strong>ดูทั้งหมด</strong></a>
 				</div>
 
 			</div><!--sidebar-->
