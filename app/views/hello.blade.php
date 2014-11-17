@@ -2,13 +2,19 @@
 @section('content')
 	@include('layouts.error')
 	<h1 class="line">
+		@if($isShowAll)
 		<span class="text-left">
-			สินค้าล่าสุด
+				สินค้าทั้งหมด
+		</span>
+		@else
+		<span class="text-left">
+				สินค้าล่าสุด
 		</span>
 		<span class="right">
-			<a href="all.php" class="btn btn-default">ดูสินค้าทั้งหมด &rarr;</a>
+			<a href="?show=all" class="btn btn-default">ดูสินค้าทั้งหมด &rarr;</a>
 		</span><!--text-right-->
 		<div class="clear"></div>
+		@endif
 	</h1>
 	@foreach($items as $item)
 	<div class="row item">
@@ -32,12 +38,13 @@
 		<!-- /.col-sm-9 -->
 	</div>
 	@endforeach
-	
+	@if($isShowAll == false)
 	<nav>
 		<ul class="pager">
-			<li class="next"><a href="all.php">ดูสินค้าทั้งหมด &rarr;</a></li>
+			<li class="next"><a href="?show=all">ดูสินค้าทั้งหมด &rarr;</a></li>
 		</ul>
 	</nav>
+	@endif
 @stop
 @section('sidebar')
 	<h3>ค้นหาสินค้า</h3>
