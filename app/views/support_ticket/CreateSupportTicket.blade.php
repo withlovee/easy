@@ -1,7 +1,7 @@
 @extends('layouts.master', ['title' => 'จัดการข้อร้องเรียน'])
 @section('content')
 				<h1 class="line">ร้องเรียนปัญหา</h1>
-				<form class="form-horizontal" role="form" action="reports.php">
+				<form class="form-horizontal" role="form" method="POST" action="{{{ URL::to('supportticket') }}}">
 					<input type="hidden" name="success" value="1">
 					<?php if(isset($_GET['success'])): ?>
 					<div class="alert alert-success" role="alert">
@@ -11,36 +11,25 @@
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-3 control-label">ผู้ร้องเรียน</label>
 						<div class="col-sm-4">
-							<input type="name" class="form-control" placeholder="ชื่อจริง" value="nuttapon" disabled>
+							<input type="name" class="form-control" placeholder="ชื่อจริง" value="{{ Auth::user()->username }}" disabled>
 						</div>
 					</div><!--form-group-->
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-3 control-label">ร้องเรียนผู้ใช้ชื่อ</label>
 						<div class="col-sm-4">
-							<select name="" id="" class="form-control">
-								<option value="">เลือกชื่อผู้ใช้</option>
-								<option value="">lnwTuiZa</option>
-								<option value="">nanasakol</option>
-								<option value="">abcabcsdf</option>
-								<option value="">plkumjorn</option>
-								<option value="">stevejobs</option>
-								<option value="">veevee</option>
-								<option value="">cppanida</option>
-								<option value="">nutbot5555</option>
-								<option value="">seller101</option>
-							</select>
+							{{ Form::select('reporteeId', $list_users, null, ['class' => 'form-control', 'required' => 'required']) }}
 						</div>
 					</div><!--form-group-->
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-3 control-label">หัวข้อ</label>
 						<div class="col-sm-8">
-							<input type="name" class="form-control" placeholder="หัวข้อของปัญหาที่พบ" required>
+							{{ Form::text('title', null, ['class' => 'form-control', 'placeholder' => 'หัวข้อของปัญหาที่พบ', 'required' => 'required']) }}
 						</div>
 					</div><!--form-group-->
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-3 control-label">รายละเอียดของปัญหา</label>
 						<div class="col-sm-8">
-							<textarea name="" id="" cols="30" rows="5" class="form-control" placeholder="กรุณาระบุปัญหาอย่างละเอียด" required></textarea>
+							{{ Form::textarea('content', null, ['class' => 'form-control', 'cols' => 30, 'rows' => 5, 'placeholder' => 'กรุณาระบุปัญหาอย่างละเอียด', 'required' => 'required']) }}
 						</div>
 					</div><!--form-group-->
 					<div class="form-group">

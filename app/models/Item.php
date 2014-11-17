@@ -7,7 +7,7 @@ class Item extends Eloquent
 	public $timestamps = false;
 
 	public function bidManager(){
-		return $this->belongsTo('BidManager');
+		return $this->belongsTo('BidManager','bidManagerId');
 	}
     
 }
