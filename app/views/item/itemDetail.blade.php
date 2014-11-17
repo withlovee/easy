@@ -51,7 +51,12 @@
 			<div class="panel-heading" role="tab" id="headingOne">
 				<h4 class="panel-title">
 					<a data-toggle="collapse" data-parent="#accordion" href="#{{$question->id}}" aria-expanded="true" aria-controls="{{$question->id}}">
-						<i class="glyphicon glyphicon-ok"></i> &nbsp; {{ $question->content }}
+						@if($question->answer != null)
+						<i class="glyphicon glyphicon-ok"></i>
+						@else 
+						<i class="glyphicon glyphicon-time"></i>
+						@endif
+							&nbsp; {{ $question->content }}
 					</a>
 				</h4>
 			</div>
