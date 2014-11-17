@@ -12,12 +12,13 @@
 */
 
 Route::get('/', 'HomeController@showWelcome')->before('auth');
-Route::get('/supportticket', 'SupportTicketController@showAll')->before('auth');
-Route::get('/supportticket/show/{id}', 'SupportTicketController@show')->before('auth');
+Route::get('/supporttickets', 'SupportTicketController@showAll')->before('auth');
 
-Route::post('/supportticket/show/{id}','SupportTicketController@reply');
-Route::get('/supportticket/create', 'SupportTicketController@create')->before('auth');
-Route::post('/supportticket/', 'SupportTicketController@store')->before('auth');
+Route::get('/supporttickets/show/{id}', 'SupportTicketController@show')->before('auth');
+Route::post('/supporttickets/show/{id}','SupportTicketController@reply');
+
+Route::get('/supporttickets/create', 'SupportTicketController@create')->before('auth');
+Route::post('/supporttickets/', 'SupportTicketController@store')->before('auth');
 
 // Route::get('/', function()
 // {

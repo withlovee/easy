@@ -13,7 +13,6 @@ class DatabaseSeeder extends Seeder {
 		Eloquent::unguard();
 
 		$this->call('UsersTableSeeder');
-
     $this->call('BidManagersTableSeeder');
     $this->call('ItemTableSeeder');
     $this->call('AdministratorsTableSeeder');
@@ -43,11 +42,7 @@ class UsersTableSeeder extends Seeder {
       } else {
         Log::info('Created user "'.$user->username.'" <'.$user->email.'>');
       }
-
-   
-/*
-
-  public function run() {
+    }
     $user = new User;
     $user->name = 'ณัฐพล';
     $user->surname = 'พัฒนาวิจิตร';
@@ -67,9 +62,6 @@ class UsersTableSeeder extends Seeder {
     } else {
       Log::info('Created user "'.$user->username.'" <'.$user->email.'>');
     }
-  
-*/
-     }
   }
 }
 

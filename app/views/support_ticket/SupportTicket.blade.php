@@ -1,6 +1,6 @@
 @extends('layouts.master', ['title' => 'จัดการข้อร้องเรียน'])
 @section('content')
-			<form role="form">
+			<form role="form" method="POST" action="{{ URL::to('supporttickets/show/'.$support_ticket->id) }}">
 				<div class="thread">
 						<div class="row topic">
 							<div class="col-xs-1">
@@ -20,13 +20,11 @@
 						<div class="context">
 								<p>{{$support_ticket->content}}</p>
 								<p>&nbsp;</p>
-								<form method="POST" action="/ducks" novalidate>
 									<div class="form-group">
 										<label for="content">ตอบข้อร้องเรียน</label>
 										<textarea name="content" class="form-control" id="" cols="30" rows="5"></textarea>
 									</div>
 									<button type="submit" class="btn btn-primary">ตอบ</button>
-								</form>
 						</div><!--context-->
 					</div><!--thread-->
 @stop
@@ -34,7 +32,7 @@
 				<h3>ข้อร้องเรียนอื่นๆ</h3>
 				<div class="list-group">
 				@foreach ($support_tickets as $support_ticket)
-					<a href="supportticket/show/{{$support_ticket->id}}" class="list-group-item">{{$support_ticket->title}}</a>
+					<a href="supporttickets/show/{{$support_ticket->id}}" class="list-group-item">{{$support_ticket->title}}</a>
 				@endforeach
 				<a href="supportticket" class="list-group-item"><strong>ดูทั้งหมด</strong></a>
 				</div>

@@ -10,7 +10,7 @@
 							<div class="col-xs-11">
 								<div class="row">
 									<div class="col-sm-8">
-										<h4>{{ link_to("/supportticket/show/$support_ticket->id",$support_ticket->title) }}</h4>
+										<h4>{{ link_to("/supporttickets/show/$support_ticket->id",$support_ticket->title) }}</h4>
 										<p class="info">
 											<a href="member_profile.php" class="name"><strong>{{$support_ticket->reporter}}</strong></a>
 											<span class="name">ร้องเรียน</span>
@@ -39,9 +39,9 @@
 				<h3>ข้อร้องเรียนอื่นๆ</h3>
 				<div class="list-group">
 				@foreach ($support_tickets as $support_ticket)
-					<a href="supportticket/show/{{$support_ticket->id}}" class="list-group-item">{{$support_ticket->title}}</a>
+					<a href="supporttickets/show/{{$support_ticket->id}}" class="list-group-item">{{$support_ticket->title}}</a>
 				@endforeach
-				<a href="supportticket" class="list-group-item"><strong>ดูทั้งหมด</strong></a>
+				<a href="supporttickets" class="list-group-item"><strong>ดูทั้งหมด</strong></a>
 				</div>
 
 			</div><!--sidebar-->

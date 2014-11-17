@@ -53,6 +53,25 @@ class SupportTicketController extends BaseController {
 			['list_users' => $list_users]);
 	}
 
+	public function reply($id)
+	{
+
+		$input = Input::all();
+		$ticket = SupportTicket::find($id);
+		$ticket->answer = $input['content'];
+		$ticket->answered_at = date('Y-d-m h:i:s', time());
+
+		echo "<pre>";
+		print_r($input);
+		print_r($id);
+		print_r($ticket);
+		echo "</pre>";
+		return View::make('emptypage');
+
+		// $input['content']
+		// return Redirect::back();
+	}
+
 	public function store()
     {
 		$input = Input::all();
