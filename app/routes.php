@@ -57,4 +57,5 @@ Route::get('admin/logout', 'AdministratorController@doLogout');
 
 Route::get('emailtest/sendUserValidationEmail/{email}/{username}/{fullName}', 'EmailHelperTestController@sendUserValidationEmail');
 Route::get('emailtest/sendPreviousAuctionWinnerEmail/{email}/{username}/{fullName}', 'EmailHelperTestController@sendPreviousAuctionWinnerEmail');
+Route::get('emailtest/sendAuctionResultEmail/{email}/{username}/{fullName}', 'EmailHelperTestController@sendAuctionResultEmail');
 
