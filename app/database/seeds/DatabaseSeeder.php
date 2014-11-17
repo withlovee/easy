@@ -254,7 +254,7 @@ class ItemQuestionsTableSeeder extends Seeder{
   }
 }
 
-<<<<<<< HEAD
+
 class TransactionsTableSeeder extends Seeder{
 
   public function run(){
@@ -275,7 +275,7 @@ class TransactionsTableSeeder extends Seeder{
   }
 
 }
-=======
+
 class FeedbacksTableSeeder extends Seeder{
   public function run(){
     $feedback = new Feedback;
@@ -303,4 +303,3 @@ class FeedbacksTableSeeder extends Seeder{
     }
   }
 }
->>>>>>> cb47b49e93828ef711c524cb2f31f66e337ff336
