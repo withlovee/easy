@@ -73,9 +73,3 @@ Route::post('/askQuestion', 'ItemQuestionController@create')->before('auth');
 
 Route::get('emailtest/sendPreviousAuctionWinnerEmail', 'EmailHelperTestController@sendPreviousAuctionWinnerEmail');
 Route::get('emailtest/sendAuctionResultEmail', 'EmailHelperTestController@sendAuctionResultEmail');
-
-Route::get('nut', function(){
-  $item = Item::find(1);
-  return $item->getUrl();
-});
-
