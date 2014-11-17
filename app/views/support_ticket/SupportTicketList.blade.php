@@ -1,5 +1,6 @@
 @extends('layouts.master', ['title' => 'จัดการข้อร้องเรียน'])
 @section('content')
+			@include('layouts.error')
 			<form role="form">	
 				<div class="thread">
 					@foreach ($support_tickets as $support_ticket)
@@ -16,9 +17,9 @@
 									<div class="col-sm-8">
 										<h4>{{ link_to("/supporttickets/show/$support_ticket->id",$support_ticket->title) }}</h4>
 										<p class="info">
-											<a href="member_profile.php" class="name"><strong>{{$support_ticket->reporter}}</strong></a>
+											<a href="{{URL::to('users/show/'.$support_ticket->reporterId)}}" class="name"><strong>{{$support_ticket->reporter}}</strong></a>
 											<span class="name">ร้องเรียน</span>
-											<a href="member_profile.php" class="name"><strong>{{$support_ticket->reportee}}</strong></a>
+											<a href="{{URL::to('users/show/'.$support_ticket->reporteeId)}}" class="name"><strong>{{$support_ticket->reportee}}</strong></a>
 											<span class="date">{{$support_ticket->created_at}}</span>
 										</p>
 									</div>

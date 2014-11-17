@@ -9,7 +9,6 @@ class AdministratorController extends BaseController {
 
   public function doLogin() {
 
-
     // if already have session
     if(Session::has('admin')) {
       return Redirect::to('/')->with('notice', 'เข้าสู่ระบบผู้ดูแลระบบสำเร็จแล้ว');
@@ -27,17 +26,14 @@ class AdministratorController extends BaseController {
       if($admin) {
         Session::put('admin', $admin->id);
         return Redirect::to('/')->with('notice', 'เข้าสู่ระบบผู้ดูแลระบบสำเร็จแล้ว');
-      } else {
-        return Redirect::to('admin/login')->with('error', 'ชื่อผู้ใช้หรือรหัสผ่านผิดพลาด');
       }
-    } else {
-      return Redirect::to('admin/login');
+      return Redirect::to('admin/login')->with('error', 'ชื่อผู้ใช้หรือรหัสผ่านผิดพลาด');
     }
+    return Redirect::to('admin/login');
   }
 
   public function doLogout() {
     Session::forget('admin');
-    // redirect to login page
     return Redirect::to('admin/login')->with('message', 'ออกจากระบบสำเร็จแล้ว');
   }
 
