@@ -48,7 +48,7 @@ Route::get('users/logout', 'UsersController@logout');
  */
 
 Route::get('admin/login', 'AdministratorController@login');
-Route::post('admin/login', 'AdministratorController@doLogin');
-Route::get('admin/logout', 'AdministratorController@logout');
+Route::post('admin/login2', 'AdministratorController@doLogin');
+Route::get('admin/logout', 'AdministratorController@doLogout');
 
 

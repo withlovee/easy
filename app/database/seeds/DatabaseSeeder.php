@@ -140,8 +140,8 @@ class AdministratorsTableSeeder extends Seeder {
   public function run()
   {
     $admin = new Administrator;
-    $admin->username = 'administrator';
-    $admin->password = '1234';
+    $admin->username = 'admin';
+    $admin->password = sha1('1234');
 
     if(! $admin->save()) {
       Log::info('Unable to create admin '.$admin->username, (array)$admin->errors());

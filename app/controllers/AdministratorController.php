@@ -4,7 +4,7 @@ class AdministratorController extends BaseController {
 
 
   public function login() {
-    return View::make();
+    return View::make('admin.login');
   }
 
   public function doLogin() {
@@ -12,8 +12,7 @@ class AdministratorController extends BaseController {
 
     // if already have session
     if(Session::has('admin')) {
-      // redirect to somewhere
-      Redirect::to('/')->with('message', 'เข้าสู่ระบบผู้ดูแลระบบสำเร็จแล้ว');
+      return Redirect::to('/')->with('notice', 'เข้าสู่ระบบผู้ดูแลระบบสำเร็จแล้ว');
     } 
 
     // Check for POST request 
@@ -22,27 +21,24 @@ class AdministratorController extends BaseController {
       $password = Input::get('password');
 
       $admin = Administrator::where('username', '=', $username)
-                            ->where('password', '=', Hash::make($password))
+                            ->where('password', '=', sha1($password))
                             ->first();
 
       if($admin) {
         Session::put('admin', $admin->id);
-        // redirect to main page
-        Redirect::to('/')->with('message', 'เข้าสู่ระบบผู้ดูแลระบบสำเร็จแล้ว');
+        return Redirect::to('/')->with('notice', 'เข้าสู่ระบบผู้ดูแลระบบสำเร็จแล้ว');
       } else {
-        //redirect to somewhere with error
-        Redirect::to('admin/login')->with('message', 'ชื่อผู้ใช้หรือรหัสผ่านผิดพลาด');
+        return Redirect::to('admin/login')->with('error', 'ชื่อผู้ใช้หรือรหัสผ่านผิดพลาด');
       }
     } else {
-      // redirect to somewhere
-      Redirect::to('admin/login');
+      return Redirect::to('admin/login');
     }
   }
 
   public function doLogout() {
     Session::forget('admin');
     // redirect to login page
-    Redirect::to('admin/login')->with('message', 'ออกจากระบบสำเร็จแล้ว');
+    return Redirect::to('admin/login')->with('message', 'ออกจากระบบสำเร็จแล้ว');
   }
 
 }
