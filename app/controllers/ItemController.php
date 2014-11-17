@@ -10,7 +10,12 @@
 class ItemController extends Controller
 {
 
-	public function showDirectItem(&id){
+	public function showDirectItem($id){
+		$item = Item::find($id);
+		return View::make('item.directItem', compact('item'));		
+	}
+
+	public function buyDirectItem($id){
 		$item = Item::find($id);
 		return View::make('item.directItem', compact('item'));		
 	}

@@ -40,3 +40,5 @@ Route::get('users/logout', 'UsersController@logout');
 
 
 Route::get('item/{id}', 'ItemController@showDirectItem');
+Route::post('item/{id}', 'ItemController@showDirectItem');
+Route::post('buy/{id}', 'ItemController@buyDirectItem');

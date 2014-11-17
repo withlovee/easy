@@ -8,15 +8,18 @@
 	</div>
 	<!-- /.col-md-6 -->
 	<div class="col-md-7">
+		{{Form::open(array('method' => 'post'))}}
 		<h2>
 			{{$item->itemName}}
 		</h2>
 		<h3>สินค้าขายโดยตรง ราคา: {{$item->price}} บาท</h3>
 		<p>{{$item->property}}</p>
 		<p>
-			<input type="number" value="1"> 
+			<!--{{ Form::number('amount','1',['min'=>'1'])}}-->
 			&nbsp;
-			<a href="" class="btn btn-primary" data-toggle="modal" data-target="#myModal">ซื้อสินค้า</a>
+			<!--<a href="" class="btn btn-primary" data-toggle="modal" data-target="#myModal">ซื้อสินค้า</a>-->
+			{{ Form::button('ซื้อสินค้า',['class'=>"btn btn-primary", "data-toggle"=>"modal", "data-target"=>"#myModal"])}}
+			{{ Form::close()}}
 		</p>
 	</div>
 	<!-- /.col-md-6 -->
@@ -152,6 +155,7 @@
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
+		{{Form::open(array('action'=>'ItemController@buyDirectItem'))}}
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -160,7 +164,7 @@
 			<div class="modal-body">
 				<form class="form-horizontal" role="form">
 					<div class="form-group">
-						<label for="inputEmail3" class="col-sm-4 control-label">จำนวน</label>
+						<row><label for="inputEmail3" class="col-sm-4 control-label">จำนวน</label> <label > {{ Form::number('amount','1',['min'=>'1','style'=>"margin-left:13px;margin-right:5px;"])}} </label><label>ชิ้น</label> </row>
 						<div class="col-sm-8">
 							<img src="img/num.PNG" alt="">
 						</div>
@@ -168,21 +172,23 @@
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-4 control-label">รูปแบบการจัดส่ง</label>
 						<div class="col-sm-6">
-							<select name="" id="" class="form-control">
+							<!--<select name="" id="" class="form-control">
 								<option value="">แบบประหยัด: 30 บาท</option>
 								<option value="" selected>แบบมาตรฐาน: 50 บาท</option>
 								<option value="">แบบด่วน: 100 บาท</option>
-							</select>
+							</select>-->
+							{{Form::select('deliver', array('A' => 'แบบประหยัด: 30 บาท', 'B' => 'แบบมาตรฐาน: 50 บาท', 'C' => 'แบบด่วน: 100 บาท'), 'B', ['class'=>"form-control"])}}
 						</div>
 					</div><!--form-group-->
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-4 control-label">บริการพิเศษ</label>
 						<div class="col-sm-8">
-							<div class="checkbox">
+							<!--<div class="checkbox">
 								<label>
-									<input type="checkbox"> ห่อของขวัญ</strong>
+									<input type="checkbox"> {{$item->others}}</strong>
 								</label>
-							</div>
+							</div>-->
+							{{Form::checkbox('option', '{{{$item->others}}}')}}
 						</div>
 					</div><!--form-group-->
 					<div class="form-group">
