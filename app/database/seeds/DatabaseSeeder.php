@@ -170,7 +170,7 @@ class ItemQuestionsTableSeeder extends Seeder{
     $itemQ->content = 'มีสีอะไรบ้าง';
     $itemQ->answer='สีเขียว ฟ้า ชมพู';
     $itemQ->userId=1;
-    $itemQ->id=1;
+    $itemQ->itemId=1;
     if(! $itemQ->save()) {
       Log::info('Unable to create item Question');
     } else {
@@ -181,7 +181,7 @@ class ItemQuestionsTableSeeder extends Seeder{
     $itemQ->content = 'มีแบบที่ไม่มีพวงกุญแจหรือไม่';
     $itemQ->answer='ไม่มีค่ะ';
     $itemQ->userId=1;
-    $itemQ->id=1;
+    $itemQ->itemId=1;
     if(! $itemQ->save()) {
       Log::info('Unable to create item Question');
     } else {
@@ -192,7 +192,7 @@ class ItemQuestionsTableSeeder extends Seeder{
     $itemQ->content = 'มีสีเขียวหรือไม่ครับ';
     $itemQ->answer='ไม่มีค่ะ';
     $itemQ->userId=2;
-    $itemQ->id=2;
+    $itemQ->itemId=2;
     if(! $itemQ->save()) {
       Log::info('Unable to create item Question');
     } else {
