@@ -5,7 +5,11 @@
 					@foreach ($support_tickets as $support_ticket)
 						<div class="row topic">
 							<div class="col-xs-1">
-								<i class="pending glyphicon glyphicon-time"></i>
+								@if(is_null($support_ticket->administratorId))
+									<i class="pending glyphicon glyphicon-time"></i>
+								@else
+									<i class="thumb-up glyphicon glyphicon-ok"></i>
+								@endif
 							</div>
 							<div class="col-xs-11">
 								<div class="row">

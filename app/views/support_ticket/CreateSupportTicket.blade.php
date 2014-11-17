@@ -1,7 +1,7 @@
 @extends('layouts.master', ['title' => 'จัดการข้อร้องเรียน'])
 @section('content')
 				<h1 class="line">ร้องเรียนปัญหา</h1>
-				<form class="form-horizontal" role="form" method="POST" action="{{{ URL::to('supporttickets') }}}">
+				<form class="form-horizontal" role="form" method="POST" action="{{ URL::to('supporttickets') }}">
 					<input type="hidden" name="success" value="1">
 					<?php if(isset($_GET['success'])): ?>
 					<div class="alert alert-success" role="alert">

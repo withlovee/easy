@@ -43,6 +43,7 @@ class UsersTableSeeder extends Seeder {
         Log::info('Created user "'.$user->username.'" <'.$user->email.'>');
       }
     }
+
     $user = new User;
     $user->name = 'ณัฐพล';
     $user->surname = 'พัฒนาวิจิตร';
@@ -62,6 +63,16 @@ class UsersTableSeeder extends Seeder {
     } else {
       Log::info('Created user "'.$user->username.'" <'.$user->email.'>');
     }
+
+    $user = new User;
+    $user->username = 'admin1';
+    $user->email = 'admin1@easy.com';
+    $user->password = '1234';
+    $user->password_confirmation = '1234';
+    $user->confirmed = true;
+    $user->confirmation_code = md5(uniqid(mt_rand(), true));
+    $user->role = 'Admin';
+    $user->save();
   }
 }
 

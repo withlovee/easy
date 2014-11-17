@@ -11,8 +11,13 @@ class SupportTicketController extends BaseController {
 
 	public function showAll()
 	{
-		//$data = array();
-		$support_tickets = SupportTicket::all();
+		if (Auth::user()->role == 'Admin') {
+			$support_tickets = SupportTicket::orderBy('created_at', 'desc')->get();
+		}
+		else {
+			$support_tickets = SupportTicket::where('reporterId', '=', Auth::user()->id)->orderBy('created_at', 'desc')->get();
+		}
+
 		foreach ($support_tickets as $support_ticket) {
 			$reporterId = $support_ticket->reporterId;
 			$support_ticket->reporter = User::find($reporterId)->username;
@@ -20,7 +25,7 @@ class SupportTicketController extends BaseController {
 			$reporteeId = $support_ticket->reporteeId;
 			$support_ticket->reportee = User::find($reporteeId)->username;
 		}
-		//
+
 		return View::make('support_ticket.SupportTicketList', ['support_tickets' => $support_tickets]);
 	}
 
