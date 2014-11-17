@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'HomeController@showWelcome')->before('auth');
+Route::get('/', 'HomeController@showWelcome');
 Route::get('/supporttickets', 'SupportTicketController@showAll')->before('auth');
 
 
@@ -57,6 +57,7 @@ Route::get('admin/logout', 'AdministratorController@doLogout');
 
 Route::get('emailtest/sendUserValidationEmail/{email}/{username}/{fullName}', 'EmailHelperTestController@sendUserValidationEmail');
 Route::get('emailtest/sendPreviousAuctionWinnerEmail/{email}/{username}/{fullName}', 'EmailHelperTestController@sendPreviousAuctionWinnerEmail');
+Route::get('emailtest/sendAuctionResultEmail/{email}/{username}/{fullName}', 'EmailHelperTestController@sendAuctionResultEmail');
 
 
 Route::get('item/{id}', 'ItemController@showDirectItem');

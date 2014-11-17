@@ -28,4 +28,17 @@ class EmailHelperTestController extends BaseController {
     return "true";
   }
 
+  public function sendAuctionResultEmail($email, $username, $fullName) {
+    $args = array(
+        'itemId'              => 'RILAK7677427',
+        'itemName'            => 'Rilakkuma ตุ๊กตาหมอนข้าง - สีน้ำตาล ขนาด 76 ซ.ม.',
+      );
+
+    
+
+    $this->emailHelper->sendAuctionResultEmail($email, $username, $fullName, $args);
+
+    return "true";
+  }
+
 }
