@@ -18,11 +18,11 @@
 		</div>
 		<!-- /.col-sm-3 -->
 		<div class="col-sm-9">
-			<h3><a href="detail.php">ที่ชาร์ตแบตสำรองสีชมพูแบบพวงกุญแจ 2600mAh</a></h3>
+			<h3><a href="item/1">ที่ชาร์ตแบตสำรองสีชมพูแบบพวงกุญแจ 2600mAh</a></h3>
 			<p>เป็นอีกหนึ่งทางเลือกของที่ชาร์ตแบตสำรองขนาดกระทัดรัด สามารถซื้อเป็นของขวัญให้ใครก็ได้ ในราคาเบาๆ อีกทั้งยังสามารถเป็นพวงกุญแจได้ในตัว</p>
 			<p>
 				<span href="#" class="btn btn-default" role="button" disabled="disabled">1,250 บาท</span>
-				<a href="detail.php" class="btn btn-primary" role="button">ดูรายละเอียด</a>
+				<a href="item/1" class="btn btn-primary" role="button">ดูรายละเอียด</a>
 			</p>
 		</div>
 		<!-- /.col-sm-9 -->
@@ -35,12 +35,12 @@
 		</div>
 		<!-- /.col-sm-3 -->
 		<div class="col-sm-9">
-			<h3><a href="detail-auction.php">ที่วาง-ที่จับ มือถืออเนกประสงค์</a></h3>
+			<h3><a href="item/2">ที่วาง-ที่จับ มือถืออเนกประสงค์</a></h3>
 			<p>เรียกกันอีกชื่อง่ายๆคือ one touch silicone stand เพียงแค่กดเบาๆก็สามารถ งอและวางบนนิ้วมือหรือตั้งเพื่อดูได้ บอกเลยว่าน่ารักสุดๆ ไม่มีนี่พลาดมากอะ !!!</p>
 			<p>
 				<span href="#" class="btn btn-warning" role="button" disabled="disabled"><i class="glyphicon glyphicon-time"></i> ประมูล</span>
 				<span href="#" class="btn btn-default" role="button" disabled="disabled">145 บาท</span>
-				<a href="detail-auction.php" class="btn btn-primary" role="button">ดูรายละเอียด</a>
+				<a href="item/2" class="btn btn-primary" role="button">ดูรายละเอียด</a>
 			</p>
 		</div>
 		<!-- /.col-sm-9 -->
