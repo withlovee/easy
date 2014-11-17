@@ -70,6 +70,7 @@ Route::get('sellDirectItem', 'ItemController@sellDirectItem')->before('auth');
 Route::get('createDirectItem', 'ItemController@createDirectItem')->before('auth');
 Route::post('createDirectItem', 'ItemController@createDirectItem')->before('auth');
 Route::post('/askQuestion', 'ItemQuestionController@create')->before('auth');
+Route::post('/answerQuestion', 'ItemQuestionController@answer')->before('auth');
 
 
 

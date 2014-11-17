@@ -29,12 +29,21 @@ class ItemQuestionController extends Controller
   //       }
 
         $this->question->save();
-        print_r($input);
-        print_r($this);
         
-        //return View::make('emptypage');
 		return Redirect::action('ItemController@showDirectItem', array('id'=>$input['id']))->with('notice','คำถามของท่านถูกส่งไปยังผู้ขายเรียบร้อยแล้วค่ะ');
     }
 
+    public function answer()
+	{
+		$input = Input::all();
+		$question = ItemQuestion::find($input['id']);
+		$question->answer = $input['answer'];
+		print_r($input);
+		print_r($question);
+		//return View::make('emptypage');
+        $question->save();
+        
+		return Redirect::back()->with('notice','ตอบคำถามเรียบร้อยค่ะ');
+    }
 
 }
