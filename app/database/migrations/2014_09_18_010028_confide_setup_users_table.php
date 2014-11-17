@@ -12,14 +12,20 @@ class ConfideSetupUsersTable extends Migration
         // Creates the users table
         Schema::create('users', function ($table) {
             $table->increments('id');
+            $table->string('name');
+            $table->string('surname');
+            $table->string('address');
+            $table->string('country');
+            $table->string('telephone');
             $table->string('username')->unique();
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('confirmation_code');
-            $table->string('role')->default('User');
-            $table->string('remember_token')->nullable();
             $table->boolean('confirmed')->default(false);
-            $table->boolean('report_monthly')->default(false);
+            $table->string('confirmation_code');
+            $table->string('remember_token')->nullable();
+            $table->string('role');
+            $table->boolean('isBanned')->default(false);
+            $table->timestamp('banExpirationDate')->nullable();
             $table->timestamps();
         });
 

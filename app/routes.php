@@ -13,6 +13,9 @@
 
 Route::get('/', 'HomeController@showWelcome')->before('auth');
 Route::get('/supportticket', 'SupportTicketController@showAll')->before('auth');
+Route::get('/supportticket/show/{id}', 'SupportTicketController@show')->before('auth');
+Route::get('/supportticket/create', 'SupportTicketController@create')->before('auth');
+Route::post('/supportticket/', 'SupportTicketController@store')->before('auth');
 
 // Route::get('/', function()
 // {
@@ -39,6 +42,8 @@ Route::post('users/reset_password', 'UsersController@doResetPassword');
 Route::get('users/logout', 'UsersController@logout');
 
 
+
 Route::get('item/{id}', 'ItemController@showDirectItem');
 Route::post('item/{id}', 'ItemController@showDirectItem');
 Route::post('buy/{id}', 'ItemController@buyDirectItem');
+

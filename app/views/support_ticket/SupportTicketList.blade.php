@@ -10,12 +10,12 @@
 							<div class="col-xs-11">
 								<div class="row">
 									<div class="col-sm-8">
-										<h4><a href="report-manage.php">สินค้าชำรุดแล้วแม่ค้าไม่รับผิดชอบ</a></h4>
+										<h4>{{ link_to("/supportticket/show/$support_ticket->id",$support_ticket->title) }}</h4>
 										<p class="info">
-											<a href="member_profile.php" class="name"><strong>veevee</strong></a>
+											<a href="member_profile.php" class="name"><strong>{{$support_ticket->reporter}}</strong></a>
 											<span class="name">ร้องเรียน</span>
-											<a href="member_profile.php" class="name"><strong>cppanida</strong></a>
-											<span class="date">14 Dec 13, 15:35</span>
+											<a href="member_profile.php" class="name"><strong>{{$support_ticket->reportee}}</strong></a>
+											<span class="date">{{$support_ticket->created_at}}</span>
 										</p>
 									</div>
 									<!-- /.col-sm-9 -->
