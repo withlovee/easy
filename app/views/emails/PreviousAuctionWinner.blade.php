@@ -9,7 +9,7 @@
 
 เรียน คุณ  {{ $fullName }}<br><br>
 ขอบคุณที่เข้าร่วมการประมูลสินค้า<br>
-เลขที่สินค้า #{{ $itemId }} ชื่อสินค้า <strong>{{ $itemName }}</strong><br><br>
+เลขที่สินค้า #{{ $item->id }} ชื่อสินค้า <strong>{{ $item->name }}</strong><br><br>
 <strong>ขณะนี้ คุณแพ้การประมูล</strong><br><br>
 ราคาสินค้า ณ {{ strftime("%e %B %Y %R", $currentBidTimestamp) }} คือ <strong>{{ $currentBid }}</strong> <br>
 สิ้นสุดการประมูล ณ {{ strftime("%e %B %Y %R", $endAuctionTimestamp) }} <br>

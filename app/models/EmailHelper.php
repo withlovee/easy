@@ -4,22 +4,18 @@ class EmailHelper extends Eloquent {
 
   /**
    * Send Validation Link to User
-   * @param String $email 
-   * @param String $username 
-   * @param String $fullName 
+   * @param User $user 
    * @param String $validationLink URL for validation
    */
-  function sendUserValidationEmail($email, $username, $fullName, $validationLink) {
+  function sendUserValidationEmail($user, $validationLink) {
 
     $data = array(
-        'email' => $email,
-        'username' => $username,
-        'fullName' => $fullName,
+        'user' => $user,
         'validationLink' => $validationLink
       );
 
-    Mail::queue('emails.UserValidation', $data, function($message) use ($data){
-      $message->to($data['email'],  $data['fullName'])
+    Mail::queue('emails.UserValidation', $data, function($message) use ($user){
+      $message->to($user->email,  $user->name.' '.$user->surname)
               ->subject('โปรดยืนยันการสมัครสมาชิกของคุณ');
     });
 
@@ -29,10 +25,8 @@ class EmailHelper extends Eloquent {
 
   /**
    * Send email to tell user that he is outbidded.
-   * @param String $email 
-   * @param String $username 
-   * @param String $fullname 
-   * @param Array $args Array of parameters required. itemId, itemName, currentBid,
+   * @param User $user 
+   * @param Array $args Array of parameters required. item (Item Object), currentBid,
    * currentBidTimestamp, endAuctionTimestamp, and itemLink are required as a key-value of array.
    * @return type
    */
@@ -44,7 +38,7 @@ class EmailHelper extends Eloquent {
 
     Mail::queue('emails.PreviousAuctionWinner', $data, function($message) use ($data) {
       $message->to($data['email'], $data['fullName'])
-              ->subject('คุณถูกประมูลแซง! - '.$data['itemName']);
+              ->subject('คุณถูกประมูลแซง! - '.$data['item']->name);
     });
 
   }
