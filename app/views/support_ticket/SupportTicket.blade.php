@@ -22,7 +22,7 @@
 								<p>&nbsp;</p>
 									<div class="form-group">
 									@if($support_ticket->administratorId != null)
-										<label for="content">ตอบ</label>
+										<h4>ข้อความจากผู้ดูแลระบบ</h4>
 										<p>{{$support_ticket->answer}}</p>
 										<p>answered at : {{$support_ticket->answered_at}}</p>
 										<p>by : {{$support_ticket->administrator}}</p>

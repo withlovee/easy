@@ -45,6 +45,7 @@
 					<li><a href="all-direct.php">สินค้าขายโดยตรง</a></li>
 				</ul>
 			</li>
+
 			@if(is_admin())
 			<li>{{ HTML::link('/supportticket', 'จัดการข้อร้องเรียน') }}</li>
 			@elseif(is_user())
