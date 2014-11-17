@@ -12,6 +12,11 @@ class User extends Eloquent implements ConfideUserInterface
    		'confirmation_code', 'remember_token',
    		'role', 'isBanned', 'banExpirationDate'
    	);
+
+    public function getFullName() {
+      return $this->name.' '.$this->surname;
+    }
+
     static function countryList(){
     	return array(
 '' => 'กรุณาเลือก',

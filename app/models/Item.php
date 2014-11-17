@@ -9,5 +9,9 @@ class Item extends Eloquent
 	public function bidManager(){
 		return $this->belongsTo('BidManager','bidManagerId');
 	}
+
+  public function getUrl() {
+    return URL::to('item/'.$this->id);
+  }
     
 }
