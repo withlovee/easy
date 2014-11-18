@@ -46,7 +46,8 @@ class EmailHelper extends Eloquent {
 
   }
 
-  function sendInvoiceEmail() {
+  function sendInvoiceEmail($user, $transaction) {
+    
     
   }
 
