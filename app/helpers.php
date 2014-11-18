@@ -18,4 +18,12 @@ function get_admin(){
 function is_guest(){
 	return !Auth::check() and !Session::has('admin');
 }
+
+function is_buyer(){
+	return Auth::check() and Auth::user()->role=="Buyer";
+}
+
+function is_seller(){
+	return Auth::check() and Auth::user()->role=="Seller";
+}
 ?>

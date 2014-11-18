@@ -13,9 +13,9 @@
 							<div class="col-xs-11">
 								<h4>{{$support_ticket->title}}</h4>
 								<p class="info">
-									<a href="member_profile.php" class="name"><strong>{{$support_ticket->reporter}}</strong></a>
+									<a href="{{URL::to('users/show/'.$support_ticket->reporterId)}}" class="name"><strong>{{$support_ticket->reporter}}</strong></a>
 									<span class="name">ร้องเรียน</span>
-									<a href="member_profile.php" class="name"><strong>{{$support_ticket->reportee}}</strong></a>
+									<a href="{{URL::to('users/show/'.$support_ticket->reporteeId)}}" class="name"><strong>{{$support_ticket->reportee}}</strong></a>
 									<span class="date">{{$support_ticket->created_at}}</span>
 								</p>
 							</div>
@@ -44,7 +44,7 @@
 				<h3>ข้อร้องเรียนอื่นๆ</h3>
 				<div class="list-group">
 				@for ($i = 0; $i < 5 && $i < count($support_tickets); $i++)
-					<a href="{{$support_tickets[$i]->id}}" class="list-group-item">{{$support_tickets[$i]->title}}</a>
+					<a href="{{ URL::to('supporttickets/show/'.$support_tickets[$i]->id) }}" class="list-group-item">{{$support_tickets[$i]->title}}</a>
 				@endfor
 				
 				<a href="{{ URL::to('supporttickets') }}" class="list-group-item"><strong>ดูทั้งหมด</strong></a>

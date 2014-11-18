@@ -58,6 +58,19 @@ class SupportTicketController extends BaseController {
 		if(is_admin())
 			return Redirect::action('SupportTicketController@showAll');
 
+		// if(Auth::user()->role == 'Buyer') {
+		// 	$users = DB::table('transactions')->where('buyerId', '=', Auth::user()->id)
+		// 			->join('users', 'sellerId', '=', 'users.id')
+		// 			->select('users.*')
+		// 			->distinct()->get();
+		// }
+		// else {
+		// 	$users = DB::table('transactions')->where('sellerId', '=', Auth::user()->id)
+		// 			->join('users', 'buyerId', '=', 'users.id')
+		// 			->select('users.*')
+		// 			->distinct()->get();
+		// }
+
 		$users = User::all();
 		$list_users = ['' => 'เลือกชื่อผู้ใช้'];
 		foreach ($users as $user) {
@@ -113,6 +126,6 @@ class SupportTicketController extends BaseController {
 		// 		'content' => $this->support_ticket->content
 		// 	]);
 
-		return Redirect::action('SupportTicketController@showAll');
+		return Redirect::action('SupportTicketController@showAll')->with('notice', 'ระบบได้รับข้อร้องเรียนเรียบร้อยแล้วค่ะ');
     }
 }

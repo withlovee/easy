@@ -17,11 +17,30 @@ class HomeController extends BaseController {
 
 	public function showWelcome()
 	{
+		$auction = Item::where('type','=','auction')->count();
+		$direct = Item::where('type','=','direct')->count();
+		$item_count = ['auction' => $auction,
+						'direct' => $direct,
+						'all' => $auction+$direct]; 
 		// var_dump(Auth::user());
-		$n = 5;
-		$items = Item::orderBy('id', 'desc')->take($n)->get();
-		
-		return View::make('hello', ['items' => $items]);
+		if(Input::get('show') == 'all'){
+			$title = "สินค้าทั้งหมด";
+			$items = Item::orderBy('id', 'desc')->get();
+		}
+		elseif(Input::get('show') == 'direct'){
+			$title = "สินค้าขายโดยตรง";
+			$items = Item::where('type','=','direct')->orderBy('id', 'desc')->get();
+		}
+		elseif(Input::get('show') == 'auction'){
+			$title = "สินค้าประมูล";
+			$items = Item::where('type','=','auction')->orderBy('id', 'desc')->get();
+		}
+		else{
+			$n = 5;
+			$title = "สินค้าล่าสุด";
+			$items = Item::orderBy('id', 'desc')->take($n)->get();
+		}
+		return View::make('hello', ['items' => $items, 'title' => $title, 'item_count' => $item_count]);
 		// $results = DB::select('select * from test where id = ?', array(2));
 		// var_dump($results);
 		// return '';

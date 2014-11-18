@@ -37,6 +37,7 @@
 	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		<ul class="nav navbar-nav">
 			<li>{{ HTML::link('/', 'หน้าหลัก') }}</li>
+			@if(is_buyer())
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">ซื้อสินค้า <b class="caret"></b></a>
 				<ul class="dropdown-menu">
@@ -45,6 +46,23 @@
 					<li><a href="all-direct.php">สินค้าขายโดยตรง</a></li>
 				</ul>
 			</li>
+			@elseif(is_seller())
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">ขายสินค้าใหม่ <b class="caret"></b></a>
+				<ul class="dropdown-menu">
+					<li><a href="all-auction.php">สินค้าประมูล</a></li>
+					<li><a href="sellDirectItem">สินค้าขายโดยตรง</a></li>
+				</ul>
+			</li>
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">สินค้าของฉัน <b class="caret"></b></a>
+				<ul class="dropdown-menu">
+					<li><a href="all.php">ทั้งหมด</a></li>
+					<li><a href="all-auction.php">สินค้าประมูล</a></li>
+					<li><a href="all-direct.php">สินค้าขายโดยตรง</a></li>
+				</ul>
+			</li>
+			@endif
 
 			@if(is_admin())
 			<li>{{ HTML::link('/supporttickets', 'จัดการข้อร้องเรียน') }}</li>
@@ -63,7 +81,7 @@
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">สวัสดี, {{ Auth::user()->username }} <span class="caret"></span></a>
 				<ul class="dropdown-menu" role="menu">
 					<li>{{ HTML::link('users/profile', 'แก้ไขข้อมูลส่วนตัว') }}</li>
-					<li><a href="member_profile.php">ดู Feedback</a></li>
+					<li><a href="{{URL::to('users/show/'.Auth::user()->id)}}">ดู Feedback</a></li>
 					<li><a href="transactions.php">ดูประวัติการสั่งซื้อ</a></li>
 					<li class="divider"></li>
 					<li>{{ HTML::link('users/logout', 'ออกจากระบบ') }}</li>
