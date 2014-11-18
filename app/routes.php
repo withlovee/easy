@@ -61,7 +61,7 @@ Route::get('admin/logout', 'AdministratorController@doLogout');
 
 Route::get('item/{id}', 'ItemController@showDirectItem');
 Route::post('item/{id}', 'ItemController@showDirectItem');
-Route::post('buy/{id}', 'ItemController@buyDirectItem');
+Route::post('buy/{id}', 'BuyDirectItemController@buyDirectItem');
 
 Route::post('/askQuestion', 'ItemQuestionController@create')->before('auth');
 

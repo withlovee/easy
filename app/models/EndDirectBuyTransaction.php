@@ -1,16 +1,13 @@
 <?php
-
-class ItemQuestion extends Eloquent
-{
-	protected $table = 'item_questions';
-	protected $fillable=array('content','answer','id','userId');
-
-	public $timestamps = false;
-
+class EndDirectBuyTransaction extends Eloquent{
+	
+	protected $table = 'end_direct_buy_transactions';
+	
 	public static $rules = [
-        'content' => 'required',
-        'id' => 'required',
-        'userId' => 'required'
+        'amount' => 'required',
+        'shippingType' => 'required',
+        'endTradingTransactionId' => 'required',
+        'itemId' => 'required'
     ];
 
     public $errors;
@@ -27,13 +24,11 @@ class ItemQuestion extends Eloquent
 
         return false;
     }
-
 	public function item(){
 		return $this->belongsTo('Item','itemId');
 	}
 
-	public function user(){
-		return $this->belongsTo('User','userId');
+	public function endTradingTransaction(){
+		return $this->belongsTo('EndTradingTransaction','EndTradingTransactionId');
 	}
-    
 }

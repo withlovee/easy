@@ -9,7 +9,7 @@
 	</div>
 	<!-- /.col-md-6 -->
 	<div class="col-md-7">
-		{{Form::open(array('method' => 'post'))}}
+		{{Form::open(array('url' => 'buy/'.$item->id, 'method' => 'post', 'class' => 'form-horizontal'))}}
 		<h2>
 			{{$item->name}}
 		</h2>
@@ -22,7 +22,7 @@
 			@if(is_buyer())
 			{{ Form::button('ซื้อสินค้า',['class'=>"btn btn-primary", "data-toggle"=>"modal", "data-target"=>"#myModal"])}}
 			@endif
-			{{ Form::close()}}
+			
 		</p>
 	</div>
 	<!-- /.col-md-6 -->
@@ -34,7 +34,7 @@
 @include('item.sidebar')
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
-		{{Form::open(array('action'=>'ItemController@buyDirectItem', 'class' => 'form-horizontal'))}}
+		{{Form::open(array('url' => 'buy/'.$item->id, 'method' => 'post', 'class' => 'form-horizontal'))}}
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -45,7 +45,7 @@
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-4 control-label">จำนวน</label> 
 						<div class="col-sm-6">
-							{{ Form::number('amount','1',['min'=>'1','class'=> 'form-control'])}}
+							{{ Form::number('amount','1',['min'=>'1','max'=> $item->quantity ,'class'=> 'form-control'])}}
 						</div>
 						<label class="col-sm-1 control-label">ชิ้น</label>
 					</div><!--form-group-->
@@ -83,10 +83,12 @@
 				</form>
 			</div>
 			<div class="modal-footer">
-				<form action="payment.php">
+				
 				<button type="button" class="btn btn-default" data-dismiss="modal">ยกเลิก</button>
-				<button type="submit" class="btn btn-primary">ยืนยันการสั่งซื้อ</button>
+				
+				{{ Form::submit('ซื้อสินค้า',['class'=>"btn btn-primary"])}}
 				</form>
+				{{ Form::close()}}
 			</div>
 		</div>
 	</div>
