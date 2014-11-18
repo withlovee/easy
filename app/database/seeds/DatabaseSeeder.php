@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder {
     $this->call('AdministratorsTableSeeder');
     $this->call('SupportTicketsTableSeeder');
     $this->call('ItemQuestionsTableSeeder');
-
+    $this->call('TransactionsTableSeeder');
     $this->call('FeedbacksTableSeeder');
 
   }
@@ -100,7 +100,6 @@ class ItemTableSeeder extends Seeder{
   public function run(){
     
     $item = new Item;
-    $item->id='1';
     $item->name='ที่ชาร์ตแบตสำรองสีชมพูแบบพวงกุญแจ 2600mAh';
     $item->picture='http://alicecat.biz/img/p/96-300-thickbox.jpg';
     $item->price=1250;
@@ -112,7 +111,11 @@ class ItemTableSeeder extends Seeder{
     $item->quality='ดีมาก';
     $item->returnPolicy='สามารถส่งคืนได้';
     $item->returnFee=50;
-    $item->shipping='แบบด่วน: 100 บาท<br>แบบมาตรฐาน: 50 บาท<br>แบบประหยัด: 30 บาท</td>';
+    $item->shipping= json_encode(array(
+      'แบบด่วน' => '100',
+      'แบบมาตรฐาน' => '50',
+      'แบบประหยัด' => '30'
+    ));
     $item->tax=7;
     $item->others='ห่อของขวัญฟรี';
     $item->type='direct';
@@ -120,8 +123,8 @@ class ItemTableSeeder extends Seeder{
     $item->bidManagerId=null;
     $item->sellerId=7;
     $item->save();
+
     $item2=new Item;
-    $item2->id='2';
     $item2->name='ที่วาง-ที่จับ มือถืออเนกประสงค์';
     $item2->picture='http://photo.oempromo.com/Prod_936/Folding-Cell-Phone-Holder_16780815.jpg';
     $item2->price=145;
@@ -135,7 +138,11 @@ class ItemTableSeeder extends Seeder{
     $item2->defect='';
     $item2->returnPolicy='ASDFEECCD';
     $item2->returnFee=50;
-    $item2->shipping='แบบด่วน: 100 บาท<br>แบบมาตรฐาน: 50 บาท<br>แบบประหยัด: 30 บาท</td>';
+    $item->shipping= json_encode(array(
+      'แบบด่วน' => '100',
+      'แบบมาตรฐาน' => '50',
+      'แบบประหยัด' => '30'
+    ));
     $item2->tax=7;
     $item2->others='ห่อของขวัญ';
     $item2->type='auction';
@@ -145,7 +152,6 @@ class ItemTableSeeder extends Seeder{
     $item2->save();
 
     $rilakkuma=new Item;
-    $rilakkuma->id='3';
     $rilakkuma->name='ตุ๊กตาหมี ริลัคคุมะ';
     $rilakkuma->picture='http://g.lnwfile.com/ltvarq.jpg';
     $rilakkuma->price=490;
@@ -246,6 +252,28 @@ class ItemQuestionsTableSeeder extends Seeder{
 
 
   }
+}
+
+
+class TransactionsTableSeeder extends Seeder{
+
+  public function run(){
+    $item = Item::where('id','>','0')->firstOrFail();
+    $buyer = User::where('role', '=', 'Buyer')->firstOrFail();
+    if($item && $buyer){
+      // Transaction for DirectBuyItem
+      $transaction = new Transaction;
+      $transaction->amount = 1;
+      $transaction->price = $item->price;
+      $transaction->shipping = 'ปกติ';
+      $transaction->shippingCost = 50;
+      $transaction->status = 'payment_waiting';
+      $transaction->buyerId = $buyer->id;
+      $transaction->itemId = $item->id;
+      $transaction->save();
+    }
+  }
+
 }
 
 class FeedbacksTableSeeder extends Seeder{

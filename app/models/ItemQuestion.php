@@ -3,13 +3,13 @@
 class ItemQuestion extends Eloquent
 {
 	protected $table = 'item_questions';
-	protected $fillable=array('content','answer','id','userId');
+	protected $fillable=array('content','answer','itemId','userId');
 
 	public $timestamps = false;
 
 	public static $rules = [
         'content' => 'required',
-        'id' => 'required',
+        'itemId' => 'required',
         'userId' => 'required'
     ];
 

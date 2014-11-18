@@ -56,14 +56,24 @@ Route::get('admin/login', 'AdministratorController@login');
 Route::post('admin/login', 'AdministratorController@doLogin');
 Route::get('admin/logout', 'AdministratorController@doLogout');
 
+/**
+ * Transaction
+ */
+Route::get('transaction/{id}', 'TransactionController@show');
 
 
 
 Route::get('item/{id}', 'ItemController@showDirectItem');
 Route::post('item/{id}', 'ItemController@showDirectItem');
+
 Route::post('buy/{id}', 'BuyDirectItemController@buyDirectItem');
 
+Route::get('sellDirectItem', 'ItemController@sellDirectItem')->before('auth');
+Route::get('createDirectItem', 'ItemController@createDirectItem')->before('auth');
+Route::post('createDirectItem', 'ItemController@createDirectItem')->before('auth');
+
 Route::post('/askQuestion', 'ItemQuestionController@create')->before('auth');
+Route::post('/answerQuestion', 'ItemQuestionController@answer')->before('auth');
 
 
 
