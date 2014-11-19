@@ -7,13 +7,13 @@
 	@foreach($transactions as $transaction)
 	<div class="row item">
 		<div class="col-sm-3">
-			<a href="{{ URL::to('/transaction/'.$transaction->item->id) }}">
+			<a href="{{ URL::to('/transaction/'.$transaction->id) }}">
 				<img src="{{ $transaction->item->picture }}" class="img-responsive">
 			</a>
 		</div>
 		<!-- /.col-sm-3 -->
 		<div class="col-sm-9">
-			<h3><a href="{{ URL::to('/transaction/'.$transaction->item->id) }}">{{ $transaction->item->name }}</a></h3>
+			<h3><a href="{{ URL::to('/transaction/'.$transaction->id) }}">{{ $transaction->item->name }}</a></h3>
 			<p>วันที่สั่งซื้อ: {{ $transaction->created_at }}<br>ราคา: {{ number_format($transaction->price + $transaction->shippingCost) }} บาท</p>
 			<p>
 				@if($transaction->status == 'payment_waiting')
@@ -25,7 +25,7 @@
 				@elseif($transaction->status == 'received')
 				<span class="btn btn-success" role="button" disabled="disabled"><i class="glyphicon glyphicon-ok"></i> ได้รับสินค้าแล้ว</span>
 				@endif
-				<a href="{{ URL::to('/transaction/'.$transaction->item->id) }}" class="btn btn-primary" role="button">ดูรายละเอียด</a>
+				<a href="{{ URL::to('/transaction/'.$transaction->id) }}" class="btn btn-primary" role="button">ดูรายละเอียด</a>
 			</p>
 		</div>
 		<!-- /.col-sm-9 -->

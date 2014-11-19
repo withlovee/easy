@@ -37,7 +37,11 @@ class TransactionController extends BaseController {
 		$transaction->status = $input['status'];
 		$transaction->save();
 
-		return Redirect::to('/transaction'.$input['id']);
+		if($input['status'] == 'received'){
+			//send email to remind buyer/seller to post feedback
+		}
+
+		return Redirect::to('/transaction/'.$input['id'])->with('notice', 'ปรับปรุงสถานะของสินค้าเรียบร้อยแล้ว');
 	}
 
 	// The user must be an item buyer or item seller

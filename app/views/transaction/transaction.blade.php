@@ -1,5 +1,6 @@
 @extends('layouts.master', ['title' => $title.'สินค้า {{ $transaction->item->name }}'])
 @section('content')
+	@include('layouts.error')
 	<div class="row item-header">
 		<div class="col-sm-2">
 			<a href="detail.php">
@@ -25,10 +26,10 @@
 				<dd>{{ $transaction->created_at }}</dd>
 				@if(Auth::user()->role == 'Buyer')
 				<dt>ผู้ขาย</dt>
-				<dd><a href="">{x{ $transaction->item->seller->username }}</a> (<a href="{x{ URL::to('/supporttickets/create?reporteeId='.$transaction->item->seller->id) }}">ร้องเรียน</a>)</dd>
+				<dd><a href="">{{ $transaction->item->seller->username }}</a> (<a href="{{ URL::to('/supporttickets/create?reporteeId='.$transaction->item->seller->id) }}">ร้องเรียน</a>)</dd>
 				@else
 				<dt>ผู้ซื้อ</dt>
-				<dd><a href="">{x{ $transaction->buyer->username }}</a> (<a href="{x{ URL::to('/supporttickets/create?reporteeId='.$transaction->buyer->id) }}">ร้องเรียน</a>)</dd>
+				<dd><a href="">{{ $transaction->buyer->username }}</a> (<a href="{{ URL::to('/supporttickets/create?reporteeId='.$transaction->buyer->id) }}">ร้องเรียน</a>)</dd>
 				@endif
 				<dt>จำนวน</dt>
 				<dd>{{ $transaction->amount }} ชิ้น</dd>
@@ -40,15 +41,15 @@
 				<dd>{{ number_format($transaction->price + $transaction->shippingCost) }} บาท</dd>
 				<dt>สถานะ</dt>
 				<dd>
-					@if($transaction->status == 'payment_waiting')
+				@if($transaction->status == 'payment_waiting')
 					<span class="btn btn-warning" role="button" disabled="disabled"><i class="glyphicon glyphicon-time"></i> รอการชำระเงิน</span>
-					@elseif($transaction->status == 'paid')
-					<span class="btn btn-success" role="button" disabled="disabled"><i class="glyphicon glyphicon-time"></i> ชำระเงินแล้ว รอจัดส่ง</span>
-					@elseif($transaction->status == 'shipped')
-					<span class="btn btn-success" role="button" disabled="disabled"><i class="glyphicon glyphicon-ok"></i> จัดส่งแล้ว</span>
-					@elseif($transaction->status == 'received')
+				@elseif($transaction->status == 'paid')
+					<span class="btn btn-warning" role="button" disabled="disabled"><i class="glyphicon glyphicon-time"></i> ชำระเงินแล้ว รอจัดส่ง</span>
+				@elseif($transaction->status == 'shipped')
+					<span class="btn btn-success" role="button" disabled="disabled"><i class="glyphicon glyphicon-inbox"></i> จัดส่งแล้ว</span>
+				@elseif($transaction->status == 'received')
 					<span class="btn btn-success" role="button" disabled="disabled"><i class="glyphicon glyphicon-ok"></i> ได้รับสินค้าแล้ว</span>
-					@endif
+				@endif
 				</dd>
 				<dt>กิจกรรม</dt>
 				<dd>
@@ -56,12 +57,13 @@
 					<a href="{{ URL::to('/pay/'.$transaction->id) }}" class="btn btn-info" role="button">ต้องการชำระเงิน</a>
 					@else
 						{{ Form::open(array('url' => 'transaction/set_status')) }}
+							{{ Form::hidden('id', $transaction->id) }}
 							@if(Auth::user()->role == 'Seller' && $transaction->status == 'paid')
-							<a href="#" class="btn btn-info" role="button">ส่งสินค้าแล้ว</a>
-							@elseif(Auth::user()->role == 'Seller' && $transaction->status == 'shipped')
-							<a href="#" class="btn btn-info" role="button">เขียน Feedback</a>
-							@elseif($transaction->status == 'received')
-							<a href="#" class="btn btn-info" role="button">เขียน Feedback</a>
+								{{ Form::hidden('status', 'shipped') }}
+								<button type="submit" class="btn btn-info" role="button">ส่งสินค้าแล้ว</button>
+							@elseif($transaction->status == 'shipped')
+								{{ Form::hidden('status', 'received') }}
+								<button type="submit" class="btn btn-info" role="button">ได้รับสินค้าแล้ว</button>
 							@else
 							-
 							@endif
@@ -69,11 +71,63 @@
 					@endif
 				</dd>
 			</dl>
-			<nav>
-				<ul class="pager">
-					<li class="prev">{{ HTML::link('/transactions', 'ย้อนกลับ') }}</li>
-				</ul>
-			</nav>
+			@if(Auth::user()->role == 'Buyer' && $transaction->buyerFeedbackId == null)
+				<h2>ให้ Feedback กับผู้ขาย</h2>
+				{{ Form::open(array('url' => 'feedback/create')) }}
+					{{Form::hidden('transaction_id', $transaction->id)}}
+					<div class="form-group">
+
+						{{ Form::textarea('content', null, ['class' => 'form-control', 'cols' => 30, 'rows' => 2, 'placeholder' => 'กรุณากรอกความรู้สึกที่มีต่อการซื้อขายครั้งนี้', 'required' => 'required']) }}
+					</div>
+					<div class="form-group">
+						{{Form::submit("ส่ง Feedback",array("class"=>"btn btn-primary btn-sm"))}}
+					</div>
+				</form>
+				<nav>
+					<ul class="pager">
+						<li class="prev">{{ HTML::link('/transactions', 'ย้อนกลับ') }}</li>
+					</ul>
+				</nav>
+			@elseif(Auth::user()->role == 'Seller' && $transaction->sellerFeedbackId == null)
+				<h2>ให้ Feedback กับผู้ซื้อ</h2>
+				{{ Form::open(array('class' => 'form-horizontal', 'url' => 'feedback/create')) }}
+					{{Form::hidden('transaction_id', $transaction->id)}}
+					<div class="form-group">
+						<div class="col-sm-8">
+						{{ Form::textarea('content', null, ['class' => 'form-control', 'cols' => 30, 'rows' => 2, 'placeholder' => 'กรุณากรอกความรู้สึกที่มีต่อการซื้อขายครั้งนี้', 'required' => 'required']) }}
+						</div>
+						<div class="col-sm-2">
+							<div class="radio">
+								<label>
+									<input type="radio" name="score" id="score1" value="1" required>
+									<i class="glyphicon glyphicon-thumbs-up thumb-up"></i>
+								</label>
+							</div>
+						</div>
+						<div class="col-sm-2">
+							<div class="radio">
+								<label>
+									<input type="radio" name="score" id="score2" value="2" required>
+									<i class="glyphicon glyphicon-thumbs-down thumb-down"></i>
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-12">
+						{{Form::submit("ส่ง Feedback",array("class"=>"btn btn-primary btn-sm"))}}
+						</div>
+					</div>
+				</form>
+				<nav>
+					<ul class="pager">
+						<li class="prev">{{ HTML::link('/transactions', 'ย้อนกลับ') }}</li>
+					</ul>
+				</nav>
+			@else
+				<h2>Feedback ที่ส่งไปแล้ว</h2>
+				<p>{x{ $transaction->buyerFeedback->content }}</p>
+			@endif
 		</div>
 		<!-- /.col-sm-6 -->
 	</div>

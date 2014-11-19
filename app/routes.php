@@ -62,7 +62,7 @@ Route::get('admin/logout', 'AdministratorController@doLogout');
  */
 Route::get('transactions', 'TransactionController@showList')->before('auth');
 Route::get('transaction/{id}', 'TransactionController@show')->before('auth');
-Route::get('transaction/set_status', 'TransactionController@setStatus')->before('auth');
+Route::post('transaction/set_status', 'TransactionController@setStatus')->before('auth');
 
 
 
