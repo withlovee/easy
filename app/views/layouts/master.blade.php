@@ -50,7 +50,7 @@
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">ขายสินค้าใหม่ <b class="caret"></b></a>
 				<ul class="dropdown-menu">
-					<li><a href="all-auction.php">สินค้าประมูล</a></li>
+					<li><a href="sellAuctionItem">สินค้าประมูล</a></li>
 					<li><a href="sellDirectItem">สินค้าขายโดยตรง</a></li>
 				</ul>
 			</li>

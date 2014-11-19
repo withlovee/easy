@@ -69,7 +69,7 @@ class UsersTableSeeder extends Seeder {
       $user->country = 'TH';
       $user->telephone = '0850615555';
       $user->username = 'nut';
-      $user->email = 'nut@easy.com';
+      $user->email = 'nuttt.p@gmail.com';
       $user->password = '1234';
       $user->password_confirmation = '1234';
       $user->confirmed = true;
@@ -258,8 +258,12 @@ class ItemQuestionsTableSeeder extends Seeder{
 class TransactionsTableSeeder extends Seeder{
 
   public function run(){
-    $item = Item::where('id','>','0')->firstOrFail();
-    $buyer = User::where('role', '=', 'Buyer')->firstOrFail();
+
+    $item = Item::findOrFail(3);
+    $buyer = User::findOrFail(7);
+
+    // $item = Item::where('id','>','0')->firstOrFail();
+    // $buyer = User::where('role', '=', 'Buyer')->firstOrFail();
     if($item && $buyer){
       // Transaction for DirectBuyItem
       $transaction = new Transaction;

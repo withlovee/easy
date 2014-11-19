@@ -1,8 +1,9 @@
 <h3>ค้นหาสินค้า</h3>
 <div class="search">
-	<form action="search.php">
+	<!-- <form action="search.php"> -->
+	<form role="form" method="GET" action="/">	
 		<div class="input-group">
-			<input type="text" class="form-control">
+			<input name="search" type="text" class="form-control">
 			<span class="input-group-btn">
 				<button class="btn btn-primary" type="submit">ค้นหา</button>
 			</span>
