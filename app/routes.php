@@ -64,6 +64,7 @@ Route::get('transaction/{id}', 'TransactionController@show');
 
 
 
+
 Route::get('item/{id}', 'ItemController@showDirectItem');
 Route::post('item/{id}', 'ItemController@showDirectItem');
 
@@ -80,12 +81,6 @@ Route::post('createAuctionItem', 'SellAuctionItemController@createAuctionItem')-
 
 Route::post('/askQuestion', 'ItemQuestionController@create')->before('auth');
 Route::post('/answerQuestion', 'ItemQuestionController@answer')->before('auth');
-
-
-
-
-
-
 
 
 
