@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'HomeController@showWelcome');
+Route::get('/search/{search}', 'HomeController@showWelcome');
 Route::get('/supporttickets', 'SupportTicketController@showAll')->before('auth');
 
 

@@ -258,8 +258,12 @@ class ItemQuestionsTableSeeder extends Seeder{
 class TransactionsTableSeeder extends Seeder{
 
   public function run(){
-    $item = Item::where('id','>','0')->firstOrFail();
-    $buyer = User::where('role', '=', 'Buyer')->firstOrFail();
+
+    $item = Item::findOrFail(3);
+    $buyer = User::findOrFail(7);
+
+    // $item = Item::where('id','>','0')->firstOrFail();
+    // $buyer = User::where('role', '=', 'Buyer')->firstOrFail();
     if($item && $buyer){
       // Transaction for DirectBuyItem
       $transaction = new Transaction;
