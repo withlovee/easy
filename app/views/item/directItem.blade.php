@@ -4,7 +4,7 @@
 	@include('layouts.error')
 	<div class="col-md-5">
 		<a href="detail.php">
-			<img src="{{$item->picture}}" class="img-responsive">
+			<img src="../{{$item->picture}}" class="img-responsive">
 		</a>						
 	</div>
 	<!-- /.col-md-6 -->
@@ -14,6 +14,7 @@
 			{{$item->name}}
 		</h2>
 		<h3>สินค้าขายโดยตรง ราคา: {{$item->price}} บาท</h3>
+		<h4>ประกาศขายโดย: {{$item->seller->username}}</h4>
 		<p>{{$item->property}}</p>
 		<p>
 			<!--{{ Form::number('amount','1',['min'=>'1'])}}-->
@@ -24,6 +25,7 @@
 			@endif
 			
 		</p>
+		{{Form::close()}}
 	</div>
 	<!-- /.col-md-6 -->
 </div>
@@ -34,7 +36,7 @@
 @include('item.sidebar')
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
-		{{Form::open(array('url' => 'buy/'.$item->id, 'method' => 'post', 'class' => 'form-horizontal'))}}
+		{{Form::open(array('url' => 'buyDirectItem/'.$item->id, 'method' => 'post', 'class' => 'form-horizontal'))}}
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
