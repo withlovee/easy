@@ -34,6 +34,9 @@
 		<!-- /.col-sm-9 -->
 	</div>
 	@endforeach
+	@if($title != "สินค้าล่าสุด")
+		<div class="text-center">{{ $items->links() }}</div>
+	@endif
 	@if($title != "สินค้าทั้งหมด")
 	<nav>
 		<ul class="pager">
