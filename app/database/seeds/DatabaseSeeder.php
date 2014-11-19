@@ -69,7 +69,7 @@ class UsersTableSeeder extends Seeder {
       $user->country = 'TH';
       $user->telephone = '0850615555';
       $user->username = 'nut';
-      $user->email = 'nut@easy.com';
+      $user->email = 'nuttt.p@gmail.com';
       $user->password = '1234';
       $user->password_confirmation = '1234';
       $user->confirmed = true;
