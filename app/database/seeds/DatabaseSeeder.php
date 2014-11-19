@@ -260,8 +260,8 @@ class TransactionsTableSeeder extends Seeder{
   public function run(){
 
     $item = Item::findOrFail(3);
-    $user = User::findOrFail(7);
-    
+    $buyer = User::findOrFail(7);
+
     // $item = Item::where('id','>','0')->firstOrFail();
     // $buyer = User::where('role', '=', 'Buyer')->firstOrFail();
     if($item && $buyer){
