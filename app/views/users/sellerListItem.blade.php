@@ -24,11 +24,12 @@
 	</div>
 	<!-- /.col-sm-3 -->
 	<div class="col-sm-9">
-		<h3><a href="detail.php">{{$item->name}}</a></h3>
+		<h3><a href="{{URL::to('item/'.$item->id)}}">{{$item->name}}</a></h3>
 		<p>{{$item->property}}</p>
 		<p>
 			<span href="#" class="btn btn-default" role="button" disabled="disabled">{{$item->price}} บาท</span>
-			<a href="detail.php" class="btn btn-primary" role="button">ดูรายละเอียด</a>
+			<a href="{{URL::to('item/'.$item->id)}}" class="btn btn-primary" role="button">ดูรายละเอียด</a>
+			
 		</p>
 	</div>
 	<!-- /.col-sm-9 -->
