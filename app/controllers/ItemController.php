@@ -18,7 +18,7 @@ class ItemController extends Controller
 	public function showDirectItem($id){
 		$item = Item::find($id);
 
-		if($item->sellerId == Auth::user()->id){
+		if(Auth::user()!=null && $item->sellerId == Auth::user()->id){
 			$questions = ItemQuestion::where('itemId', '=', $id)->orderBy('id', 'ASC')->get();
 		}
 		else{

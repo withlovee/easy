@@ -15,7 +15,7 @@
 	@foreach($items as $item)
 	<div class="row item">
 		<div class="col-sm-3">
-			<a href="detail.php">
+			<a href="item/{{$item->id}}">
 				<img src="{{$item->picture}}" class="img-responsive">
 			</a>
 		</div>
