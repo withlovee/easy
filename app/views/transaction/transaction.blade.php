@@ -1,4 +1,4 @@
-@extends('layouts.master', ['title' => $title.'สินค้า {{ $transaction->item->name }}'])
+@extends('layouts.master', ['title' => $title.'สินค้า '.$transaction->item->name])
 @section('content')
 	@include('layouts.error')
 	<div class="row item-header">
@@ -73,21 +73,35 @@
 			</dl>
 			@if(Auth::user()->role == 'Buyer' && $transaction->buyerFeedbackId == null)
 				<h2>ให้ Feedback กับผู้ขาย</h2>
-				{{ Form::open(array('url' => 'feedback/create')) }}
+				{{ Form::open(array('class' => 'form-horizontal', 'url' => 'feedback/create')) }}
 					{{Form::hidden('transaction_id', $transaction->id)}}
 					<div class="form-group">
-
+						<div class="col-sm-8">
 						{{ Form::textarea('content', null, ['class' => 'form-control', 'cols' => 30, 'rows' => 2, 'placeholder' => 'กรุณากรอกความรู้สึกที่มีต่อการซื้อขายครั้งนี้', 'required' => 'required']) }}
+						</div>
+						<div class="col-sm-2">
+							<div class="radio">
+								<label>
+									<input type="radio" name="score" id="score1" value="1" required>
+									<i class="glyphicon glyphicon-thumbs-up thumb-up"></i>
+								</label>
+							</div>
+						</div>
+						<div class="col-sm-2">
+							<div class="radio">
+								<label>
+									<input type="radio" name="score" id="score2" value="2" required>
+									<i class="glyphicon glyphicon-thumbs-down thumb-down"></i>
+								</label>
+							</div>
+						</div>
 					</div>
 					<div class="form-group">
+						<div class="col-sm-12">
 						{{Form::submit("ส่ง Feedback",array("class"=>"btn btn-primary btn-sm"))}}
+						</div>
 					</div>
 				</form>
-				<nav>
-					<ul class="pager">
-						<li class="prev">{{ HTML::link('/transactions', 'ย้อนกลับ') }}</li>
-					</ul>
-				</nav>
 			@elseif(Auth::user()->role == 'Seller' && $transaction->sellerFeedbackId == null)
 				<h2>ให้ Feedback กับผู้ซื้อ</h2>
 				{{ Form::open(array('class' => 'form-horizontal', 'url' => 'feedback/create')) }}
@@ -119,15 +133,15 @@
 						</div>
 					</div>
 				</form>
-				<nav>
-					<ul class="pager">
-						<li class="prev">{{ HTML::link('/transactions', 'ย้อนกลับ') }}</li>
-					</ul>
-				</nav>
 			@else
 				<h2>Feedback ที่ส่งไปแล้ว</h2>
 				<p>{x{ $transaction->buyerFeedback->content }}</p>
 			@endif
+			<nav>
+				<ul class="pager">
+					<li class="prev">{{ HTML::link('/transactions', 'ย้อนกลับ') }}</li>
+				</ul>
+			</nav>
 		</div>
 		<!-- /.col-sm-6 -->
 	</div>

@@ -1,4 +1,4 @@
-@extends('layouts.master', ['title' => 'Dashboard'])
+@extends('layouts.master', ['title' => 'Dashboard', 'class' => 'content-grey'])
 @section('content')
 	@include('layouts.error')
 	<h1 class="line">

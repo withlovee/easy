@@ -102,7 +102,7 @@
 </nav>
 @section('wrapper')
 <div class="row wrapper">
-	<div class="col-md-9 content-wrapper content-white">
+	<div class="col-md-9 content-wrapper content-white <?php if(isset($class)) echo $class; ?>">
 		@yield('content')
 	</div>
 	<div class="col-md-3 sidebar-wrapper" id="sidebar">

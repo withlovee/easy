@@ -1,4 +1,4 @@
-@extends('layouts.master', ['title' => $title])
+@extends('layouts.master', ['title' => $title, 'class' => 'content-grey'])
 @section('content')
 	<h1 class="line">
 		{{ $title }}
