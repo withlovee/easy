@@ -117,23 +117,30 @@ class EmailHelper extends Eloquent {
   }
 
 
-  public function sendFeedbackRequestEmail($transaction, $user) {
+  public function sendFeedbackRequestEmail($transaction) {
 
     $item = Item::find($transaction->itemId);
+    $users = array();
+    $users[] = User::find($transaction->buyerId);
+    $users[] = User::find($transaction->sellerId);
 
-    $data = array(
-        "email"             => $user->email,
-        "fullName"          => $user->getFullName(),
-        "itemId"            => $item->id,
-        "feedbackUrl"       => "http://some.feedback.url/plz"
-      );
+    foreach($users as $user) {
+      
+      $data = array(
+          "email"             => $user->email,
+          "fullName"          => $user->getFullName(),
+          "itemId"            => $item->id,
+          "feedbackUrl"       => URL::to('transaction/'.$transaction->id)
+        );
 
-    $subject = "ยืนยันการชำระเงิน - ".$item->name;
+      $subject = "ยืนยันการชำระเงิน - ".$item->name;
 
-    Mail::queue('emails.FeedbackRequest', $data, function($message) use ($data, $subject) {
-      $message->to($data['email'], $data['fullName'])
-              ->subject($subject);
-    });
+      Mail::queue('emails.FeedbackRequest', $data, function($message) use ($data, $subject) {
+        $message->to($data['email'], $data['fullName'])
+                ->subject($subject);
+      });
+
+    }
 
   }
 

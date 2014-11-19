@@ -12,14 +12,14 @@ class DatabaseSeeder extends Seeder {
 	{
 		Eloquent::unguard();
 
-		$this->call('UsersTableSeeder');
-    $this->call('BidManagersTableSeeder');
-    $this->call('ItemTableSeeder');
-    $this->call('AdministratorsTableSeeder');
-    $this->call('SupportTicketsTableSeeder');
-    $this->call('ItemQuestionsTableSeeder');
+		// $this->call('UsersTableSeeder');
+  //   $this->call('BidManagersTableSeeder');
+  //   $this->call('ItemTableSeeder');
+  //   $this->call('AdministratorsTableSeeder');
+  //   $this->call('SupportTicketsTableSeeder');
+  //   $this->call('ItemQuestionsTableSeeder');
     $this->call('TransactionsTableSeeder');
-    $this->call('FeedbacksTableSeeder');
+    // $this->call('FeedbacksTableSeeder');
 
   }
 
@@ -260,7 +260,6 @@ class TransactionsTableSeeder extends Seeder{
   public function run(){
     $item = Item::where('id','>','0')->firstOrFail();
     $buyer = User::where('role', '=', 'Buyer')->firstOrFail();
-    $seller = User::find(7)->firstOrFail();
     if($item && $buyer){
       // Transaction for DirectBuyItem
       $transaction = new Transaction;
@@ -270,7 +269,7 @@ class TransactionsTableSeeder extends Seeder{
       $transaction->shippingCost = 50;
       $transaction->status = 'payment_waiting';
       $transaction->buyerId = $buyer->id;
-      $transaction->sellerId = $seller->id;
+      $transaction->sellerId = $item->seller->id;
       $transaction->itemId = $item->id;
       $transaction->save();
 
@@ -282,7 +281,7 @@ class TransactionsTableSeeder extends Seeder{
       $transaction->shippingCost = 50;
       $transaction->status = 'paid';
       $transaction->buyerId = $buyer->id;
-      $transaction->sellerId = $seller->id;
+      $transaction->sellerId = $item->seller->id;
       $transaction->itemId = $item->id;
       $transaction->save();
 
