@@ -32,7 +32,7 @@ class ItemController extends Controller
 	}
 
 	public function showItemSeller(){
-		$perPage = 3;
+		$perPage = 2;
 		$sellerId = Auth::user()->id;
 		$auction = Item::where('sellerId','=',$sellerId)->where('type','=','auction')->count();
 		$direct = Item::where('sellerId','=',$sellerId)->where('type','=','direct')->count();

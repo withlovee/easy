@@ -34,6 +34,7 @@
 	<!-- /.col-sm-9 -->
 </div>
 @endforeach
+<div class="text-center">{{ $items->links() }}</div>
 @endif
 
 @stop
