@@ -260,6 +260,7 @@ class TransactionsTableSeeder extends Seeder{
   public function run(){
     $item = Item::where('id','>','0')->firstOrFail();
     $buyer = User::where('role', '=', 'Buyer')->firstOrFail();
+    $seller = User::find(7)->firstOrFail();
     if($item && $buyer){
       // Transaction for DirectBuyItem
       $transaction = new Transaction;
@@ -269,8 +270,22 @@ class TransactionsTableSeeder extends Seeder{
       $transaction->shippingCost = 50;
       $transaction->status = 'payment_waiting';
       $transaction->buyerId = $buyer->id;
+      $transaction->sellerId = $seller->id;
       $transaction->itemId = $item->id;
       $transaction->save();
+
+      // Paid Transaction for DirectBuyItem
+      $transaction = new Transaction;
+      $transaction->amount = 1;
+      $transaction->price = $item->price;
+      $transaction->shipping = 'ปกติ';
+      $transaction->shippingCost = 50;
+      $transaction->status = 'paid';
+      $transaction->buyerId = $buyer->id;
+      $transaction->sellerId = $seller->id;
+      $transaction->itemId = $item->id;
+      $transaction->save();
+
     }
   }
 
