@@ -23,7 +23,18 @@ class HomeController extends BaseController {
 						'direct' => $direct,
 						'all' => $auction+$direct]; 
 		// var_dump(Auth::user());
-		if(Input::get('show') == 'all'){
+		if(Input::get('search') != null){
+			$title = "ผลลัพธ์การค้นหาสินค้า";
+			$searchs = explode(' ', Input::get('search'));
+			$items_id = [];
+			foreach ($searchs as $search) {
+				$query = Item::where('name','LIKE','%'.$search.'%')
+							 ->orWhere('property','LIKE','%'.$search.'%')->lists('id'); 	
+				$items_id = array_unique(array_merge($items_id,$query));
+			}
+			$items = Item::whereIn('id', $items_id)->get();
+		}
+		else if(Input::get('show') == 'all'){
 			$title = "สินค้าทั้งหมด";
 			$items = Item::orderBy('id', 'desc')->get();
 		}
