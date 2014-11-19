@@ -63,7 +63,7 @@
 		</form>
 	</div>
 	<!-- /.box -->
-	<h3>ซื้อสินค้าอื่นๆ</h3>
+	<h3>ดูสินค้าอื่นๆ</h3>
 	<div class="list-group">
 		<a href="?show=all" class="list-group-item"><span class="badge">{{$item_count['all']}}</span> สินค้าทั้งหมด</a>
 		<a href="?show=auction" class="list-group-item"><span class="badge">{{$item_count['auction']}}</span> สินค้าประมูลเท่านั้น</a>
