@@ -40,7 +40,9 @@ Route::get('users/confirm/{code}', 'UsersController@confirm');
 // Route::post('users/reset_password', 'UsersController@doResetPassword');
 Route::get('users/logout', 'UsersController@logout');
 Route::get('user/{id}', 'UsersController@show');
-Route::get('ban/{id}', 'UsersController@ban');
+
+
+
 
 /**
  * Feedback
@@ -56,13 +58,15 @@ Route::get('users/show/{id}', 'UsersController@show');
 Route::get('admin/login', 'AdministratorController@login');
 Route::post('admin/login', 'AdministratorController@doLogin');
 Route::get('admin/logout', 'AdministratorController@doLogout');
-
+Route::get('users/ban/{id}','UsersController@ban');
+Route::get('users/unBan/{id}', 'UsersController@unBan');
 /**
  * Transaction
  */
 Route::get('transactions', 'TransactionController@showList')->before('auth');
 Route::get('transaction/{id}', 'TransactionController@show')->before('auth');
 Route::post('transaction/set_status', 'TransactionController@setStatus')->before('auth');
+
 
 
 
@@ -85,12 +89,6 @@ Route::post('/answerQuestion', 'ItemQuestionController@answer')->before('auth');
 
 
 
-
-
-
-
-
-
 /**
  * Email API Test Route
  * Will be deleted later
@@ -100,3 +98,7 @@ Route::post('/answerQuestion', 'ItemQuestionController@answer')->before('auth');
 
 Route::get('emailtest/sendPreviousAuctionWinnerEmail', 'EmailHelperTestController@sendPreviousAuctionWinnerEmail');
 Route::get('emailtest/sendAuctionResultEmail', 'EmailHelperTestController@sendAuctionResultEmail');
+Route::get('emailtest/sendInvoiceEmail', 'EmailHelperTestController@sendInvoiceEmail');
+Route::get('emailtest/sendConfirmPaymentEmail', 'EmailHelperTestController@sendConfirmPaymentEmail');
+Route::get('emailtest/sendFeedbackRequestEmail', 'EmailHelperTestController@sendFeedbackRequestEmail');
+Route::get('emailtest/test', 'EmailHelperTestController@test');

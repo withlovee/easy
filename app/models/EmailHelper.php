@@ -10,7 +10,7 @@ class EmailHelper extends Eloquent {
    * @param Array $args Array of parameters required. currentBid, currentBidTimestamp, endAuctionTimestamp, and itemLink are required as a key-value of array.
    * @return type
    */
-  function sendPreviousAuctionWinnerEmail($user, $item, $args) {
+  public function sendPreviousAuctionWinnerEmail($user, $item, $args) {
     $data = $args;
     $data['userEmail'] = $user->email;
     $data['userFullName'] = $user->getFullName();
@@ -31,7 +31,7 @@ class EmailHelper extends Eloquent {
  * @param User $user 
  * @param Item $item 
  */
-  function sendAuctionResultEmail($user, $item) {
+  public function sendAuctionResultEmail($user, $item) {
     $data = array();
     $data['userEmail'] = $user->email;
     $data['userFullName'] = $user->getFullName();
@@ -46,8 +46,95 @@ class EmailHelper extends Eloquent {
 
   }
 
-  function sendInvoiceEmail() {
+  public function sendInvoiceEmail($transaction) {
+
+    $data = array();
+
+    $item = Item::find($transaction->itemId);
+    $user = User::find($transaction->buyerId);
+
+    $data = array(
+        "email"             => $user->email,
+        "itemType"          => $item->type,
+        "fullName"          => $user->getFullName(),
+        "invoiceId"         => $transaction->id,
+        "purchaseTimestamp" => $transaction->created_at->toDateTimeString(),
+        "itemId"            => $item->id,
+        "itemName"          => $item->name,
+        "amount"            => $transaction->amount,
+        "price"             => $transaction->price,
+        "shippingCost"      => $transaction->shippingCost,
+        "total"             => $transaction->getTotalCost(),
+        "shippingAddress"   => $user->address,
+        "billingAddress"    => $user->address
+
+      );
+
+    $subject = "";
+
+    if($item->type == "auction") {
+      $subject = "ขอบคุณที่ประมูลสินค้ากับเรา - ".$item->name;
+    } else if($item->type == "direct") {
+      $subject = "ขอบคุณที่สั่งซื้อสินค้ากับเรา - ".$item->name;
+    }
     
+    Mail::queue('emails.Invoice', $data, function($message) use ($data, $subject) {
+      $message->to($data['email'], $data['fullName'])
+              ->subject($subject);
+    });
+
+  }
+
+  public function sendConfirmPaymentEmail ($transaction) {
+    $data = array();
+
+    $item = Item::find($transaction->itemId);
+    $user = User::find($transaction->buyerId);
+
+    $data = array(
+        "email"             => $user->email,
+        "itemType"          => $item->type,
+        "fullName"          => $user->getFullName(),
+        "invoiceId"         => $transaction->id,
+        "purchaseTimestamp" => $transaction->created_at->toDateTimeString(),
+        "itemId"            => $item->id,
+        "itemName"          => $item->name,
+        "amount"            => $transaction->amount,
+        "price"             => $transaction->price,
+        "shippingCost"      => $transaction->shippingCost,
+        "total"             => $transaction->getTotalCost(),
+        "shippingAddress"   => $user->address,
+        "billingAddress"    => $user->address
+
+      );
+
+    $subject = "ยืนยันการชำระเงิน - ".$item->name;
+    
+    Mail::queue('emails.ConfirmPayment', $data, function($message) use ($data, $subject) {
+      $message->to($data['email'], $data['fullName'])
+              ->subject($subject);
+    });
+  }
+
+
+  public function sendFeedbackRequestEmail($transaction, $user) {
+
+    $item = Item::find($transaction->itemId);
+
+    $data = array(
+        "email"             => $user->email,
+        "fullName"          => $user->getFullName(),
+        "itemId"            => $item->id,
+        "feedbackUrl"       => "http://some.feedback.url/plz"
+      );
+
+    $subject = "ยืนยันการชำระเงิน - ".$item->name;
+
+    Mail::queue('emails.FeedbackRequest', $data, function($message) use ($data, $subject) {
+      $message->to($data['email'], $data['fullName'])
+              ->subject($subject);
+    });
+
   }
 
 

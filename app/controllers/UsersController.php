@@ -260,6 +260,31 @@ class UsersController extends Controller
 	}
 
 	public function ban($id){
-		return 0;
+		$user = User::find($id);
+		$feedbacks = Feedback::where('receiverId', '=', $id)->orderBy('created_at', 'desc')->get();
+
+		foreach ($feedbacks as $feedback) {
+			$senderId = $feedback->senderId;
+			$feedback->sender = User::find($senderId)->username;
+		}
+		$user->ban();
+		//$user->unBan();
+		return View::make('users.member_profile', 
+			['user' => $user, 'feedbacks' => $feedbacks]);
+	
+	}
+	public function unBan($id){
+		$user = User::find($id);
+		$feedbacks = Feedback::where('receiverId', '=', $id)->orderBy('created_at', 'desc')->get();
+
+		foreach ($feedbacks as $feedback) {
+			$senderId = $feedback->senderId;
+			$feedback->sender = User::find($senderId)->username;
+		}
+		//$user->ban();
+		$user->unBan();
+		return View::make('users.member_profile', 
+			['user' => $user, 'feedbacks' => $feedbacks]);
+	
 	}
 }

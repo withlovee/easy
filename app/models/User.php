@@ -6,6 +6,26 @@ use Zizaco\Confide\ConfideUserInterface;
 class User extends Eloquent implements ConfideUserInterface
 {
   use ConfideUser;
+
+    public function ban()
+    {
+    $status = $this->isBanned;
+        if($status==0){
+
+            $this->isBanned=1;
+            $this->save();
+
+    }
+  }
+    public function unBan(){
+    $status = $this->isBanned;
+        if($status==1){
+
+            $this->isBanned=0;
+            $this->save();
+    }
+
+  } 
   protected $fillable = array(
    'name', 'surname', 'address', 'country',
    'telephone', 'username', 'email', 'password',

@@ -9,27 +9,24 @@ class BuyDirectItemController extends Controller
 		$deliver = Input::get('deliver');
 		$price = $item->price*$amount*(100+$item->tax)/100.0;
 		
-		$transaction = new endTradingTransaction;
-		$transaction->paymentId=null;
-		$transaction->shippingId = null;
-		$transaction->status = 'waiting for payment';
+		$transaction = new Transaction;
+		$transaction->amount = $amount;
+		$transaction->price=$price;
+		$transaction->shipping=$deliver;
+		//$transaction->shippingCost=
+		$transaction->status = 'payment_waiting';
 		if(Auth::check()){
 			$transaction->buyerId = Auth::user()->getId();
 		}
-		$transaction->price=$price;
+		$transaction->itemId=$id;
+		$transaction->buyerFeedbackId = null;
+		$transaction->sellerFeedbackId = null;
 		$transaction->save();
-
-		$directBuyTransaction = new endDirectBuyTransaction;
-		$directBuyTransaction->amount = $amount;
-		$directBuyTransaction->shippingType = $deliver;
-		$directBuyTransaction->endTradingTransactionId=$transaction->id;
-		$directBuyTransaction->itemId=$id;
-		$directBuyTransaction->save();
 
 		$item->quantity=$item->quantity-$amount;
 		$item->save();
 
-		return Redirect::to('item/'.$id);		
+		return Redirect::to('pay/'.$transaction->id);		
 	}
 
 
