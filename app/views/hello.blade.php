@@ -12,6 +12,9 @@
 		@endif
 		<div class="clear"></div>
 	</h1>
+	@if($items==[])
+		<h3>ไม่พบผลลัพธ์ที่ท่านต้องการค้นหา</h3>
+	@else
 	@foreach($items as $item)
 	<div class="row item">
 		<div class="col-sm-3">
@@ -34,6 +37,10 @@
 		<!-- /.col-sm-9 -->
 	</div>
 	@endforeach
+	@endif
+	@if($title != "สินค้าล่าสุด")
+		<div class="text-center">{{ $items->links() }}</div>
+	@endif
 	@if($title != "สินค้าทั้งหมด")
 	<nav>
 		<ul class="pager">
@@ -56,7 +63,7 @@
 		</form>
 	</div>
 	<!-- /.box -->
-	<h3>ซื้อสินค้าอื่นๆ</h3>
+	<h3>ดูสินค้าอื่นๆ</h3>
 	<div class="list-group">
 		<a href="?show=all" class="list-group-item"><span class="badge">{{$item_count['all']}}</span> สินค้าทั้งหมด</a>
 		<a href="?show=auction" class="list-group-item"><span class="badge">{{$item_count['auction']}}</span> สินค้าประมูลเท่านั้น</a>

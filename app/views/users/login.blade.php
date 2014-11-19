@@ -27,7 +27,7 @@
                 <div class="form-group">
                     <label for="remember" class="checkbox">เข้าสู่ระบบตลอดไป
                         <input type="hidden" name="remember" value="0">
-                        <input tabindex="4" type="checkbox" name="remember" id="remember" value="1">
+                        <input type="checkbox" name="remember" id="remember" value="1">
                     </label>
                 </div>
                 <button class="btn btn-lg btn-primary btn-block" type="submit"><span class="glyphicon glyphicon-ok"></span> เข้าสู่ระบบ</button>

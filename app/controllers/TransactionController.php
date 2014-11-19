@@ -9,11 +9,12 @@ class TransactionController extends BaseController {
 	}
 
 	public function showList(){
+		$perPage = 5;
 		if(Auth::user()->role == 'Buyer'){
-			$data['transactions'] = Transaction::where('buyerId', '=', Auth::user()->id)->get();
+			$data['transactions'] = Transaction::where('buyerId', '=', Auth::user()->id)->paginate($perPage);
 		}
 		else{
-			$data['transactions'] = Transaction::where('sellerId', '=', Auth::user()->id)->get();
+			$data['transactions'] = Transaction::where('sellerId', '=', Auth::user()->id)->paginate($perPage);
 		}
 		$data['title'] = $this->get_title();
 		return View::make('transaction.transactionList', $data);
