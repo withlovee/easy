@@ -32,7 +32,8 @@ class HomeController extends BaseController {
 							 ->orWhere('property','LIKE','%'.$search.'%')->lists('id'); 	
 				$items_id = array_unique(array_merge($items_id,$query));
 			}
-			$items = Item::whereIn('id', $items_id)->get();
+			if($items_id==[]) $items = [];
+			else $items = Item::whereIn('id', $items_id)->get();
 		}
 		else if(Input::get('show') == 'all'){
 			$title = "สินค้าทั้งหมด";

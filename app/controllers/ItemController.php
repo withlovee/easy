@@ -31,6 +31,45 @@ class ItemController extends Controller
 			
 	}
 
+	public function showItemSeller(){
+		$sellerId = Auth::user()->id;
+		$auction = Item::where('sellerId','=',$sellerId)->where('type','=','auction')->count();
+		$direct = Item::where('sellerId','=',$sellerId)->where('type','=','direct')->count();
+		$item_count = ['auction' => $auction,
+						'direct' => $direct,
+						'all' => $auction+$direct]; 
+
+		if(Input::get('search') != null){
+			$title = "ผลลัพธ์การค้นหาสินค้าของฉัน";
+			$searchs = explode(' ', Input::get('search'));
+			$items_id = [];
+			foreach ($searchs as $search) {
+				$query = Item::where('sellerId','=',$sellerId)->where('name','LIKE','%'.$search.'%')
+							 ->orWhere('property','LIKE','%'.$search.'%')->lists('id'); 	
+				$items_id = array_unique(array_merge($items_id,$query));
+			}
+			if($items_id==[]) $items = [];
+			else $items = Item::whereIn('id', $items_id)->get();
+		}
+		elseif(Input::get('show') == 'all'){
+			$title = "สินค้าทั้งหมดของฉัน";
+			$items = Item::where('sellerId','=',$sellerId)->orderBy('id', 'desc')->get();
+		}
+		elseif(Input::get('show') == 'direct'){
+			$title = "สินค้าขายโดยตรงของฉัน";
+			$items = Item::where('sellerId','=',$sellerId)->where('type','=','direct')->orderBy('id', 'desc')->get();
+		}
+		elseif(Input::get('show') == 'auction'){
+			$title = "สินค้าประมูลของฉัน";
+			$items = Item::where('sellerId','=',$sellerId)->where('type','=','auction')->orderBy('id', 'desc')->get();
+		}
+		else{
+			$title = "สินค้าทั้งหมดของฉัน";
+			$items = Item::where('sellerId','=',$sellerId)->orderBy('id', 'desc')->get();
+		}
+		return View::make('users.sellerListItem',compact('items','title','item_count'));
+	}
+
 	// public function findSellerName($item){
 	// 	$user = User::find($item->sellerId);
 	// 	$username = $user->username;

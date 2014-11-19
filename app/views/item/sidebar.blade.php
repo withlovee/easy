@@ -1,7 +1,7 @@
 <h3>ค้นหาสินค้า</h3>
 <div class="search">
 	<!-- <form action="search.php"> -->
-	<form role="form" method="GET" action="/">	
+	<form role="form" method="GET" action="{{{ URL::to('/') }}}">	
 		<div class="input-group">
 			<input name="search" type="text" class="form-control">
 			<span class="input-group-btn">

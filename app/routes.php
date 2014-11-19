@@ -67,6 +67,9 @@ Route::get('transaction/{id}', 'TransactionController@show');
 Route::get('item/{id}', 'ItemController@showDirectItem');
 Route::post('item/{id}', 'ItemController@showDirectItem');
 
+Route::get('listItemSeller/','ItemController@showItemSeller');
+
+
 Route::post('buyDirectItem/{id}', 'BuyDirectItemController@buyDirectItem');
 Route::post('buyAuctionItem/{id}', 'BuyAuctionItemController@buyAuctionItem');
 

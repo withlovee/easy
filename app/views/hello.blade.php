@@ -12,6 +12,9 @@
 		@endif
 		<div class="clear"></div>
 	</h1>
+	@if($items==[])
+		<h3>ไม่พบผลลัพธ์ที่ท่านต้องการค้นหา</h3>
+	@else
 	@foreach($items as $item)
 	<div class="row item">
 		<div class="col-sm-3">
@@ -34,6 +37,7 @@
 		<!-- /.col-sm-9 -->
 	</div>
 	@endforeach
+	@endif
 	@if($title != "สินค้าทั้งหมด")
 	<nav>
 		<ul class="pager">

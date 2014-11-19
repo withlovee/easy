@@ -41,25 +41,25 @@
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">ซื้อสินค้า <b class="caret"></b></a>
 				<ul class="dropdown-menu">
-					<li><a href="all.php">ทั้งหมด</a></li>
-					<li><a href="all-auction.php">สินค้าประมูล</a></li>
-					<li><a href="all-direct.php">สินค้าขายโดยตรง</a></li>
+					<li><a href="{{URL::to('?show=all')}}">ทั้งหมด</a></li>
+					<li><a href="{{URL::to('?show=auction')}}">สินค้าประมูล</a></li>
+					<li><a href="{{URL::to('?show=direct')}}">สินค้าขายโดยตรง</a></li>
 				</ul>
 			</li>
 			@elseif(is_seller())
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">ขายสินค้าใหม่ <b class="caret"></b></a>
 				<ul class="dropdown-menu">
-					<li><a href="sellAuctionItem">สินค้าประมูล</a></li>
-					<li><a href="sellDirectItem">สินค้าขายโดยตรง</a></li>
+					<li><a href="{{URL::to('sellAuctionItem')}}">สินค้าประมูล</a></li>
+					<li><a href="{{URL::to('sellDirectItem')}}">สินค้าขายโดยตรง</a></li>
 				</ul>
 			</li>
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">สินค้าของฉัน <b class="caret"></b></a>
 				<ul class="dropdown-menu">
-					<li><a href="all.php">ทั้งหมด</a></li>
-					<li><a href="all-auction.php">สินค้าประมูล</a></li>
-					<li><a href="all-direct.php">สินค้าขายโดยตรง</a></li>
+					<li><a href="{{URL::to('listItemSeller?show=all')}}">ทั้งหมด</a></li>
+					<li><a href="{{URL::to('listItemSeller?show=auction')}}">สินค้าประมูล</a></li>
+					<li><a href="{{URL::to('listItemSeller?show=direct')}}">สินค้าขายโดยตรง</a></li>
 				</ul>
 			</li>
 			@endif
