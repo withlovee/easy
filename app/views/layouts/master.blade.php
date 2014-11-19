@@ -81,8 +81,8 @@
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">สวัสดี, {{ Auth::user()->username }} <span class="caret"></span></a>
 				<ul class="dropdown-menu" role="menu">
 					<li>{{ HTML::link('users/profile', 'แก้ไขข้อมูลส่วนตัว') }}</li>
-					<li><a href="{{URL::to('users/show/'.Auth::user()->id)}}">ดู Feedback</a></li>
-					<li><a href="transactions.php">ดูประวัติการสั่งซื้อ</a></li>
+					<li>{{ HTML::link('users/show/'.Auth::user()->id, 'ดู Feedback') }}</li>
+					<li>{{ HTML::link('transactions', 'ดูประวัติการซื้อขาย') }}</li>
 					<li class="divider"></li>
 					<li>{{ HTML::link('users/logout', 'ออกจากระบบ') }}</li>
 				</ul>
@@ -102,7 +102,7 @@
 </nav>
 @section('wrapper')
 <div class="row wrapper">
-	<div class="col-md-9 content-wrapper content-white">
+	<div class="col-md-9 content-wrapper content-white <?php if(isset($class)) echo $class; ?>">
 		@yield('content')
 	</div>
 	<div class="col-md-3 sidebar-wrapper" id="sidebar">

@@ -21,8 +21,8 @@ class CreateTransactionTable extends Migration {
 			$table->string('status');
 			$table->integer('buyerId')->unsigned();
 			$table->integer('itemId')->unsigned();
-			$table->integer('buyerFeedbackId')->unsigned()->nullable();;
-			$table->integer('sellerFeedbackId')->unsigned()->nullable();;
+			$table->integer('buyerFeedbackId')->unsigned()->nullable();
+			$table->integer('sellerFeedbackId')->unsigned()->nullable();
 			$table->timestamps();
 		});
 	}

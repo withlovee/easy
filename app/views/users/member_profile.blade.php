@@ -17,9 +17,22 @@
 												<h5>ที่อยู่ : {{$user->address}}</h5>
 												<h5>ประเทศ : {{$user->country}}</h5>
 												<h5>เบอร์โทร : {{$user->telephone}}</h5>
-												<a href="{{ URL::to('users/profile')}}" class="tag yellow"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+												<a href="{{ URL::to('users/profile')}}" class="tag yellow"><span class="glyphicon glyphicon-pencil">Edit</span> </a>
+
 											@endif
 										@endif
+										@if(is_admin())
+
+											@if($user->isBanned==1)
+												<h5> ถูกแบน </h5>
+												<a href="{{URL::to('users/unBan/'.$user->id)}}" class="tag orange"><span class="glyphicon glyphicon-remove"></span> unBan</a>
+											@endif
+											@if($user->isBanned==0)
+												
+												<a href="{{URL::to('users/ban/'.$user->id)}}" class="tag orange"><span class="glyphicon glyphicon-remove"></span> Ban</a>
+											@endif
+										@endif
+
 									</p>
 								</div>
 								<!-- /.col-sm-8 -->

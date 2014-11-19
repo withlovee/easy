@@ -12,14 +12,14 @@ class DatabaseSeeder extends Seeder {
 	{
 		Eloquent::unguard();
 
-		$this->call('UsersTableSeeder');
-    $this->call('BidManagersTableSeeder');
-    $this->call('ItemTableSeeder');
-    $this->call('AdministratorsTableSeeder');
-    $this->call('SupportTicketsTableSeeder');
-    $this->call('ItemQuestionsTableSeeder');
+		// $this->call('UsersTableSeeder');
+  //   $this->call('BidManagersTableSeeder');
+  //   $this->call('ItemTableSeeder');
+  //   $this->call('AdministratorsTableSeeder');
+  //   $this->call('SupportTicketsTableSeeder');
+  //   $this->call('ItemQuestionsTableSeeder');
     $this->call('TransactionsTableSeeder');
-    $this->call('FeedbacksTableSeeder');
+    // $this->call('FeedbacksTableSeeder');
 
   }
 
@@ -69,7 +69,7 @@ class UsersTableSeeder extends Seeder {
       $user->country = 'TH';
       $user->telephone = '0850615555';
       $user->username = 'nut';
-      $user->email = 'nut@easy.com';
+      $user->email = 'nuttt.p@gmail.com';
       $user->password = '1234';
       $user->password_confirmation = '1234';
       $user->confirmed = true;
@@ -258,12 +258,8 @@ class ItemQuestionsTableSeeder extends Seeder{
 class TransactionsTableSeeder extends Seeder{
 
   public function run(){
-
-    $item = Item::findOrFail(3);
-    $buyer = User::findOrFail(7);
-
-    // $item = Item::where('id','>','0')->firstOrFail();
-    // $buyer = User::where('role', '=', 'Buyer')->firstOrFail();
+    $item = Item::where('id','>','0')->firstOrFail();
+    $buyer = User::where('role', '=', 'Buyer')->firstOrFail();
     if($item && $buyer){
       // Transaction for DirectBuyItem
       $transaction = new Transaction;
@@ -273,8 +269,22 @@ class TransactionsTableSeeder extends Seeder{
       $transaction->shippingCost = 50;
       $transaction->status = 'payment_waiting';
       $transaction->buyerId = $buyer->id;
+      $transaction->sellerId = $item->seller->id;
       $transaction->itemId = $item->id;
       $transaction->save();
+
+      // Paid Transaction for DirectBuyItem
+      $transaction = new Transaction;
+      $transaction->amount = 1;
+      $transaction->price = $item->price;
+      $transaction->shipping = 'ปกติ';
+      $transaction->shippingCost = 50;
+      $transaction->status = 'paid';
+      $transaction->buyerId = $buyer->id;
+      $transaction->sellerId = $item->seller->id;
+      $transaction->itemId = $item->id;
+      $transaction->save();
+
     }
   }
 

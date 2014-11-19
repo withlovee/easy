@@ -18,4 +18,8 @@ class Transaction extends Eloquent{
 		return $this->belongsTo('Feedback', 'sellerFeedbackId', 'id');
 	}
 
+	public function getTotalCost() {
+		return $this->amount * $this->price + $this->shippingCost;
+	}
+
 }

@@ -17,7 +17,7 @@
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-3 control-label">ร้องเรียนผู้ใช้ชื่อ</label>
 						<div class="col-sm-4">
-							{{ Form::select('reporteeId', $list_users, null, ['class' => 'form-control', 'required' => 'required']) }}
+							{{ Form::select('reporteeId', $list_users, Input::get('reporteeId'), ['class' => 'form-control', 'required' => 'required']) }}
 						</div>
 					</div><!--form-group-->
 					<div class="form-group">

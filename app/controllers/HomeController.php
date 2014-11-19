@@ -22,7 +22,8 @@ class HomeController extends BaseController {
 		$item_count = ['auction' => $auction,
 						'direct' => $direct,
 						'all' => $auction+$direct]; 
-		// var_dump(Auth::user());
+		$perPage = 3;
+		$latest = 1;
 		if(Input::get('search') != null){
 			$title = "ผลลัพธ์การค้นหาสินค้า";
 			$searchs = explode(' ', Input::get('search'));
@@ -32,25 +33,25 @@ class HomeController extends BaseController {
 							 ->orWhere('property','LIKE','%'.$search.'%')->lists('id'); 	
 				$items_id = array_unique(array_merge($items_id,$query));
 			}
+
 			if($items_id==[]) $items = [];
-			else $items = Item::whereIn('id', $items_id)->get();
+			else $items = $items = Item::whereIn('id', $items_id)->paginate($perPage);
 		}
 		else if(Input::get('show') == 'all'){
 			$title = "สินค้าทั้งหมด";
-			$items = Item::orderBy('id', 'desc')->get();
+			$items = Item::orderBy('id', 'desc')->paginate($perPage);
 		}
 		elseif(Input::get('show') == 'direct'){
 			$title = "สินค้าขายโดยตรง";
-			$items = Item::where('type','=','direct')->orderBy('id', 'desc')->get();
+			$items = Item::where('type','=','direct')->orderBy('id', 'desc')->paginate($perPage);
 		}
 		elseif(Input::get('show') == 'auction'){
 			$title = "สินค้าประมูล";
-			$items = Item::where('type','=','auction')->orderBy('id', 'desc')->get();
+			$items = Item::where('type','=','auction')->orderBy('id', 'desc')->paginate($perPage);
 		}
 		else{
-			$n = 5;
 			$title = "สินค้าล่าสุด";
-			$items = Item::orderBy('id', 'desc')->take($n)->get();
+			$items = Item::orderBy('id', 'desc')->take($latest)->get();
 		}
 		return View::make('hello', ['items' => $items, 'title' => $title, 'item_count' => $item_count]);
 		// $results = DB::select('select * from test where id = ?', array(2));
