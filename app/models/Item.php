@@ -33,6 +33,11 @@ class Item extends Eloquent
 		return $this->belongsTo('BidManager','bidManagerId');
 	}
 
+    public function seller()
+    {
+        return $this->belongsTo('User','sellerId');
+    }
+
   public function getUrl() {
     return URL::to('item/'.$this->id);
   }
