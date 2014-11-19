@@ -12,13 +12,13 @@ class DatabaseSeeder extends Seeder {
 	{
 		Eloquent::unguard();
 
-		// $this->call('UsersTableSeeder');
-  //   $this->call('BidManagersTableSeeder');
-  //   $this->call('ItemTableSeeder');
-  //   $this->call('AdministratorsTableSeeder');
-  //   $this->call('SupportTicketsTableSeeder');
-  //   $this->call('ItemQuestionsTableSeeder');
-    $this->call('TransactionsTableSeeder');
+		$this->call('UsersTableSeeder');
+    // $this->call('BidManagersTableSeeder');
+    // $this->call('ItemTableSeeder');
+    // $this->call('AdministratorsTableSeeder');
+    // $this->call('SupportTicketsTableSeeder');
+    // $this->call('ItemQuestionsTableSeeder');
+    // $this->call('TransactionsTableSeeder');
     // $this->call('FeedbacksTableSeeder');
 
   }
@@ -29,53 +29,40 @@ class UsersTableSeeder extends Seeder {
 
   public function run()
   {
-    for ($i=1; $i <=5  ; $i++) { 
-      $user = new User;
-      $user->username = 'buyer'.$i;
-      $user->email = 'buyer'.$i.'@easy.com';
-      $user->password = '1234';
-      $user->password_confirmation = '1234';
-      $user->role = 'Buyer';
-      $user->confirmation_code = md5(uniqid(mt_rand(), true));
-      $user->confirmed = true;
-
-      if(! $user->save()) {
-        Log::info('Unable to create user '.$user->username, (array)$user->errors());
-      } else {
-        Log::info('Created user "'.$user->username.'" <'.$user->email.'>');
-      }
+    $names = ['ณัฐพล','ขวัญฤทัย','ณสกล','ปริยวิศว์','ปิยวัฒน์','พนิดา','วิภาวี'];
+    $surnames = ['พัฒนาวิจิตร','ทิพยศักดิ์','พงศ์กอปรสกล','จาตุกัญญาประทีป','เลิศวิทยากำจร','นิ่มนวล','ไตรรัตนาภา'];
+    $addressess = ['12/23 ถนนพระราม 1 เขตปทุมวัน กรุงเทพฯ 10100',
+                    'ดาวอังคาร',
+                    '198 อาคาร U-Center ซอยจุฬา 42 แขวงวังใหม่ เขตปทุมวัน กรุงเทพมหานคร 10330',
+                    '888/135 Hive Sathorn คลองสาน 10600',
+                    '',
+                    '112 ถนนสมเด็จเจ้าพระยา แขวงคลองสาน เขตคลองสาน กรุงเทพฯ 10600',
+                    'Villa 35, Street No. 16, Community 366 Umm Suqeim 3, P.O. Box 51844 Dubai, United Arab Emirates'];
+    $countries = ['TH','MARS','TH','TH','TH','TH','UAE'];
+    $telephones = ['0850615555','02536711','087567566','0850504040','0815566777','081234356','0850615555'];
+    $usernames = ['nuttt','quanruthai','nasakol','pariyawit','lkumjorn','cppanida','withlovee'];
+    $emails = ['nuttt.p@gmail.com','Quanruthai.t@gmail.com','nasakol@gmail.com','pariyawit.jat@gmail.com','plkumjorn@gmail.com','cp.panida@gmail.com','vibhavee.t@gmail.com'];
+    $passwords = ['1234','1234','1234','1234','1234','1234','1234'];
+    $password_confirmations = ['1234','1234','1234','1234','1234','1234','1234'];
+    $confirmeds = [true,true,true,true,true,true,true];
+    $confirmation_codes = [md5(uniqid(mt_rand(), true)),md5(uniqid(mt_rand(), true)),md5(uniqid(mt_rand(), true)),md5(uniqid(mt_rand(), true)),md5(uniqid(mt_rand(), true)),md5(uniqid(mt_rand(), true)),md5(uniqid(mt_rand(), true))];
+    $roles = ['Seller','Seller','Seller','Buyer','Buyer','Buyer','Buyer'];
+    
+    for ($i=0; $i <=6 ; $i++) { 
+      $user = new User;  
+      $user->name = $names[$i];
+      $user->surname = $surnames[$i];
+      $user->address = $addressess[$i];
+      $user->country = $countries[$i];
+      $user->telephone = $telephones[$i];
+      $user->username = $usernames[$i];
+      $user->email = $emails[$i];
+      $user->password = $passwords[$i];
+      $user->password_confirmation = $password_confirmations[$i];
+      $user->confirmed = $confirmeds[$i];
+      $user->confirmation_code = $confirmation_codes[$i];
+      $user->role = $roles[$i];
       
-      for ($i=1; $i <=5  ; $i++) { 
-        $user = new User;
-        $user->username = 'seller'.$i;
-        $user->email = 'seller'.$i.'@easy.com';
-        $user->password = '1234';
-        $user->password_confirmation = '1234';
-        $user->role = 'Seller';
-        $user->confirmation_code = md5(uniqid(mt_rand(), true));
-        $user->confirmed = true;
-
-        if(! $user->save()) {
-          Log::info('Unable to create user '.$user->username, (array)$user->errors());
-        } else {
-          Log::info('Created user "'.$user->username.'" <'.$user->email.'>');
-        }
-      }
-
-      $user = new User;
-      $user->name = 'ณัฐพล';
-      $user->surname = 'พัฒนาวิจิตร';
-      $user->address = '12/23 ถนนพระราม 1 เขตปทุมวัน กรุงเทพฯ 10100';
-      $user->country = 'TH';
-      $user->telephone = '0850615555';
-      $user->username = 'nut';
-      $user->email = 'nuttt.p@gmail.com';
-      $user->password = '1234';
-      $user->password_confirmation = '1234';
-      $user->confirmed = true;
-      $user->confirmation_code = md5(uniqid(mt_rand(), true));
-      $user->role = 'Seller';
-
       if(! $user->save()) {
         Log::info('Unable to create user '.$user->username, (array)$user->errors());
       } else {
@@ -96,7 +83,7 @@ class BidManagersTableSeeder extends Seeder{
   }
 }
 
-class ItemTableSeeder extends Seeder{
+class ItemsTableSeeder extends Seeder{
   public function run(){
     
     $item = new Item;
