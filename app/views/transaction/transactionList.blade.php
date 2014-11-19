@@ -32,9 +32,7 @@
 	</div>
 	@endforeach
 	<nav>
-		<ul class="pager">
-			<li class="next"><a href="?show=all">ดูสินค้าทั้งหมด &rarr;</a></li>
-		</ul>
+		<div class="text-center">{{ $transactions->links() }}</div>
 	</nav>
 @stop
 @section('sidebar')
