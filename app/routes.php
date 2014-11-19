@@ -40,7 +40,9 @@ Route::get('users/confirm/{code}', 'UsersController@confirm');
 // Route::post('users/reset_password', 'UsersController@doResetPassword');
 Route::get('users/logout', 'UsersController@logout');
 Route::get('user/{id}', 'UsersController@show');
-Route::get('ban/{id}', 'UsersController@ban');
+
+
+
 
 /**
  * Feedback
@@ -56,7 +58,8 @@ Route::get('users/show/{id}', 'UsersController@show');
 Route::get('admin/login', 'AdministratorController@login');
 Route::post('admin/login', 'AdministratorController@doLogin');
 Route::get('admin/logout', 'AdministratorController@doLogout');
-
+Route::get('users/ban/{id}','UsersController@ban');
+Route::get('users/unBan/{id}', 'UsersController@unBan');
 /**
  * Transaction
  */
