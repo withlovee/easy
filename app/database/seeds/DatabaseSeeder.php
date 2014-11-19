@@ -69,7 +69,7 @@ class UsersTableSeeder extends Seeder {
       $user->country = 'TH';
       $user->telephone = '0850615555';
       $user->username = 'nut';
-      $user->email = 'nut@easy.com';
+      $user->email = 'nuttt.p@gmail.com';
       $user->password = '1234';
       $user->password_confirmation = '1234';
       $user->confirmed = true;
@@ -107,7 +107,7 @@ class ItemTableSeeder extends Seeder{
     $item->model='CD012-33321';
     $item->volumn='2600mAh';
     $item->property='เรียกกันอีกชื่อง่ายๆคือ one touch silicone stand เพียงแค่กดเบาๆก็สามารถ งอและวางบนนิ้วมือหรือตั้งเพื่อดูได้ บอกเลยว่าน่ารักสุดๆ ไม่มีนี่พลาดมากอะ !!!ไอเท็มเพื่อเพิ่มลูกเล่นในการถ่ายภาพด้วยเลนส์เสริมสำหรับติดโทรศัพท์มือถือ สามารถถ่ายภาพแบบมุมกว้าง, กลมนูนแบบฟิชอาย หรือขยายเพื่อถ่ายระยะใกล้ได้ง่ายดายจากโทรศัพท์มือถือของคุณ ใช้ได้กับทุกรุ่นและยี่ห้อ...ห้ามพลาดนะคะ!';
-    $item->quantity=1;
+    $item->quantity=7;
     $item->quality='ดีมาก';
     $item->returnPolicy='สามารถส่งคืนได้';
     $item->returnFee=50;
@@ -258,8 +258,12 @@ class ItemQuestionsTableSeeder extends Seeder{
 class TransactionsTableSeeder extends Seeder{
 
   public function run(){
-    $item = Item::where('id','>','0')->firstOrFail();
-    $buyer = User::where('role', '=', 'Buyer')->firstOrFail();
+
+    $item = Item::findOrFail(3);
+    $buyer = User::findOrFail(7);
+
+    // $item = Item::where('id','>','0')->firstOrFail();
+    // $buyer = User::where('role', '=', 'Buyer')->firstOrFail();
     if($item && $buyer){
       // Transaction for DirectBuyItem
       $transaction = new Transaction;

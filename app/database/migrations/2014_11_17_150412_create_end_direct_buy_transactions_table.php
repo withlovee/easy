@@ -16,7 +16,7 @@ class CreateEndDirectBuyTransactionsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('amount')->unsigned();
-			$table->integer('shippingType')->unsigned();
+			$table->string('shippingType');
 			$table->integer('endTradingTransactionId')->unsigned();
 			// $table->foreign('endTradingTransactionId')->references('id')->on('end_trading_transactions');
 			$table->integer('itemId')->unsigned();

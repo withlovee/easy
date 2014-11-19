@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'HomeController@showWelcome');
+Route::get('/search/{search}', 'HomeController@showWelcome');
 Route::get('/supporttickets', 'SupportTicketController@showAll')->before('auth');
 
 
@@ -65,10 +66,18 @@ Route::get('transaction/{id}', 'TransactionController@show');
 
 Route::get('item/{id}', 'ItemController@showDirectItem');
 Route::post('item/{id}', 'ItemController@showDirectItem');
-Route::post('buy/{id}', 'ItemController@buyDirectItem');
-Route::get('sellDirectItem', 'ItemController@sellDirectItem')->before('auth');
-Route::get('createDirectItem', 'ItemController@createDirectItem')->before('auth');
-Route::post('createDirectItem', 'ItemController@createDirectItem')->before('auth');
+
+Route::post('buyDirectItem/{id}', 'BuyDirectItemController@buyDirectItem');
+Route::post('buyAuctionItem/{id}', 'BuyAuctionItemController@buyAuctionItem');
+
+Route::get('sellDirectItem', 'SellDirectItemController@sellDirectItem')->before('auth');
+Route::get('createDirectItem', 'SellDirectItemController@createDirectItem')->before('auth');
+Route::post('createDirectItem', 'SellDirectItemController@createDirectItem')->before('auth');
+
+Route::get('sellAuctionItem', 'SellAuctionItemController@sellAuctionItem')->before('auth');
+Route::get('createAuctionItem', 'SellAuctionItemController@createAuctionItem')->before('auth');
+Route::post('createAuctionItem', 'SellAuctionItemController@createAuctionItem')->before('auth');
+
 Route::post('/askQuestion', 'ItemQuestionController@create')->before('auth');
 Route::post('/answerQuestion', 'ItemQuestionController@answer')->before('auth');
 

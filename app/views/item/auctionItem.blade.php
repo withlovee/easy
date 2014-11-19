@@ -4,7 +4,7 @@
 	@include('layouts.error')
 	<div class="col-md-5">
 		<a href="detail.php">
-			<img src="{{$item->picture}}" class="img-responsive">
+			<img src="../{{$item->picture}}" class="img-responsive">
 		</a>						
 	</div>
 	<!-- /.col-md-6 -->
@@ -13,6 +13,7 @@
 			{{$item->name}}
 		</h2>
 		<h3>สินค้าประมูล ราคาปัจจุบัน: {{$item->price}} บาท</h3>
+		<h4>ประกาศขายโดย: {{$item->seller->username}}</h4>
 		<p>{{$item->property}}</p>
 
 		@if(is_buyer())
@@ -68,7 +69,7 @@
 @include('item.sidebar')
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
-		{{Form::open(array('action'=>'ItemController@buyDirectItem', 'class' => 'form-horizontal'))}}
+		{{Form::open(array('url' => 'buyAuctionItem/'.$item->id, 'method' => 'post', 'class' => 'form-horizontal'))}}
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>

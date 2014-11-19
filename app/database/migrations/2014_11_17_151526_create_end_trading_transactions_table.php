@@ -15,10 +15,11 @@ class CreateEndTradingTransactionsTable extends Migration {
 		Schema::create('end_trading_transactions', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('buyerId')->unsigned()->nullable();
+			$table->integer('buyerId')->unsigned();
 			$table->integer('paymentId')->unsigned()->nullable();
-			$table->integer('shipingId')->unsigned()->nullable();
+			$table->integer('shippingId')->unsigned()->nullable();
 			$table->string('status');
+			$table->double('price');
 			$table->timestamps();
 		});
 	}

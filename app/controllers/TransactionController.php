@@ -1,5 +1,4 @@
 <?php
-
 class TransactionController extends BaseController {
 
 	public function show($id){
