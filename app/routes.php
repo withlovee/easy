@@ -98,3 +98,7 @@ Route::post('/answerQuestion', 'ItemQuestionController@answer')->before('auth');
 
 Route::get('emailtest/sendPreviousAuctionWinnerEmail', 'EmailHelperTestController@sendPreviousAuctionWinnerEmail');
 Route::get('emailtest/sendAuctionResultEmail', 'EmailHelperTestController@sendAuctionResultEmail');
+Route::get('emailtest/sendInvoiceEmail', 'EmailHelperTestController@sendInvoiceEmail');
+Route::get('emailtest/sendConfirmPaymentEmail', 'EmailHelperTestController@sendConfirmPaymentEmail');
+Route::get('emailtest/sendFeedbackRequestEmail', 'EmailHelperTestController@sendFeedbackRequestEmail');
+Route::get('emailtest/test', 'EmailHelperTestController@test');

@@ -54,10 +54,11 @@ class EmailHelper extends Eloquent {
     $user = User::find($transaction->buyerId);
 
     $data = array(
+        "email"             => $user->email,
         "itemType"          => $item->type,
         "fullName"          => $user->getFullName(),
         "invoiceId"         => $transaction->id,
-        "purchaseTimestamp" => $transaction->created_at,
+        "purchaseTimestamp" => $transaction->created_at->toDateTimeString(),
         "itemId"            => $item->id,
         "itemName"          => $item->name,
         "amount"            => $transaction->amount,
@@ -78,7 +79,7 @@ class EmailHelper extends Eloquent {
     }
     
     Mail::queue('emails.Invoice', $data, function($message) use ($data, $subject) {
-      $message->to($data['userEmail'], $data['userFullName'])
+      $message->to($data['email'], $data['fullName'])
               ->subject($subject);
     });
 
@@ -91,10 +92,11 @@ class EmailHelper extends Eloquent {
     $user = User::find($transaction->buyerId);
 
     $data = array(
+        "email"             => $user->email,
         "itemType"          => $item->type,
         "fullName"          => $user->getFullName(),
         "invoiceId"         => $transaction->id,
-        "purchaseTimestamp" => $transaction->created_at,
+        "purchaseTimestamp" => $transaction->created_at->toDateTimeString(),
         "itemId"            => $item->id,
         "itemName"          => $item->name,
         "amount"            => $transaction->amount,
@@ -109,7 +111,7 @@ class EmailHelper extends Eloquent {
     $subject = "ยืนยันการชำระเงิน - ".$item->name;
     
     Mail::queue('emails.ConfirmPayment', $data, function($message) use ($data, $subject) {
-      $message->to($data['userEmail'], $data['userFullName'])
+      $message->to($data['email'], $data['fullName'])
               ->subject($subject);
     });
   }
@@ -120,15 +122,16 @@ class EmailHelper extends Eloquent {
     $item = Item::find($transaction->itemId);
 
     $data = array(
-        "fullName" => $user->getFullName(),
-        "itemId" => $item->id,
-        "feedbackUrl" => "http://some.feedback.url/plz"
+        "email"             => $user->email,
+        "fullName"          => $user->getFullName(),
+        "itemId"            => $item->id,
+        "feedbackUrl"       => "http://some.feedback.url/plz"
       );
 
     $subject = "ยืนยันการชำระเงิน - ".$item->name;
 
     Mail::queue('emails.FeedbackRequest', $data, function($message) use ($data, $subject) {
-      $message->to($data['userEmail'], $data['userFullName'])
+      $message->to($data['email'], $data['fullName'])
               ->subject($subject);
     });
 
