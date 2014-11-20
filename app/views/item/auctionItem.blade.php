@@ -8,6 +8,9 @@
 	<!-- /.col-md-6 -->
 	<div class="col-md-7">
 		<h2>
+			@if($item->quantity==0)
+				<span class="label label-danger">หมดแล้ว</span>
+			@endif
 			{{$item->name}}
 		</h2>
 		<h3>สินค้าประมูล ราคาปัจจุบัน: {{ number_format($item->price) }} บาท</h3>

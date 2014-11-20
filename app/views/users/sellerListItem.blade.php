@@ -1,19 +1,27 @@
 @extends('layouts.master', ['title' => 'ListAllItemSeller'])
 @section('content')
 @include('layouts.error')
-	<h1 class="line">
-		<span class="text-left">
-				{{$title}}
-		</span>
-		@if($title != "สินค้าทั้งหมดของฉัน")
-		<span class="right">
-			<a href="?show=all" class="btn btn-default">ดูสินค้าทั้งหมดของฉัน &rarr;</a>
-		</span><!--text-right-->
-		@endif
-		<div class="clear"></div>
-	</h1>
+<h1 class="line">
+	<span class="text-left">
+			{{$title}}
+	</span>
+	@if($title != "สินค้าทั้งหมดของฉัน")
+	<span class="right">
+		<a href="?show=all" class="btn btn-default">ดูสินค้าทั้งหมดของฉัน &rarr;</a>
+	</span><!--text-right-->
+	@endif
+	<div class="clear"></div>
+</h1>
 @if($items==[])
-	<h3>ไม่พบผลลัพธ์ที่ท่านต้องการค้นหา</h3>
+	@if($title == "ผลลัพธ์การค้นหาสินค้าของฉัน")
+		<h3>ไม่พบผลลัพธ์ที่ท่านต้องการค้นหา</h3>
+	@elseif($title == "สินค้าทั้งหมดของฉัน")
+		<h3>ท่านยังไม่มีประกาศขายสินค้าในขณะนี้</h3>
+	@elseif($title == "สินค้าขายโดยตรงของฉัน")
+		<h3>ท่านยังไม่มีสินค้าขายโดยตรงในขณะนี้</h3>
+	@elseif($title == "สินค้าประมูลของฉัน")
+		<h3>ท่านยังไม่มีสินค้าประมูลในขณะนี้</h3>
+	@endif
 @else
 @foreach($items as $item)
 <div class="row item">
@@ -24,7 +32,12 @@
 	</div>
 	<!-- /.col-sm-3 -->
 	<div class="col-sm-9">
-		<h3><a href="{{URL::to('item/'.$item->id)}}">{{$item->name}}</a></h3>
+		<h3>
+			@if($item->quantity==0)
+				<span class="label label-danger">หมดแล้ว</span>
+			@endif
+			<a href="{{URL::to('item/'.$item->id)}}">{{$item->name}}</a> 
+		</h3>
 		<p>{{$item->property}}</p>
 		<p>
 			<span href="#" class="btn btn-default" role="button" disabled="disabled">{{ number_format($item->price) }} บาท</span>
