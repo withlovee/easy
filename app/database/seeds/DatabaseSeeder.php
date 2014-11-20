@@ -13,10 +13,10 @@ class DatabaseSeeder extends Seeder {
 		Eloquent::unguard();
 
 		$this->call('UsersTableSeeder');
-    //$this->call('BidManagersTableSeeder');
+    // $this->call('BidManagersTableSeeder');
     $this->call('ItemsTableSeeder');
     $this->call('AdministratorsTableSeeder');
-    // $this->call('SupportTicketsTableSeeder');
+    $this->call('SupportTicketsTableSeeder');
     // $this->call('ItemQuestionsTableSeeder');
     // $this->call('TransactionsTableSeeder');
     // $this->call('FeedbacksTableSeeder');
@@ -32,13 +32,13 @@ class UsersTableSeeder extends Seeder {
     $names = ['ณัฐพล','ขวัญฤทัย','ณสกล','ปริยวิศว์','ปิยวัฒน์','พนิดา','วิภาวี'];
     $surnames = ['พัฒนาวิจิตร','ทิพยศักดิ์','พงศ์กอปรสกล','จาตุกัญญาประทีป','เลิศวิทยากำจร','นิ่มนวล','ไตรรัตนาภา'];
     $addressess = ['12/23 ถนนพระราม 1 เขตปทุมวัน กรุงเทพฯ 10100',
-                    'ดาวอังคาร',
+                    '106 หมู่ 4, ตำบลเพ, อำเภอเมือง, ระยอง, อ่าวไผ่, เกาะแก้วพิศดาร, ประเทศไทย',
                     '198 อาคาร U-Center ซอยจุฬา 42 แขวงวังใหม่ เขตปทุมวัน กรุงเทพมหานคร 10330',
                     '888/135 Hive Sathorn คลองสาน 10600',
-                    '',
+                    '655 Avenue du Technopole, 29200 Plouzané, France',
                     '112 ถนนสมเด็จเจ้าพระยา แขวงคลองสาน เขตคลองสาน กรุงเทพฯ 10600',
                     'Villa 35, Street No. 16, Community 366 Umm Suqeim 3, P.O. Box 51844 Dubai, United Arab Emirates'];
-    $countries = ['TH','MARS','TH','TH','TH','TH','UAE'];
+    $countries = ['TH','TH','TH','TH','FR','TH','AE'];
     $telephones = ['0850615555','02536711','087567566','0850504040','0815566777','081234356','0850615555'];
     $usernames = ['nuttt','quanruthai','nasakol','pariyawit','lkumjorn','cppanida','withlovee'];
     $emails = ['nuttt.p@gmail.com','Quanruthai.t@gmail.com','nasakol@gmail.com','pariyawit.jat@gmail.com','plkumjorn@gmail.com','cp.panida@gmail.com','vibhavee.t@gmail.com'];
@@ -290,22 +290,47 @@ class AdministratorsTableSeeder extends Seeder {
 class SupportTicketsTableSeeder extends Seeder {
 
   public function run()
-  {
-    for ($i=1; $i <4 ; $i++) { 
-      $ticket = new SupportTicket;    
-      $ticket->reporterId = User::where('id','>=',$i)->firstOrFail()->id;
-      $ticket->reporteeId = User::where('id','>=',$i+1)->firstOrFail()->id;
-      $ticket->administratorId = Administrator::where('id','>','0')->firstOrFail()->id;
-      $ticket->title = 'I have Problem No.'.$i;
-      $ticket->content = 'CONTENT CONTENT No.'.$i;
-      $ticket->answer = 'ANSWER THIS IS No.'.$i;
-      $ticket->answered_at = '';
+  { 
+    $ticket = new SupportTicket;    
+    $ticket->reporterId = 4;
+    $ticket->reporteeId = 1;
+    $ticket->administratorId = null;
+    $ticket->title = 'ไม่ได้รับสินค้า';
+    $ticket->content = 'สั่งของไปเมื่อวันที่ 20 พ.ย. ยังไม่ได้รับสินค้าเลย';
+    $ticket->answer = '';
+    $ticket->answered_at = '';
+    if(! $ticket->save()) {
+      Log::info('Unable to create ticket '.$ticket->title, (array)$ticket->errors());
+    } else {
+      Log::info('Created ticket >>'.$ticket->title);
+    }
 
-      if(! $ticket->save()) {
-        Log::info('Unable to create ticket '.$ticket->title, (array)$ticket->errors());
-      } else {
-        Log::info('Created ticket >>'.$ticket->title);
-      }
+    $ticket = new SupportTicket;    
+    $ticket->reporterId = 5;
+    $ticket->reporteeId = 1;
+    $ticket->administratorId = null;
+    $ticket->title = 'ได้รับสินค้าไม่ตรงกับที่สั่ง';
+    $ticket->content = 'สั่งกล้องถ่ายรูปไป แต่เมื่อไปรษณีย์มาส่งพบว่าเป็นก้อนหิน';
+    $ticket->answer = '';
+    $ticket->answered_at = '';
+    if(! $ticket->save()) {
+      Log::info('Unable to create ticket '.$ticket->title, (array)$ticket->errors());
+    } else {
+      Log::info('Created ticket >>'.$ticket->title);
+    }
+
+    $ticket = new SupportTicket;    
+    $ticket->reporterId = 6;
+    $ticket->reporteeId = 3;
+    $ticket->administratorId = 1;
+    $ticket->title = 'ได้รับสินค้ามีตำหนิ';
+    $ticket->content = 'หูหมีขาด';
+    $ticket->answer = 'จะติดต่อผู้ขายให้ค่ะ';
+    $ticket->answered_at = '';
+    if(! $ticket->save()) {
+      Log::info('Unable to create ticket '.$ticket->title, (array)$ticket->errors());
+    } else {
+      Log::info('Created ticket >>'.$ticket->title);
     }
   }
 }
