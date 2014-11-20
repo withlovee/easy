@@ -12,13 +12,27 @@ class FeedbackController extends BaseController {
 	public function create($id)
 	{
 		$feedback = new Feedback;
-		$feedback->senderId = Auth::user()->getId();
+		$user = Auth::user();
+		$feedback->senderId = $user->getId();
 		$feedback->receiverId = $id;
 		$feedback->content = Input::get('content');
 		$feedback->transactionId = Input::get('transaction_id');
 		$feedback->score = Input::get('score');
 
-		$feedback->save();		
+		$feedback->save();
+
+		if($user->role=='Seller'){
+			$transaction = Transaction::find($feedback->transactionId);
+			$transaction->buyerFeedbackId = $feedback->id;
+			$transaction->save();
+		}
+		if($user->role=='Buyer'){
+			$transaction = Transaction::find($feedback->transactionId);
+			$transaction->sellerFeedbackId = $feedback->id;
+			$transaction->save();
+		}
+
+
 		$user = User::find($id);
 		$feedbacks = Feedback::where('receiverId', '=', $id)->orderBy('created_at', 'desc')->get();
 
@@ -30,4 +44,6 @@ class FeedbackController extends BaseController {
 		return View::make('users.member_profile', 
 			['user' => $user, 'feedbacks' => $feedbacks]);
 	}
+
+
 }

@@ -67,14 +67,18 @@ Route::get('transactions', 'TransactionController@showList')->before('auth');
 Route::get('transaction/{id}', 'TransactionController@show')->before('auth');
 Route::post('transaction/set_status', 'TransactionController@setStatus')->before('auth');
 
+/**
+ * Payment
+ */
+Route::get('pay/{id}', 'PaymentController@create');
 
-
-
+/**
+ * Item
+ */
 Route::get('item/{id}', 'ItemController@showDirectItem');
 Route::post('item/{id}', 'ItemController@showDirectItem');
 
 Route::get('listItemSeller/','ItemController@showItemSeller');
-
 
 Route::post('buyDirectItem/{id}', 'BuyDirectItemController@buyDirectItem');
 Route::post('buyAuctionItem/{id}', 'BuyAuctionItemController@buyAuctionItem');
