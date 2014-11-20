@@ -48,7 +48,7 @@ class SellAuctionItemController extends Controller
 		$this->item->type = 'auction';
 		$this->item->endDateTime = $input['endDate'].' '.$input['endTime'];
 		$this->item->bidManagerId = NULL;
-		$this->item->amount=NULL;
+		// $this->item->amount=NULL;
 		$this->item->sellerId = Auth::user()->id;
 		// $this->item->id = $input['id'];
 		
@@ -62,6 +62,6 @@ class SellAuctionItemController extends Controller
 		// return View::make('emptypage');
 		$this->item->save();
 
-		return Redirect::action('SellAuctionItemController@sellAuctionItem')->with('notice','ระบบเพิ่มสินค้าของคุณเรียบร้อยแล้วค่ะ');		
+		return Redirect::action('SellAuctionItemController@sellAuctionItem')->with('notice','ระบบเพิ่มสินค้าของคุณเรียบร้อยแล้วค่ะ'.$this->item->id);
 	}
 }

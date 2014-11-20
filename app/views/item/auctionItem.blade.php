@@ -3,9 +3,7 @@
 <div class="row item-header">
 	@include('layouts.error')
 	<div class="col-md-5">
-		<a href="detail.php">
-			<img src="../{{$item->picture}}" class="img-responsive">
-		</a>						
+		<img src="../{{$item->picture}}" class="img-responsive">
 	</div>
 	<!-- /.col-md-6 -->
 	<div class="col-md-7">
