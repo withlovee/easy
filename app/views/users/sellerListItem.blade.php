@@ -18,8 +18,8 @@
 @foreach($items as $item)
 <div class="row item">
 	<div class="col-sm-3">
-		<a href="detail.php">
-			<img src="{{$item->picture}}" class="img-responsive">
+		<a href="{{URL::to('item/'.$item->id)}}">
+			{{ HTML::image('upload/'.$item->picture, $item->name, ['class' => 'img-responsive']) }}
 		</a>
 	</div>
 	<!-- /.col-sm-3 -->
@@ -27,7 +27,7 @@
 		<h3><a href="{{URL::to('item/'.$item->id)}}">{{$item->name}}</a></h3>
 		<p>{{$item->property}}</p>
 		<p>
-			<span href="#" class="btn btn-default" role="button" disabled="disabled">{{$item->price}} บาท</span>
+			<span href="#" class="btn btn-default" role="button" disabled="disabled">{{ number_format($item->price) }} บาท</span>
 			<a href="{{URL::to('item/'.$item->id)}}" class="btn btn-primary" role="button">ดูรายละเอียด</a>
 			
 		</p>

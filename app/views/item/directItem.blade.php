@@ -3,7 +3,7 @@
 <div class="row item-header">
 	@include('layouts.error')
 	<div class="col-md-5">
-		<img src="../{{$item->picture}}" class="img-responsive">
+		{{ HTML::image('upload/'.$item->picture, $item->name, ['class' => 'img-responsive']) }}
 	</div>
 	<!-- /.col-md-6 -->
 	<div class="col-md-7">
@@ -11,8 +11,8 @@
 		<h2>
 			{{$item->name}}
 		</h2>
-		<h3>สินค้าขายโดยตรง ราคา: {{$item->price}} บาท</h3>
-		<h4>ประกาศขายโดย: {{$item->seller->username}}</h4>
+		<h3>สินค้าขายโดยตรง ราคา: {{ number_format($item->price) }} บาท</h3>
+		<h4>ประกาศขายโดย: {{ HTML::link('users/show/'.$item->seller->id, $item->seller->username) }}</h4>
 		<p>{{$item->property}}</p>
 		<p>
 			<!--{{ Form::number('amount','1',['min'=>'1'])}}-->

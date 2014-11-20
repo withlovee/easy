@@ -25,10 +25,10 @@ class SellAuctionItemController extends Controller
 		$destinationPath = 'upload/';
 		$filename = $file->getClientOriginalName();
 		Input::file('picture')->move($destinationPath, $filename);
-		$path = '../public/'.$destinationPath.$filename;
+		// $path = '../public/'.$destinationPath.$filename;
 
 		// $this->item->name = $input['name'];
-		$this->item->picture = $path;
+		$this->item->picture = $filename;
 
 		// $this->item->price = $input['price'];
 		// $this->item->brand = $input['brand'];

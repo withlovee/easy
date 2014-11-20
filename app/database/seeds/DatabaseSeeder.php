@@ -88,7 +88,7 @@ class ItemsTableSeeder extends Seeder{
     
     $item = new Item;
     $item->name='ที่ชาร์ตแบตสำรองสีชมพูแบบพวงกุญแจ 2600mAh';
-    $item->picture='http://alicecat.biz/img/p/96-300-thickbox.jpg';
+    $item->picture='battery1.jpg';
     $item->price=1250;
     $item->brand='ASDFEECCD';
     $item->model='CD012-33321';
@@ -113,7 +113,7 @@ class ItemsTableSeeder extends Seeder{
 
     $item2=new Item;
     $item2->name='ที่วาง-ที่จับ มือถืออเนกประสงค์';
-    $item2->picture='http://photo.oempromo.com/Prod_936/Folding-Cell-Phone-Holder_16780815.jpg';
+    $item2->picture='cell1.jpg';
     $item2->price=145;
     $item2->brand='ASDFEECCD';
     $item2->model='CD012-33321';
@@ -140,7 +140,7 @@ class ItemsTableSeeder extends Seeder{
 
     $rilakkuma=new Item;
     $rilakkuma->name='ตุ๊กตาหมี ริลัคคุมะ';
-    $rilakkuma->picture='http://g.lnwfile.com/ltvarq.jpg';
+    $rilakkuma->picture='rilak3.jpg';
     $rilakkuma->price=490;
     $rilakkuma->brand='San-X';
     $rilakkuma->model='rilakkuma';
@@ -167,7 +167,7 @@ class ItemsTableSeeder extends Seeder{
 
     $rilakkuma=new Item;
     $rilakkuma->name='Rilakkuma ตุ๊กตา ขนาด 50 ซม. - สีน้ำตาล';
-    $rilakkuma->picture='http://srv-live-01.lazada.co.th/p/rilakkuma-1553-60376-1-zoom.jpg';
+    $rilakkuma->picture='rilak2.jpg';
     $rilakkuma->price=239;
     $rilakkuma->brand='San-X';
     $rilakkuma->model='rilakkuma';
@@ -194,7 +194,7 @@ class ItemsTableSeeder extends Seeder{
 
     $rilakkuma=new Item;
     $rilakkuma->name='Rilakkuma ตุ๊กตาหมอนข้าง - สีน้ำตาล ขนาด 76 ซ.ม.';
-    $rilakkuma->picture='http://srv-live-01.lazada.co.th/p/rilakkuma-1536-72477-1-zoom.jpg';
+    $rilakkuma->picture='rilak1.jpg';
     $rilakkuma->price=299;
     $rilakkuma->brand='San-X';
     $rilakkuma->model='rilakkuma';
@@ -221,7 +221,7 @@ class ItemsTableSeeder extends Seeder{
   
     $item = new Item;
     $item->name='Nikon Compact Camera Coolpix L29 - Silver';
-    $item->picture='http://srv-live-01.lazada.co.th/p/nikon-8229-369251-1-zoom.jpg';
+    $item->picture='nikon.jpg';
     $item->price=1749;
     $item->brand='Nikon';
     $item->model='Coolpix L29';
@@ -246,7 +246,7 @@ class ItemsTableSeeder extends Seeder{
 
     $item = new Item;
     $item->name='Canon PowerShot SX50 HS - Black';
-    $item->picture='http://srv-live-01.lazada.co.th/p/canon-9522-182001-1-zoom.jpg';
+    $item->picture='canon1.jpg';
     $item->price=14790;
     $item->brand='Canon';
     $item->model='PowerShot SX50 HS';
