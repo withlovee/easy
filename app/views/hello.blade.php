@@ -35,7 +35,7 @@
 	</div>
 	@endforeach
 	@if($title != "สินค้าล่าสุด")
-		<div class="text-center">{{ $items->links() }}</div>
+		<div class="text-center">{{ $items->appends($params)->links() }}</div>
 	@endif
 	@if($title != "สินค้าทั้งหมด")
 	<nav>

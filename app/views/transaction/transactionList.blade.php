@@ -32,7 +32,7 @@
 	</div>
 	@endforeach
 	<nav>
-		<div class="text-center">{{ $transactions->links() }}</div>
+		<div class="text-center">{{ $transactions->appends($params)->links() }}</div>
 	</nav>
 @stop
 @section('sidebar')

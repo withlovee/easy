@@ -24,10 +24,11 @@
                     <a href="{{{ URL::to('/users/forgot_password') }}}" style="display: none;">(ลืมรหัสผ่าน)</a>
                     <input class="form-control" tabindex="2" placeholder="******" type="password" name="password" id="password" required>
                 </div>
-                <div class="form-group">
-                    <label for="remember" class="checkbox">เข้าสู่ระบบตลอดไป
+                <div class="checkbox">
+                    <label for="remember">
                         <input type="hidden" name="remember" value="0">
                         <input tabindex="4" type="checkbox" name="remember" id="remember" value="1">
+                        เข้าสู่ระบบตลอดไป
                     </label>
                 </div>
                 <button class="btn btn-lg btn-primary btn-block" type="submit"><span class="glyphicon glyphicon-ok"></span> เข้าสู่ระบบ</button>

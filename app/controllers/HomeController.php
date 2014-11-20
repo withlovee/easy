@@ -51,10 +51,11 @@ class HomeController extends BaseController {
 			$title = "สินค้าล่าสุด";
 			$items = Item::orderBy('id', 'desc')->take($latest)->get();
 		}
-		return View::make('hello', ['items' => $items, 'title' => $title, 'item_count' => $item_count]);
-		// $results = DB::select('select * from test where id = ?', array(2));
-		// var_dump($results);
-		// return '';
+		return View::make('hello', [
+			'items' => $items, 
+			'title' => $title, 
+			'item_count' => $item_count,
+			'params' => Input::all()]);
 	}
 
 }
