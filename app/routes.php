@@ -73,6 +73,9 @@ Route::post('transaction/set_status', 'TransactionController@setStatus')->before
 Route::get('item/{id}', 'ItemController@showDirectItem');
 Route::post('item/{id}', 'ItemController@showDirectItem');
 
+Route::get('listItemSeller/','ItemController@showItemSeller');
+
+
 Route::post('buyDirectItem/{id}', 'BuyDirectItemController@buyDirectItem');
 Route::post('buyAuctionItem/{id}', 'BuyAuctionItemController@buyAuctionItem');
 
