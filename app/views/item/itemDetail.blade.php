@@ -29,7 +29,10 @@
 	<tr>
 		<th>วิธีบรรจุหีบห่อ การขนส่ง และการยืนยันการจัดส่ง</th>
 		<td>
-			{{$item->shipping}}</td>
+			@foreach(json_decode($item->shipping) as $text => $price)
+				{{ $text }} ({{ $price }} บาท)<br>
+			@endforeach
+		</td>
 	</tr>
 	<tr>
 		<th>บริการพิเศษ และอื่นๆ</th>
@@ -43,7 +46,11 @@
 <!-- /.table -->
 <br><br>
 <h2>คำถามเกี่ยวกับสินค้า</h2>
-<p>คลิกที่ชื่อคำถามเพื่อดูคำตอบ</p>
+@if(count($questions) > 0)
+	<p>คลิกที่ชื่อคำถามเพื่อดูคำตอบ</p>
+@else
+	<p>ยังไม่มีคำถามสำหรับสินค้าชิ้นนี้</p>
+@endif
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 	@foreach ($questions as $question)
 		
@@ -83,18 +90,18 @@
 		
 	@endforeach
 
-	<br><br>
-	<h2>ถามคำถามเกี่ยวกับสินค้าชิ้นนี้</h2>
-
-	<form class="form-horizontal" role="form" method="POST" action="{{{ URL::to('askQuestion') }}}">		
-		{{Form::hidden('id',$item->id)}}
-		<div class="form-group">
-			<!--<textarea name="" id="" cols="30" rows="2" class="form-control" placeholder="คำถามที่ต้องการสอบถาม"></textarea>-->
-			{{ Form::textarea('content', null, ['class' => 'form-control', 'cols' => 30, 'rows' => 2, 'placeholder' => 'กรุณากรอกคำถามที่ต้องการสอบถาม', 'required' => 'required']) }}
-		</div>
-		<div class="form-group">
-			<!--<input type="text" class="btn btn-primary btn-sm" value="ส่งคำถาม">-->
-			{{Form::submit("ส่งคำถาม",array("class"=>"btn btn-primary btn-sm"))}}
-		</div>
-	</form>
 </div>
+<br><br>
+<h2>ถามคำถามเกี่ยวกับสินค้าชิ้นนี้</h2>
+
+<form class="form-horizontal" role="form" method="POST" action="{{{ URL::to('askQuestion') }}}">		
+	{{Form::hidden('id',$item->id)}}
+	<div class="form-group">
+		<!--<textarea name="" id="" cols="30" rows="2" class="form-control" placeholder="คำถามที่ต้องการสอบถาม"></textarea>-->
+		{{ Form::textarea('content', null, ['class' => 'form-control', 'cols' => 30, 'rows' => 2, 'placeholder' => 'กรุณากรอกคำถามที่ต้องการสอบถาม', 'required' => 'required']) }}
+	</div>
+	<div class="form-group">
+		<!--<input type="text" class="btn btn-primary btn-sm" value="ส่งคำถาม">-->
+		{{Form::submit("ส่งคำถาม",array("class"=>"btn btn-primary btn-sm"))}}
+	</div>
+</form>

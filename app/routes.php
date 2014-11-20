@@ -49,7 +49,7 @@ Route::get('user/{id}', 'UsersController@show');
  */
 
 Route::get('users/show/{id}', 'UsersController@show');
-
+Route::post('feedback/create/{id}','FeedbackController@create');
 
 /**
  * Admin
@@ -67,14 +67,18 @@ Route::get('transactions', 'TransactionController@showList')->before('auth');
 Route::get('transaction/{id}', 'TransactionController@show')->before('auth');
 Route::post('transaction/set_status', 'TransactionController@setStatus')->before('auth');
 
+/**
+ * Payment
+ */
+Route::get('pay/{id}', 'PaymentController@create');
 
-
-
+/**
+ * Item
+ */
 Route::get('item/{id}', 'ItemController@showDirectItem');
 Route::post('item/{id}', 'ItemController@showDirectItem');
 
 Route::get('listItemSeller/','ItemController@showItemSeller');
-
 
 Route::post('buyDirectItem/{id}', 'BuyDirectItemController@buyDirectItem');
 Route::post('buyAuctionItem/{id}', 'BuyAuctionItemController@buyAuctionItem');
@@ -82,10 +86,14 @@ Route::post('buyAuctionItem/{id}', 'BuyAuctionItemController@buyAuctionItem');
 Route::get('sellDirectItem', 'SellDirectItemController@sellDirectItem')->before('auth');
 Route::get('createDirectItem', 'SellDirectItemController@createDirectItem')->before('auth');
 Route::post('createDirectItem', 'SellDirectItemController@createDirectItem')->before('auth');
+Route::get('deleteDirectItem/{id}', 'SellDirectItemController@deleteDirectItem')->before('auth');
+Route::post('deleteDirectItem/{id}', 'SellDirectItemController@deleteDirectItem')->before('auth');
 
 Route::get('sellAuctionItem', 'SellAuctionItemController@sellAuctionItem')->before('auth');
 Route::get('createAuctionItem', 'SellAuctionItemController@createAuctionItem')->before('auth');
 Route::post('createAuctionItem', 'SellAuctionItemController@createAuctionItem')->before('auth');
+Route::get('deleteAuctionItem/{id}', 'SellAuctionItemController@deleteAuctionItem')->before('auth');
+Route::post('deleteAuctionItem/{id}', 'SellAuctionItemController@deleteAuctionItem')->before('auth');
 
 Route::post('/askQuestion', 'ItemQuestionController@create')->before('auth');
 Route::post('/answerQuestion', 'ItemQuestionController@answer')->before('auth');

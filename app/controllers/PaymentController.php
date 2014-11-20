@@ -12,7 +12,6 @@ class PaymentController extends Controller {
 		//
 	}
 
-
 	/**
 	 * Show the form for creating a new resource.
 	 *
@@ -21,7 +20,8 @@ class PaymentController extends Controller {
 	public function create($id)
 	{
 		$transaction = Transaction::find($id);
-		return View::make('payment.payment', $transaction);
+		$item = $transaction->item;
+		return View::make('payment.payment', array('transaction'=>$transaction,'item'=>$item));
 	}
 
 

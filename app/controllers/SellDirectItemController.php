@@ -25,10 +25,10 @@ class SellDirectItemController extends Controller
 		$destinationPath = 'upload/';
 		$filename = $file->getClientOriginalName();
 		Input::file('picture')->move($destinationPath, $filename);
-		$path = '../public/'.$destinationPath.$filename;
+		// $path = '../public/'.$destinationPath.$filename;
 
 		// $this->item->name = $input['name'];
-		$this->item->picture = $path;
+		$this->item->picture = $filename;
 
 		// $this->item->price = $input['price'];
 		// $this->item->brand = $input['brand'];
@@ -63,5 +63,10 @@ class SellDirectItemController extends Controller
 		$this->item->save();
 
 		return Redirect::action('SellDirectItemController@sellDirectItem')->with('notice','ระบบเพิ่มสินค้าของคุณเรียบร้อยแล้วค่ะ');		
+	}
+
+	public function deleteDirectItem($id){
+		$item = Item::where('id', '=', $id)->delete();
+		return Redirect::to('listItemSeller?show=all')->with('notice','ลบสินค้าเรียบร้อยแล้วค่ะ');		
 	}
 }

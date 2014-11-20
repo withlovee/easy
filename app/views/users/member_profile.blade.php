@@ -3,7 +3,11 @@
 				<div class="thread">
 					<div class="row topic">
 						<div class="col-xs-1">
-							<img src="img/avatar_test.jpg" class="img-circle">
+							@if($user->role == 'Buyer')
+								{{ HTML::image('img/seller.png', 'ผู้ซื้อ') }}
+							@else
+								{{ HTML::image('img/buyer.png', 'ผู้ขาย') }}
+							@endif
 						</div>
 						<div class="col-xs-11">
 							<div class="row">
@@ -51,17 +55,20 @@
 							<div class="clear"></div>
 						</div><!--helper-->
 						<hr>
+						@if(count($feedbacks) == 0)
+							<p>ยังไม่มี Feedback</p>
+						@endif
 						@foreach($feedbacks as $feedback)
 							<div class="row topic">
 								<div class="col-xs-1 text-right">
-									@if ($feedback->score < 3)
+									@if ($feedback->score == -1)
 										<i class="thumb-down glyphicon glyphicon-thumbs-down"></i>
 									@else
 										<i class="thumb-up glyphicon glyphicon-thumbs-up"></i>
 									@endif
 								</div>
 								<div class="col-xs-10">
-									<h5>{{ $feedback->content }} (score {{ $feedback->score }}) </h5>
+									<h5>{{ $feedback->content }}  </h5>
 									<p class="info">
 										<a href="{{ URL::to('users/show/'.$feedback->senderId)}}" class="name"><strong>{{$feedback->sender}}</strong></a>
 									</p>

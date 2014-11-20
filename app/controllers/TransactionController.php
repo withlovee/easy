@@ -16,6 +16,7 @@ class TransactionController extends BaseController {
 		else{
 			$data['transactions'] = Transaction::where('sellerId', '=', Auth::user()->id)->paginate($perPage);
 		}
+		$data['params'] = Input::all();
 		$data['title'] = $this->get_title();
 		return View::make('transaction.transactionList', $data);
 	}

@@ -7,23 +7,23 @@
 				<table class="table table-striped table-bordered payment-info">
 					<tr>
 						<th>ชื่อสินค้า</th>
-						<td>มือถืออเนกประสงค์ : สีแดง/น้ำเงิน/ดำ/ชมพู</td>
+						<td>{{$item->name}}</td>
 					</tr>
 					<tr>
 						<th>ราคาสินค้า</th>
-						<td>146 บาท</td>
+						<td>{{$item->price*$transaction->amount}} บาท</td>
 					</tr>
 					<tr>
 						<th>ค่าขนส่ง</th>
-						<td>50 บาท</td>
+						<td>{{$transaction->shippingCost}} บาท</td>
 					</tr>
 					<tr>
 						<th>ภาษี</th>
-						<td>4 บาท</td>
+						<td>{{$item->tax/100.0*$transaction->amount*$item->price}} บาท</td>
 					</tr>
 					<tr>
 						<th>รวม</th>
-						<td><strong>200 บาท</strong></td>
+						<td><strong>{{$transaction->price+$transaction->shippingCost}} บาท</strong></td>
 					</tr>
 				</table>
 			</div>
@@ -37,7 +37,7 @@
 							<div class="checkbox">
 								<label>
 									<input type="radio" name="type">
-									<img src="img/visa.PNG" alt="">
+									<img src="../img/visa.PNG" alt="">
 								</label>
 							</div>
 							<!-- /.checkbox -->
@@ -46,7 +46,7 @@
 							<div class="checkbox">
 								<label>
 									<input type="radio" name="type">
-									<img src="img/master.png" alt="">									
+									<img src="../img/master.png" alt="">									
 								</label>
 							</div>
 							<!-- /.checkbox -->

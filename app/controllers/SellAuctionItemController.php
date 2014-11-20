@@ -25,10 +25,10 @@ class SellAuctionItemController extends Controller
 		$destinationPath = 'upload/';
 		$filename = $file->getClientOriginalName();
 		Input::file('picture')->move($destinationPath, $filename);
-		$path = '../public/'.$destinationPath.$filename;
+		// $path = '../public/'.$destinationPath.$filename;
 
 		// $this->item->name = $input['name'];
-		$this->item->picture = $path;
+		$this->item->picture = $filename;
 
 		// $this->item->price = $input['price'];
 		// $this->item->brand = $input['brand'];
@@ -48,7 +48,7 @@ class SellAuctionItemController extends Controller
 		$this->item->type = 'auction';
 		$this->item->endDateTime = $input['endDate'].' '.$input['endTime'];
 		$this->item->bidManagerId = NULL;
-		$this->item->amount=NULL;
+		// $this->item->amount=NULL;
 		$this->item->sellerId = Auth::user()->id;
 		// $this->item->id = $input['id'];
 		
@@ -62,6 +62,11 @@ class SellAuctionItemController extends Controller
 		// return View::make('emptypage');
 		$this->item->save();
 
-		return Redirect::action('SellAuctionItemController@sellAuctionItem')->with('notice','ระบบเพิ่มสินค้าของคุณเรียบร้อยแล้วค่ะ');		
+		return Redirect::action('SellAuctionItemController@sellAuctionItem')->with('notice','ระบบเพิ่มสินค้าของคุณเรียบร้อยแล้วค่ะ'.$this->item->id);
+	}
+
+	public function deleteAuctionItem($id){
+		$item = Item::where('id', '=', $id)->delete();
+		return Redirect::to('listItemSeller?show=all')->with('notice','ลบสินค้าเรียบร้อยแล้วค่ะ');		
 	}
 }

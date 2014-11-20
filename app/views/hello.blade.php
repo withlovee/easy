@@ -19,7 +19,7 @@
 	<div class="row item">
 		<div class="col-sm-3">
 			<a href="item/{{$item->id}}">
-				<img src="{{$item->picture}}" class="img-responsive">
+				{{ HTML::image('upload/'.$item->picture, $item->name, ['class' => 'img-responsive']) }}
 			</a>
 		</div>
 		<!-- /.col-sm-3 -->
@@ -27,7 +27,7 @@
 			<h3><a href="item/{{$item->id}}">{{$item->name}}</a></h3>
 			<p>{{$item->property}}</p>
 			<p>
-				<span href="#" class="btn btn-default" role="button" disabled="disabled">{{$item->price}} บาท</span>
+				<span href="#" class="btn btn-default" role="button" disabled="disabled">{{ number_format($item->price) }} บาท</span>
 				@if($item->type=="auction")
 					<span href="#" class="btn btn-warning" role="button" disabled="disabled"><i class="glyphicon glyphicon-time"></i> ประมูล</span>
 				@endif
@@ -39,7 +39,7 @@
 	@endforeach
 	@endif
 	@if($title != "สินค้าล่าสุด")
-		<div class="text-center">{{ $items->links() }}</div>
+		<div class="text-center">{{ $items->appends($params)->links() }}</div>
 	@endif
 	@if($title != "สินค้าทั้งหมด")
 	<nav>

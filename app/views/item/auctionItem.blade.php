@@ -3,17 +3,18 @@
 <div class="row item-header">
 	@include('layouts.error')
 	<div class="col-md-5">
-		<a href="detail.php">
-			<img src="../{{$item->picture}}" class="img-responsive">
-		</a>						
+		{{ HTML::image('upload/'.$item->picture, $item->name, ['class' => 'img-responsive']) }}
 	</div>
 	<!-- /.col-md-6 -->
 	<div class="col-md-7">
 		<h2>
+			@if($item->quantity==0)
+				<span class="label label-danger">หมดแล้ว</span>
+			@endif
 			{{$item->name}}
 		</h2>
-		<h3>สินค้าประมูล ราคาปัจจุบัน: {{$item->price}} บาท</h3>
-		<h4>ประกาศขายโดย: {{$item->seller->username}}</h4>
+		<h3>สินค้าประมูล ราคาปัจจุบัน: {{ number_format($item->price) }} บาท</h3>
+		<h4>ประกาศขายโดย: {{ HTML::link('users/show/'.$item->seller->id, $item->seller->username) }}</h4>
 		<p>{{$item->property}}</p>
 
 		@if(is_buyer())
@@ -60,6 +61,9 @@
 			</div>
 		</div>
 		@endif
+		@if($item->sellerId==Auth::user()->id)
+			{{ Form::button('ลบสินค้าชิ้นนี้',['class'=>"btn btn-danger", "data-toggle"=>"modal", "data-target"=>"#myModal$item->id"])}}
+		@endif	
 	</div>
 	<!-- /.col-md-6 -->
 </div>
@@ -127,4 +131,33 @@
 	</div>
 </div>
 
+<div class="modal fade" id="myModal{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		{{Form::open(array('url' => 'deleteAuctionItem/'.$item->id, 'method' => 'post', 'class' => 'form-horizontal'))}}
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title" id="myModalLabel">ท่านแน่ใจหรือไม่ที่จะลบสินค้า {{$item->name}}</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-sm-6">
+						{{ HTML::image('upload/'.$item->picture, $item->name, ['class' => 'img-responsive']) }}
+					</div>
+					<div class="col-sm-6">
+						<h3>{{$item->name}}</h3>
+						<br>
+						<h4>ราคา: {{number_format($item->price)}} บาท</h4>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">					
+				<button type="button" class="btn btn-default" data-dismiss="modal">ยกเลิก</button>
+				{{ Form::submit('ยืนยันการลบสินค้า',['class'=>"btn btn-danger"])}}
+				</form>
+				{{ Form::close()}}
+			</div>
+		</div>
+	</div>
+</div>	
 @stop
