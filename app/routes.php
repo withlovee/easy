@@ -49,7 +49,7 @@ Route::get('user/{id}', 'UsersController@show');
  */
 
 Route::get('users/show/{id}', 'UsersController@show');
-
+Route::get('users/feedback/{id}','Feedback@create');
 
 /**
  * Admin

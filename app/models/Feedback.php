@@ -14,6 +14,9 @@ class Feedback extends Eloquent
 
     public $errors;
 
+    public function create(){
+        
+    }
     public function isValid()
     {
         $validation = Validator::make($this->attributes, static::$rules);
