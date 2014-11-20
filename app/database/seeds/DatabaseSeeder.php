@@ -257,7 +257,7 @@ class ItemsTableSeeder extends Seeder{
     $item->returnPolicy='สามารถส่งคืนได้';
     $item->returnFee=50;
     $item->shipping= json_encode(array(
-      'แบบด่วน' => '100',
+      'แบบด่วน' => '90',
       'แบบมาตรฐาน' => '50',
       'แบบประหยัด' => '30'
     ));

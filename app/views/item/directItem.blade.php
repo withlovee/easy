@@ -57,7 +57,10 @@
 								<option value="" selected>แบบมาตรฐาน: 50 บาท</option>
 								<option value="">แบบด่วน: 100 บาท</option>
 							</select>-->
-							{{Form::select('deliver', array('A' => 'แบบประหยัด: 30 บาท', 'B' => 'แบบมาตรฐาน: 50 บาท', 'C' => 'แบบด่วน: 100 บาท'), 'B', ['class'=>"form-control"])}}
+							
+							
+							
+							{{Form::select('deliver', $deliver, 'แบบมาตรฐาน', ['class'=>"form-control"])}}
 						</div>
 					</div><!--form-group-->
 					<div class="form-group">
@@ -87,11 +90,11 @@
 				<button type="button" class="btn btn-default" data-dismiss="modal">ยกเลิก</button>
 				
 				{{ Form::submit('ซื้อสินค้า',['class'=>"btn btn-primary"])}}
-				</form>
-				{{ Form::close()}}
-			</div>
+			</form>
+			{{ Form::close()}}
 		</div>
 	</div>
+</div>
 </div>
 
 @stop
