@@ -64,4 +64,9 @@ class SellAuctionItemController extends Controller
 
 		return Redirect::action('SellAuctionItemController@sellAuctionItem')->with('notice','ระบบเพิ่มสินค้าของคุณเรียบร้อยแล้วค่ะ'.$this->item->id);
 	}
+
+	public function deleteAuctionItem($id){
+		$item = Item::where('id', '=', $id)->delete();
+		return Redirect::to('listItemSeller?show=all')->with('notice','ลบสินค้าเรียบร้อยแล้วค่ะ');		
+	}
 }

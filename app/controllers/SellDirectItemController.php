@@ -64,4 +64,9 @@ class SellDirectItemController extends Controller
 
 		return Redirect::action('SellDirectItemController@sellDirectItem')->with('notice','ระบบเพิ่มสินค้าของคุณเรียบร้อยแล้วค่ะ');		
 	}
+
+	public function deleteDirectItem($id){
+		$item = Item::where('id', '=', $id)->delete();
+		return Redirect::to('listItemSeller?show=all')->with('notice','ลบสินค้าเรียบร้อยแล้วค่ะ');		
+	}
 }

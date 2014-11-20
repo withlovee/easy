@@ -17,8 +17,8 @@ class HomeController extends BaseController {
 
 	public function showWelcome()
 	{
-		$auction = Item::where('type','=','auction')->count();
-		$direct = Item::where('type','=','direct')->count();
+		$auction = Item::where('quantity','!=','0')->where('type','=','auction')->count();
+		$direct = Item::where('quantity','!=','0')->where('type','=','direct')->count();
 		$item_count = ['auction' => $auction,
 						'direct' => $direct,
 						'all' => $auction+$direct]; 
