@@ -17,8 +17,8 @@ class HomeController extends BaseController {
 
 	public function showWelcome()
 	{
-		$auction = Item::where('type','=','auction')->count();
-		$direct = Item::where('type','=','direct')->count();
+		$auction = Item::where('quantity','!=','0')->where('type','=','auction')->count();
+		$direct = Item::where('quantity','!=','0')->where('type','=','direct')->count();
 		$item_count = ['auction' => $auction,
 						'direct' => $direct,
 						'all' => $auction+$direct]; 
@@ -29,7 +29,7 @@ class HomeController extends BaseController {
 			$searchs = explode(' ', Input::get('search'));
 			$items_id = [];
 			foreach ($searchs as $search) {
-				$query = Item::where('name','LIKE','%'.$search.'%')
+				$query = Item::where('quantity','!=','0')->where('name','LIKE','%'.$search.'%')
 							 ->orWhere('property','LIKE','%'.$search.'%')->lists('id'); 	
 				$items_id = array_unique(array_merge($items_id,$query));
 			}
@@ -39,19 +39,19 @@ class HomeController extends BaseController {
 		}
 		else if(Input::get('show') == 'all'){
 			$title = "สินค้าทั้งหมด";
-			$items = Item::orderBy('id', 'desc')->paginate($perPage);
+			$items = Item::where('quantity','!=','0')->orderBy('id', 'desc')->paginate($perPage);
 		}
 		elseif(Input::get('show') == 'direct'){
 			$title = "สินค้าขายโดยตรง";
-			$items = Item::where('type','=','direct')->orderBy('id', 'desc')->paginate($perPage);
+			$items = Item::where('type','=','direct')->where('quantity','!=','0')->orderBy('id', 'desc')->paginate($perPage);
 		}
 		elseif(Input::get('show') == 'auction'){
 			$title = "สินค้าประมูล";
-			$items = Item::where('type','=','auction')->orderBy('id', 'desc')->paginate($perPage);
+			$items = Item::where('type','=','auction')->where('quantity','!=','0')->orderBy('id', 'desc')->paginate($perPage);
 		}
 		else{
 			$title = "สินค้าล่าสุด";
-			$items = Item::orderBy('id', 'desc')->take($latest)->get();
+			$items = Item::orderBy('id', 'desc')->where('quantity','!=','0')->take($latest)->get();
 		}
 		return View::make('hello', [
 			'items' => $items, 

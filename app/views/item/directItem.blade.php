@@ -9,6 +9,9 @@
 	<div class="col-md-7">
 		{{Form::open(array('url' => 'buy/'.$item->id, 'method' => 'post', 'class' => 'form-horizontal'))}}
 		<h2>
+			@if($item->quantity==0)
+				<span class="label label-danger">หมดแล้ว</span>
+			@endif
 			{{$item->name}}
 		</h2>
 		<h3>สินค้าขายโดยตรง ราคา: {{ number_format($item->price) }} บาท</h3>
@@ -21,7 +24,9 @@
 			@if(is_buyer())
 			{{ Form::button('ซื้อสินค้า',['class'=>"btn btn-primary", "data-toggle"=>"modal", "data-target"=>"#myModal"])}}
 			@endif
-			
+			@if($item->sellerId==Auth::user()->id)
+			{{ Form::button('ลบสินค้าชิ้นนี้',['class'=>"btn btn-danger", "data-toggle"=>"modal", "data-target"=>"#myModal$item->id"])}}
+			@endif
 		</p>
 		{{Form::close()}}
 	</div>
@@ -97,4 +102,33 @@
 </div>
 </div>
 
+<div class="modal fade" id="myModal{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		{{Form::open(array('url' => 'deleteDirectItem/'.$item->id, 'method' => 'post', 'class' => 'form-horizontal'))}}
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title" id="myModalLabel">ท่านแน่ใจหรือไม่ที่จะลบสินค้า {{$item->name}}</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-sm-6">
+						{{ HTML::image('upload/'.$item->picture, $item->name, ['class' => 'img-responsive']) }}
+					</div>
+					<div class="col-sm-6">
+						<h3>{{$item->name}}</h3>
+						<br>
+						<h4>ราคา: {{number_format($item->price)}} บาท</h4>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">					
+				<button type="button" class="btn btn-default" data-dismiss="modal">ยกเลิก</button>
+				{{ Form::submit('ยืนยันการลบสินค้า',['class'=>"btn btn-danger"])}}
+				</form>
+				{{ Form::close()}}
+			</div>
+		</div>
+	</div>
+</div>			
 @stop
