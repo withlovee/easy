@@ -73,7 +73,7 @@
 			</dl>
 			@if(Auth::user()->role == 'Buyer' && $transaction->buyerFeedbackId == null)
 				<h2>ให้ Feedback กับผู้ขาย</h2>
-				{{ Form::open(array('class' => 'form-horizontal', 'url' => 'feedback/create')) }}
+				{{ Form::open(array('class' => 'form-horizontal', 'url' => 'feedback/create/'.$transaction->item->seller->id)) }}
 					{{Form::hidden('transaction_id', $transaction->id)}}
 					<div class="form-group">
 						<div class="col-sm-8">
@@ -82,7 +82,7 @@
 						<div class="col-sm-2">
 							<div class="radio">
 								<label>
-									<input type="radio" name="score" id="score1" value="1" required>
+									{{Form::radio('score','1')}}
 									<i class="glyphicon glyphicon-thumbs-up thumb-up"></i>
 								</label>
 							</div>
@@ -90,7 +90,7 @@
 						<div class="col-sm-2">
 							<div class="radio">
 								<label>
-									<input type="radio" name="score" id="score2" value="2" required>
+									{{ Form::radio( 'score','2')}}
 									<i class="glyphicon glyphicon-thumbs-down thumb-down"></i>
 								</label>
 							</div>
@@ -104,7 +104,7 @@
 				</form>
 			@elseif(Auth::user()->role == 'Seller' && $transaction->sellerFeedbackId == null)
 				<h2>ให้ Feedback กับผู้ซื้อ</h2>
-				{{ Form::open(array('class' => 'form-horizontal', 'url' => 'feedback/create')) }}
+				{{ Form::open(array('class' => 'form-horizontal', 'url' => 'feedback/create'.$transaction->buyer->id)) }}
 					{{Form::hidden('transaction_id', $transaction->id)}}
 					<div class="form-group">
 						<div class="col-sm-8">
@@ -113,7 +113,7 @@
 						<div class="col-sm-2">
 							<div class="radio">
 								<label>
-									<input type="radio" name="score" id="score1" value="1" required>
+									{{ Form::radio( 'score','1')}}
 									<i class="glyphicon glyphicon-thumbs-up thumb-up"></i>
 								</label>
 							</div>
@@ -121,7 +121,7 @@
 						<div class="col-sm-2">
 							<div class="radio">
 								<label>
-									<input type="radio" name="score" id="score2" value="2" required>
+									{{ Form::radio( 'score','-1')}}
 									<i class="glyphicon glyphicon-thumbs-down thumb-down"></i>
 								</label>
 							</div>

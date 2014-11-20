@@ -61,14 +61,14 @@
 						@foreach($feedbacks as $feedback)
 							<div class="row topic">
 								<div class="col-xs-1 text-right">
-									@if ($feedback->score < 3)
+									@if ($feedback->score == -1)
 										<i class="thumb-down glyphicon glyphicon-thumbs-down"></i>
 									@else
 										<i class="thumb-up glyphicon glyphicon-thumbs-up"></i>
 									@endif
 								</div>
 								<div class="col-xs-10">
-									<h5>{{ $feedback->content }} (score {{ $feedback->score }}) </h5>
+									<h5>{{ $feedback->content }}  </h5>
 									<p class="info">
 										<a href="{{ URL::to('users/show/'.$feedback->senderId)}}" class="name"><strong>{{$feedback->sender}}</strong></a>
 									</p>
