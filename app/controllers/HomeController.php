@@ -22,7 +22,7 @@ class HomeController extends BaseController {
 		$item_count = ['auction' => $auction,
 						'direct' => $direct,
 						'all' => $auction+$direct]; 
-		$perPage = 2;
+		$perPage = 3;
 		$latest = 1;
 		if(Input::get('search') != null){
 			$title = "ผลลัพธ์การค้นหาสินค้า";
@@ -33,7 +33,9 @@ class HomeController extends BaseController {
 							 ->orWhere('property','LIKE','%'.$search.'%')->lists('id'); 	
 				$items_id = array_unique(array_merge($items_id,$query));
 			}
-			$items = Item::whereIn('id', $items_id)->paginate($perPage);
+
+			if($items_id==[]) $items = [];
+			else $items = $items = Item::whereIn('id', $items_id)->paginate($perPage);
 		}
 		else if(Input::get('show') == 'all'){
 			$title = "สินค้าทั้งหมด";

@@ -260,6 +260,7 @@ class UsersController extends Controller
 	}
 
 	public function ban($id){
+
 		$user = User::find($id);
 		$feedbacks = Feedback::where('receiverId', '=', $id)->orderBy('created_at', 'desc')->get();
 
@@ -267,14 +268,22 @@ class UsersController extends Controller
 			$senderId = $feedback->senderId;
 			$feedback->sender = User::find($senderId)->username;
 		}
-		$user->ban();
-		//$user->unBan();
+		if(is_admin()){
+
+			$user->ban();
+			//$user->unBan();
+		}
 		return View::make('users.member_profile', 
 			['user' => $user, 'feedbacks' => $feedbacks]);
 	
 	}
 	public function unBan($id){
 		$user = User::find($id);
+		if(is_admin()){
+			$user->unBan();
+		}
+
+		
 		$feedbacks = Feedback::where('receiverId', '=', $id)->orderBy('created_at', 'desc')->get();
 
 		foreach ($feedbacks as $feedback) {
@@ -282,7 +291,6 @@ class UsersController extends Controller
 			$feedback->sender = User::find($senderId)->username;
 		}
 		//$user->ban();
-		$user->unBan();
 		return View::make('users.member_profile', 
 			['user' => $user, 'feedbacks' => $feedbacks]);
 	
