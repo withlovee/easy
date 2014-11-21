@@ -16,7 +16,11 @@ class ItemController extends Controller
 	}
 
 	public function showDirectItem($id){
-
+		$auction = Item::where('quantity','!=','0')->where('type','=','auction')->count();
+		$direct = Item::where('quantity','!=','0')->where('type','=','direct')->count();
+		$item_count = ['auction' => $auction,
+						'direct' => $direct,
+						'all' => $auction+$direct]; 
 		$item = Item::find($id);
 
 		if(Auth::user()!=null && $item->sellerId == Auth::user()->id){
@@ -32,10 +36,10 @@ class ItemController extends Controller
 			foreach(json_decode($item->shipping) as $text => $price) 
 				$deliver[$text] = $text.': '.$price.' บาท';
 			
-			return View::make('item.directItem', compact('item','questions','deliver'));
+			return View::make('item.directItem', compact('item','questions','deliver','item_count'));
 		}	
 		elseif ($item->type == 'auction'){
-			return View::make('item.auctionItem', compact('item','questions'));
+			return View::make('item.auctionItem', compact('item','questions','item_count'));
 		}
 	
 	}
@@ -59,7 +63,7 @@ class ItemController extends Controller
 				$items_id = array_unique(array_merge($items_id,$query));
 			}
 			if($items_id==[]) $items = [];
-			else $items = Item::whereIn('id', $items_id)->paginate($perPage);;
+			else $items = Item::whereIn('id', $items_id)->orderBy('id', 'desc')->paginate($perPage);;
 		}
 		elseif(Input::get('show') == 'all'){
 			$title = "สินค้าทั้งหมดของฉัน";
@@ -109,7 +113,7 @@ class ItemController extends Controller
 			}
 
 			if($items_id==[]) $items = [];
-			else $items = $items = Item::whereIn('id', $items_id)->paginate($perPage);
+			else $items = $items = Item::whereIn('id', $items_id)->orderBy('id', 'desc')->paginate($perPage);
 		}
 		else if(Input::get('show') == 'all'){
 			$title = "สินค้าทั้งหมด";

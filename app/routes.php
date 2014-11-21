@@ -72,6 +72,7 @@ Route::post('transaction/set_status', 'TransactionController@setStatus')->before
  * Payment
  */
 Route::get('pay/{id}', 'PaymentController@create');
+Route::post('pay/{id}', 'PaymentController@proceedPayment');
 
 /**
  * Item

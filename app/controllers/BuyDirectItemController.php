@@ -3,7 +3,7 @@ class BuyDirectItemController extends Controller
 {
 
 	public function buyDirectItem($id){
-		$input=Input::all();
+		$input= Input::all();
 		$item = Item::find($id);
 		$amount = Input::get('amount');
 		$deliver = Input::get('deliver');
