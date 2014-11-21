@@ -40,17 +40,18 @@
 		<!-- /.col-sm-9 -->
 	</div>
 	@endforeach
-	@endif
-	@if($title != "สินค้าล่าสุด")
+		@if($title != "สินค้าล่าสุด")
 		<div class="text-center">{{ $items->appends($params)->links() }}</div>
+		@endif
+		@if($title != "สินค้าทั้งหมด")
+		<nav>
+			<ul class="pager">
+				<li class="next"><a href="?show=all">ดูสินค้าทั้งหมด &rarr;</a></li>
+			</ul>
+		</nav>
+		@endif
 	@endif
-	@if($title != "สินค้าทั้งหมด")
-	<nav>
-		<ul class="pager">
-			<li class="next"><a href="?show=all">ดูสินค้าทั้งหมด &rarr;</a></li>
-		</ul>
-	</nav>
-	@endif
+	
 @stop
 @section('sidebar')
 	<h3>ค้นหาสินค้า</h3>

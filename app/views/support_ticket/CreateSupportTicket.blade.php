@@ -1,4 +1,4 @@
-@extends('layouts.master', ['title' => 'จัดการข้อร้องเรียน'])
+@extends('layouts.master', ['title' => 'ร้องเรียนปัญหา'])
 @section('content')
 				<h1 class="line">ร้องเรียนปัญหา</h1>
 				<form class="form-horizontal" role="form" method="POST" action="{{ URL::to('supporttickets') }}">
@@ -40,10 +40,10 @@
 				</form>
 @stop
 @section('sidebar')
-				<a href="{{ URL::to('supporttickets') }}" type="button" class="create-btn btn btn-warning btn-lg btn-block">
+				<!-- <a href="{{ URL::to('supporttickets') }}" type="button" class="create-btn btn btn-warning btn-lg btn-block">
 					<span class="glyphicon glyphicon-arrow-left"></span>
 					กลับ
-				</a>
+				</a> -->
 				<h3>คำเตือน</h3>
 				<div class="box small-text">
 					<p>หากท่านได้รับ e-mail ติดต่อเข้ามาแบบแปลกๆ จากชาวต่างชาติ โดยส่วนใหญ่อาจเป็นไนจีเรีย ยูเครน หรือมาเลเซีย ให้ท่านระวังไว้ว่าอาจจะเป็นแก๊งค์มิจฉาชีพ โดยสินค้าส่วนใหญ่ที่เป็นกลุ่มเป้าหมายของมิจฉาชีพจะเป็นสินค้าไอที เช่น กล้องถ่ายรูป notebook โทรศัพท์มือถือ หรืออาจจะเป็นรถยนต์</p>
