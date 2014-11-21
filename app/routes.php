@@ -11,8 +11,9 @@
 |
 */
 
-Route::get('/', 'HomeController@showWelcome');
-Route::get('/search/{search}', 'HomeController@showWelcome');
+Route::get('/', 'ItemController@showItemList');
+Route::get('/search/{search}', 'ItemController@showItemList');
+
 Route::get('/supporttickets', 'SupportTicketController@showAll')->before('auth');
 
 
