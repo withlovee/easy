@@ -13,9 +13,9 @@
 <!-- /.box -->
 <h3>ดูสินค้าอื่นๆ</h3>
 <div class="list-group">
-	<a href="{{ URL::to('?show=all') }}" class="list-group-item">สินค้าทั้งหมด</a>
-	<a href="{{ URL::to('?show=auction') }}" class="list-group-item">สินค้าประมูลเท่านั้น</a>
-	<a href="{{ URL::to('?show=direct') }}" class="list-group-item">สินค้าขายโดยตรงเท่านั้น</a>
+	<a href="{{ URL::to('?show=all') }}" class="list-group-item"><span class="badge">{{$item_count['all']}}</span>สินค้าทั้งหมด</a>
+	<a href="{{ URL::to('?show=auction') }}" class="list-group-item"><span class="badge">{{$item_count['auction']}}</span>สินค้าประมูลเท่านั้น</a>
+	<a href="{{ URL::to('?show=direct') }}" class="list-group-item"><span class="badge">{{$item_count['direct']}}</span>สินค้าขายโดยตรงเท่านั้น</a>
 </div>
 <h3>โฆษณา</h3>
 <div class="ad">

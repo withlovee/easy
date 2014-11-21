@@ -27,6 +27,9 @@
 			<h3><a href="item/{{$item->id}}">{{$item->name}}</a></h3>
 			<p>{{$item->property}}</p>
 			<p>
+				@if($item->quantity==0)
+					<span href="#" class="btn btn-danger" role="button" disabled="disabled"> หมดแล้ว</span>
+				@endif
 				<span href="#" class="btn btn-default" role="button" disabled="disabled">{{ number_format($item->price) }} บาท</span>
 				@if($item->type=="auction")
 					<span href="#" class="btn btn-warning" role="button" disabled="disabled"><i class="glyphicon glyphicon-time"></i> ประมูล</span>
@@ -37,17 +40,18 @@
 		<!-- /.col-sm-9 -->
 	</div>
 	@endforeach
-	@endif
-	@if($title != "สินค้าล่าสุด")
+		@if($title != "สินค้าล่าสุด")
 		<div class="text-center">{{ $items->appends($params)->links() }}</div>
+		@endif
+		@if($title != "สินค้าทั้งหมด")
+		<nav>
+			<ul class="pager">
+				<li class="next"><a href="?show=all">ดูสินค้าทั้งหมด &rarr;</a></li>
+			</ul>
+		</nav>
+		@endif
 	@endif
-	@if($title != "สินค้าทั้งหมด")
-	<nav>
-		<ul class="pager">
-			<li class="next"><a href="?show=all">ดูสินค้าทั้งหมด &rarr;</a></li>
-		</ul>
-	</nav>
-	@endif
+	
 @stop
 @section('sidebar')
 	<h3>ค้นหาสินค้า</h3>

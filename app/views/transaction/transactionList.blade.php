@@ -8,7 +8,8 @@
 	<div class="row item">
 		<div class="col-sm-3">
 			<a href="{{ URL::to('/transaction/'.$transaction->id) }}">
-				<img src="{{ $transaction->item->picture }}" class="img-responsive">
+				<!-- <img src="{{ $transaction->item->picture }}" class="img-responsive"> -->
+				{{ HTML::image('upload/'.$transaction->item->picture, $transaction->item->name, ['class' => 'img-responsive']) }}
 			</a>
 		</div>
 		<!-- /.col-sm-3 -->

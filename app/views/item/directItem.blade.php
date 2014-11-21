@@ -12,7 +12,7 @@
 			@if($item->quantity==0)
 				<span class="label label-danger">หมดแล้ว</span>
 			@endif
-			{{$item->name}}
+			&nbsp;{{$item->name}}
 		</h2>
 		<h3>สินค้าขายโดยตรง ราคา: {{ number_format($item->price) }} บาท</h3>
 		<h4>ประกาศขายโดย: {{ HTML::link('users/show/'.$item->seller->id, $item->seller->username) }}</h4>
@@ -24,7 +24,7 @@
 			@if(is_buyer())
 			{{ Form::button('ซื้อสินค้า',['class'=>"btn btn-primary", "data-toggle"=>"modal", "data-target"=>"#myModal"])}}
 			@endif
-			@if($item->sellerId==Auth::user()->id)
+			@if(Auth::user()!=null && $item->sellerId==Auth::user()->id)
 			{{ Form::button('ลบสินค้าชิ้นนี้',['class'=>"btn btn-danger", "data-toggle"=>"modal", "data-target"=>"#myModal$item->id"])}}
 			@endif
 		</p>
