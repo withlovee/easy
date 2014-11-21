@@ -30,10 +30,10 @@
 				<br>
 				<label for="">จำนวนราคาประมูลสูงสุด</label>
 				<div class="input-group" style="width: 200px;">
-					<input type="number" class="form-control" value="146">
+					<input id="auc1Price" type="number" class="form-control" value="146">
 					<span class="input-group-addon">บาท</span>
 				</div><br>
-				<a href="" class="btn btn-primary" style="margin-top:-3px;" data-toggle="modal" data-target="#myModal">ประมูล</a>
+				<a href="" id="auc1Button" class="btn btn-primary" style="margin-top:-3px;" data-toggle="modal" data-target="#myModal">ประมูล</a>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="auc2">
 				<br>
@@ -41,7 +41,7 @@
 					<div class="col-sm-6">
 						<label for="">จำนวนราคาประมูลสูงสุด</label>
 						<div class="input-group" style="width: 200px; float: left;">
-							<input type="number" class="form-control" value="146">
+							<input id="auc2Price" type="number" class="form-control" value="146">
 							<span class="input-group-addon">บาท</span>
 						</div>
 					</div>
@@ -57,7 +57,7 @@
 				</div>
 				<!-- /.row -->
 				<br>
-				<a href="" class="btn btn-primary" style="margin-top:-3px;" data-toggle="modal" data-target="#myModal">ประมูล</a>								
+				<a href="" id="auc2Button" class="btn btn-primary" style="margin-top:-3px;" data-toggle="modal" data-target="#myModal">ประมูล</a>								
 			</div>
 		</div>
 		@endif
@@ -73,30 +73,21 @@
 @include('item.sidebar')
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
-		{{Form::open(array('url' => 'buyAuctionItem/'.$item->id, 'method' => 'post', 'class' => 'form-horizontal'))}}
 		<div class="modal-content">
+			{{Form::open(array('url' => 'buyAuctionItem/'.$item->id, 'method' => 'post', 'class' => 'form-horizontal'))}}
+
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 				<h4 class="modal-title" id="myModalLabel">สั่งซื้อ{{$item->name}}</h4>
 			</div>
+
 			<div class="modal-body">
-				<form class="form-horizontal" role="form">
-					<div class="form-group">
-						<label for="inputEmail3" class="col-sm-4 control-label">จำนวน</label> 
-						<div class="col-sm-6">
-							{{ Form::number('amount','1',['min'=>'1','class'=> 'form-control'])}}
-						</div>
-						<label class="col-sm-1 control-label">ชิ้น</label>
-					</div><!--form-group-->
+				{{ Form::hidden('amount','1',['min'=>'1','class'=> 'form-control', 'id'=>'amount'])}}
+				<div class="form-horizontal">
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-4 control-label">รูปแบบการจัดส่ง</label>
 						<div class="col-sm-6">
-							<!--<select name="" id="" class="form-control">
-								<option value="">แบบประหยัด: 30 บาท</option>
-								<option value="" selected>แบบมาตรฐาน: 50 บาท</option>
-								<option value="">แบบด่วน: 100 บาท</option>
-							</select>-->
-							{{Form::select('deliver', array('A' => 'แบบประหยัด: 30 บาท', 'B' => 'แบบมาตรฐาน: 50 บาท', 'C' => 'แบบด่วน: 100 บาท'), 'B', ['class'=>"form-control"])}}
+							{{Form::select('deliver', $deliver, 'แบบมาตรฐาน', ['class'=>"form-control",'id'=>'deliver'])}}
 						</div>
 					</div><!--form-group-->
 					<div class="form-group">
@@ -114,19 +105,19 @@
 						<label for="inputEmail3" class="col-sm-4 control-label">ราคารวมภาษี ({{$item->tax}}%)</label>
 						<div class="col-sm-8">
 							<div class="checkbox">
-								<strong>{{($item->price*(100+$item->tax))/100.0}} บาท</strong>
+								<strong><span id="total"></span> บาท</strong>
 							</div>
 							<!-- /.checkbox -->
 						</div>
 					</div><!--form-group-->
-				</form>
+				</div>
+				{{ Form::hidden('tax',$item->tax,['id'=>'tax'])}}
 			</div>
 			<div class="modal-footer">
-				<form action="payment.php">
 				<button type="button" class="btn btn-default" data-dismiss="modal">ยกเลิก</button>
 				<button type="submit" class="btn btn-primary">ยืนยันการสั่งซื้อ</button>
-				</form>
 			</div>
+			{{ Form::close()}}
 		</div>
 	</div>
 </div>
@@ -154,10 +145,42 @@
 			<div class="modal-footer">					
 				<button type="button" class="btn btn-default" data-dismiss="modal">ยกเลิก</button>
 				{{ Form::submit('ยืนยันการลบสินค้า',['class'=>"btn btn-danger"])}}
-				</form>
-				{{ Form::close()}}
 			</div>
 		</div>
+		{{ Form::close()}}
 	</div>
 </div>	
+
+<script>
+jQuery(function($) {
+
+	var price = parseInt($("#auc1Price").val(),10);
+
+	// End Init
+
+	$("#auc2Button").click(function(){
+		price = parseInt($("#auc2Price").val(),10);
+		calculateTotalPrice();
+	});
+
+	$("#deliver").change(function(){
+		calculateTotalPrice();
+	});
+
+ 	function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
+
+	function calculateTotalPrice() {
+        var tax = (parseInt($("#tax").val(),10)+100.0)/100;
+      	var deliver = $("#deliver option:selected").html();
+      	var shipping = parseInt(deliver.match(/\d+/)[0],10);
+        var total = (price)*tax+shipping;
+        total = total.toFixed(2);
+        total = numberWithCommas(total);
+        console.log(price +' '+shipping+' '+tax);
+        $("#total").text(total);
+	}
+});
+</script>
 @stop
