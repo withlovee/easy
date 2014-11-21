@@ -76,10 +76,23 @@ class UsersTableSeeder extends Seeder {
 class BidManagersTableSeeder extends Seeder{
   public function run(){
     $bidManager = new BidManager;
-    $bidManager->currentBid = 0;
+    $bidManager->currentBid = 145;
+    $bidManager->maxBid = 200;
+    $bidManager->increment = 2;
+    $bidManager->bidderId = 5;
+    $bidManager->shipping = 'แบบมาตรฐาน';
+    $bidManager->shippingCost = 50;
+    $bidManager->others = "อื่นๆ";
     $bidManager->save();
+    
     $bidManager = new BidManager;
-    $bidManager->currentBid = 0;
+    $bidManager->currentBid = 67;
+    $bidManager->maxBid = 100;
+    $bidManager->increment = 3;
+    $bidManager->bidderId = 6;
+    $bidManager->shipping = 'แบบมาตรฐาน';
+    $bidManager->shippingCost = 50;
+    $bidManager->others = "อื่นๆ";
     $bidManager->save();
   }
 }
@@ -271,6 +284,32 @@ class ItemsTableSeeder extends Seeder{
     $item->tax=7;
     $rilakkuma->service='ห่อของขวัญฟรี';
     $rilakkuma->others='';
+    $item->type='direct';
+    $item->endDateTime=null;
+    $item->bidManagerId=null;
+    $item->sellerId=1;
+    $item->save();
+
+    $item = new Item;
+    $item->name='เหนียวไก่';
+    $item->picture='chicken.jpg';
+    $item->price=30;
+    $item->brand='สตูล';
+    $item->model='ไก่ทอด';
+    $item->volumn='';
+    $item->property='จากกระแสแรงไม่หยุดฉุดไม่อยู่ของ น้องไลล่า ที่โพสต์คลิปต่อว่าหัวขโมยฉกข้าวเหนียวไก่จากตะกร้าหน้ารถจักรยานยนต์ไป ทำให้เธอเป็นที่รู้จักในชั่วข้ามคืน แม้ว่าสุดท้ายผลสรุปจะกลายเป็นว่าสุนัขคาบข้าวเหนียวไก่ของเธอไปรับประทาน ตามที่เสนอข่าวไปก่อนหน้านั้น';
+    $item->quantity=1;
+    $item->quality='น่องไก่ขิ้นโต';
+    $item->returnPolicy='ไม่สามารถส่งคืนได้';
+    $item->returnFee=0;
+    $item->shipping= json_encode(array(
+      'แบบด่วน' => '90',
+      'แบบมาตรฐาน' => '50',
+      'แบบประหยัด' => '30'
+    ));
+    $item->tax=7;
+    $rilakkuma->services='น้ำจิ้มฟรี';
+    $rilakkuma->others='น้ำจิ้มฟรี';
     $item->type='direct';
     $item->endDateTime=null;
     $item->bidManagerId=null;

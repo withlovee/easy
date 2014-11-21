@@ -147,7 +147,7 @@ jQuery(function($) {
 	function calculateTotalPrice() {
 		var price = parseInt($("#price").val(),10);
         var amount = parseInt($("#amount").val(),10);
-        var tax = (parseInt($("#tax").val(),10)+100.0)/100;
+        var tax = (parseInt($("#tax").val(),10)+100.0)/100.0;
       	var deliver = $("#deliver option:selected").html();
       	var shipping = parseInt(deliver.match(/\d+/)[0],10);
         var total = (price*amount)*tax+shipping;

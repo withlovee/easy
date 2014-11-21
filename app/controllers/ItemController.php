@@ -30,16 +30,18 @@ class ItemController extends Controller
 			$questions = ItemQuestion::where('itemId', '=', $id)->where('answer','!=','')->orderBy('id', 'ASC')->get();
 		}
 
-		
+
 		$deliver=array();
-	
-			foreach(json_decode($item->shipping) as $text => $price) 
-		$deliver[$text] = $text.': '.$price.' บาท';
+		foreach(json_decode($item->shipping) as $text => $price) 
+			$deliver[$text] = $text.': '.$price.' บาท';
+
 		if($item->type == 'direct'){	
 			return View::make('item.directItem', compact('item','questions','deliver','item_count'));
-		}	
+		}
 		elseif ($item->type == 'auction'){
-			return View::make('item.auctionItem', compact('item','questions','deliver','item_count'));
+			$bidManager = BidManager::find($item->bidManagerId);
+			$bidder = User::find($bidManager->bidderId);
+			return View::make('item.auctionItem', compact('item', 'questions', 'deliver', 'item_count', 'bidder'));
 		}
 	
 	}

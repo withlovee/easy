@@ -61,7 +61,7 @@
 						@foreach($feedbacks as $feedback)
 							<div class="row topic">
 								<div class="col-xs-1 text-right">
-									@if ($feedback->score == -1)
+									@if ($feedback->score <= 0)
 										<i class="thumb-down glyphicon glyphicon-thumbs-down"></i>
 									@else
 										<i class="thumb-up glyphicon glyphicon-thumbs-up"></i>

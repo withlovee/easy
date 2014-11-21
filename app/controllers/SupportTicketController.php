@@ -58,20 +58,20 @@ class SupportTicketController extends BaseController {
 		if(is_admin())
 			return Redirect::action('SupportTicketController@showAll');
 
-		// if(Auth::user()->role == 'Buyer') {
-		// 	$users = DB::table('transactions')->where('buyerId', '=', Auth::user()->id)
-		// 			->join('users', 'sellerId', '=', 'users.id')
-		// 			->select('users.*')
-		// 			->distinct()->get();
-		// }
-		// else {
-		// 	$users = DB::table('transactions')->where('sellerId', '=', Auth::user()->id)
-		// 			->join('users', 'buyerId', '=', 'users.id')
-		// 			->select('users.*')
-		// 			->distinct()->get();
-		// }
+		if(Auth::user()->role == 'Buyer') {
+			$users = DB::table('transactions')->where('buyerId', '=', Auth::user()->id)
+					->join('users', 'sellerId', '=', 'users.id')
+					->select('users.*')
+					->distinct()->orderBy('users.username', 'asc')->get();
+		}
+		else {
+			$users = DB::table('transactions')->where('sellerId', '=', Auth::user()->id)
+					->join('users', 'buyerId', '=', 'users.id')
+					->select('users.*')
+					->distinct()->orderBy('users.username', 'asc')->get();
+		}
 
-		$users = User::all();
+		// $users = User::all();
 		$list_users = ['' => 'เลือกชื่อผู้ใช้'];
 		foreach ($users as $user) {
 			if(!isset($list_users[$user->id])) {
