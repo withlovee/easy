@@ -60,8 +60,8 @@ class SellAuctionItemController extends Controller
 		    $bidManager->maxBid = Input::get('price');
 		    $bidManager->increment = 0;
 		    $bidManager->bidderId = null;
-		    $bidManager->shipping = 'แบบมาตรฐาน';
-		    $bidManager->shippingCost = 50;
+		    $bidManager->shipping = null;
+		    $bidManager->shippingCost = null;
 		    $bidManager->service = 0;
 			$bidManager->save();
 
