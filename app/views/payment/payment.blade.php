@@ -1,5 +1,5 @@
 @extends('layouts.master', ['title' => 'Payment'])
-@section('content')
+@section('wrapper')
 	<div class="container">
 		<h1 class="line">ชำระเงิน</h1>
 		<div class="row">
@@ -11,19 +11,19 @@
 					</tr>
 					<tr>
 						<th>ราคาสินค้า</th>
-						<td>{{$item->price*$transaction->amount}} บาท</td>
+						<td>{{number_format($item->price*$transaction->amount)}} บาท</td>
 					</tr>
 					<tr>
 						<th>ค่าขนส่ง</th>
-						<td>{{$transaction->shippingCost}} บาท</td>
+						<td>{{number_format($transaction->shippingCost)}} บาท</td>
 					</tr>
 					<tr>
 						<th>ภาษี</th>
-						<td>{{$item->tax/100.0*$transaction->amount*$item->price}} บาท</td>
+						<td>{{number_format($item->tax/100.0*$transaction->amount*$item->price)}} บาท</td>
 					</tr>
 					<tr>
 						<th>รวม</th>
-						<td><strong>{{$transaction->price+$transaction->shippingCost}} บาท</strong></td>
+						<td><strong>{{number_format($transaction->price+$transaction->shippingCost)}} บาท</strong></td>
 					</tr>
 				</table>
 			</div>
@@ -90,7 +90,4 @@
 		<!-- /.row -->
 	</div>
 	<!-- /.container -->
-@stop
-@section('sidebar')
-	@include('sidebars.personal')
 @stop
