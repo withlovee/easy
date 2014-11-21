@@ -48,6 +48,18 @@ Route::filter('auth', function()
 	}
 });
 
+Route::filter('seller', function(){
+	if (!is_seller()) {
+		return Response::make('Unauthorized', 401);
+	}
+});
+
+Route::filter('buyer', function(){
+	if (!is_buyer()) {
+		return Response::make('Unauthorized', 401);
+	}
+});
+
 Route::filter('admin-auth', function()
 {
 	if(!Auth::check() and !Session::has('admin')){
