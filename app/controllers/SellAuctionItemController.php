@@ -45,6 +45,8 @@ class SellAuctionItemController extends Controller
 		// $this->item->shipping = $input['shipping'];
 		// $this->item->tax = $input['tax'];
 		// $this->item->others = $input['others'];
+		$shipping = array('แบบด่วน' => $input['quick'], 'แบบมาตรฐาน' => $input['standard'], 'แบบประหยัด' => $input['cheap']);
+		$this->item->shipping = json_encode($shipping);
 		$this->item->type = 'auction';
 		$this->item->endDateTime = $input['endDate'].' '.$input['endTime'];
 		$this->item->bidManagerId = NULL;
@@ -61,8 +63,9 @@ class SellAuctionItemController extends Controller
 
 		// return View::make('emptypage');
 		$this->item->save();
-
-		return Redirect::action('SellAuctionItemController@sellAuctionItem')->with('notice','ระบบเพิ่มสินค้าของคุณเรียบร้อยแล้วค่ะ'.$this->item->id);
+		$newItem = Item::orderBy('id', 'desc')->first();
+		return Redirect::to('item/'.$newItem->id)->with('notice','ระบบเพิ่มสินค้าของท่านเรียบร้อยแล้วค่ะ');		
+		//return Redirect::action('SellAuctionItemController@sellAuctionItem')->with('notice','ระบบเพิ่มสินค้าของคุณเรียบร้อยแล้วค่ะ'.$this->item->id);
 	}
 
 	public function deleteAuctionItem($id){

@@ -45,10 +45,11 @@ class SellDirectItemController extends Controller
 		// $this->item->shipping = $input['shipping'];
 		// $this->item->tax = $input['tax'];
 		// $this->item->others = $input['others'];
+		$shipping = array('แบบด่วน' => $input['quick'], 'แบบมาตรฐาน' => $input['standard'], 'แบบประหยัด' => $input['cheap']);
+		$this->item->shipping = json_encode($shipping);
 		$this->item->type = 'direct';
 		$this->item->endDateTime = NULL;
 		$this->item->bidManagerId = NULL;
-		$this->item->amount=NULL;
 		$this->item->sellerId = Auth::user()->id;
 		// $this->item->id = $input['id'];
 		
@@ -61,8 +62,9 @@ class SellDirectItemController extends Controller
 
 		// return View::make('emptypage');
 		$this->item->save();
-
-		return Redirect::action('SellDirectItemController@sellDirectItem')->with('notice','ระบบเพิ่มสินค้าของคุณเรียบร้อยแล้วค่ะ');		
+		$newItem = Item::orderBy('id', 'desc')->first();
+		return Redirect::to('item/'.$newItem->id)->with('notice','ระบบเพิ่มสินค้าของท่านเรียบร้อยแล้วค่ะ');		
+		//return Redirect::action('SellDirectItemController@sellDirectItem')->with('notice','ระบบเพิ่มสินค้าของคุณเรียบร้อยแล้วค่ะ');		
 	}
 
 	public function deleteDirectItem($id){
