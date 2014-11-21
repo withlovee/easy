@@ -34,6 +34,7 @@ class PaymentController extends Controller {
 		$endMonth = Input::get('month');
 		$endYear = Input::get('year');
 		PaymentGateway::pay($cardType, $cardId, $cvv, $endMonth, $endYear);
+		EmailHelper::sendConfirmPaymentEmail($transaction);
 		return Redirect::to('transactions');
 	}
 

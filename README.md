@@ -17,3 +17,8 @@ EASY
   * enter `php artisan migrate` to create database tables
   * enter `php artisan db:seed` to insert some database entries (pre-population)
 5. Enable Apache & MySQL and open: [http://localhost/easy/public](http://localhost/easy/public), Login using username: **admin**, password: **1234**
+
+
+## Code Inspection
+- `transaction.blade.php` line 30, 33: no link in `<a href=“”>`
+- `AdministratorController@doLogin` line 22: move username/password query into model 

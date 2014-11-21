@@ -105,7 +105,8 @@ class ItemsTableSeeder extends Seeder{
       'แบบประหยัด' => '30'
     ));
     $item->tax=7;
-    $item->others='ห่อของขวัญฟรี';
+    $item->services='ห่อของขวัญฟรี';
+    $item->others='';
     $item->type='direct';
     $item->endDateTime=null;
     $item->bidManagerId=null;
@@ -132,7 +133,8 @@ class ItemsTableSeeder extends Seeder{
       'แบบประหยัด' => '30'
     ));
     $item2->tax=7;
-    $item2->others='ห่อของขวัญ';
+    $item2->services='ห่อของขวัญฟรี';
+    $item2->others='';
     $item2->type='auction';
     $item2->endDateTime=date('d/m/Y',strtotime("30/11/2014"));
     $item2->bidManagerId=1;
@@ -159,7 +161,8 @@ class ItemsTableSeeder extends Seeder{
       'แบบประหยัด' => '30'
     ));
     $rilakkuma->tax=7;
-    $rilakkuma->others='ห่อของขวัญ';
+    $rilakkuma->services='ห่อของขวัญฟรี';
+    $rilakkuma->others='';
     $rilakkuma->type='direct';
     $rilakkuma->endDateTime=null;
     $rilakkuma->bidManagerId=null;
@@ -186,7 +189,8 @@ class ItemsTableSeeder extends Seeder{
       'แบบประหยัด' => '30'
     ));
     $rilakkuma->tax=7;
-    $rilakkuma->others='ห่อของขวัญ';
+    $rilakkuma->services='ห่อของขวัญฟรี';
+    $rilakkuma->others='';
     $rilakkuma->type='direct';
     $rilakkuma->endDateTime=null;
     $rilakkuma->bidManagerId=null;
@@ -213,7 +217,8 @@ class ItemsTableSeeder extends Seeder{
       'แบบประหยัด' => '30'
     ));
     $rilakkuma->tax=7;
-    $rilakkuma->others='ห่อของขวัญ';
+    $rilakkuma->services='ห่อของขวัญฟรี';
+    $rilakkuma->others='';
     $rilakkuma->type='direct';
     $rilakkuma->endDateTime=null;
     $rilakkuma->bidManagerId=null;
@@ -238,7 +243,8 @@ class ItemsTableSeeder extends Seeder{
       'แบบประหยัด' => '30'
     ));
     $item->tax=7;
-    $item->others='ห่อของขวัญฟรี';
+    $rilakkuma->services='ห่อของขวัญฟรี';
+    $rilakkuma->others='';
     $item->type='direct';
     $item->endDateTime=null;
     $item->bidManagerId=null;
@@ -263,7 +269,8 @@ class ItemsTableSeeder extends Seeder{
       'แบบประหยัด' => '30'
     ));
     $item->tax=7;
-    $item->others='ห่อของขวัญฟรี';
+    $rilakkuma->services='ห่อของขวัญฟรี';
+    $rilakkuma->others='';
     $item->type='direct';
     $item->endDateTime=null;
     $item->bidManagerId=null;
