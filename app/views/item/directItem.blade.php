@@ -39,7 +39,7 @@
 @include('item.sidebar')
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
-		{{Form::open(array('url' => 'buyDirectItem/'.$item->id, 'method' => 'post', 'class' => 'form-horizontal'))}}
+		{{Form::open(array('url' => 'buyDirectItem/'.$item->id, 'method' => 'post', 'class' => 'form-horizontal', 'id'=>'buyDirectItemForm'))}}
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -50,22 +50,14 @@
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-4 control-label">จำนวน</label> 
 						<div class="col-sm-6">
-							{{ Form::number('amount','1',['min'=>'1','max'=> $item->quantity ,'class'=> 'form-control'])}}
+							{{ Form::number('amount','1',['min'=>'1','max'=> $item->quantity ,'class'=> 'form-control', 'id'=>'amount'])}}
 						</div>
 						<label class="col-sm-1 control-label">ชิ้น</label>
 					</div><!--form-group-->
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-4 control-label">รูปแบบการจัดส่ง</label>
-						<div class="col-sm-6">
-							<!--<select name="" id="" class="form-control">
-								<option value="">แบบประหยัด: 30 บาท</option>
-								<option value="" selected>แบบมาตรฐาน: 50 บาท</option>
-								<option value="">แบบด่วน: 100 บาท</option>
-							</select>-->
-							
-							
-							
-							{{Form::select('deliver', $deliver, 'แบบมาตรฐาน', ['class'=>"form-control"])}}
+						<div class="col-sm-6">				
+							{{Form::select('deliver', $deliver, 'แบบมาตรฐาน', ['class'=>"form-control",'id'=>'deliver'])}}
 						</div>
 					</div><!--form-group-->
 					<div class="form-group">
@@ -83,7 +75,7 @@
 						<label for="inputEmail3" class="col-sm-4 control-label">ราคารวมภาษี ({{$item->tax}}%)</label>
 						<div class="col-sm-8">
 							<div class="checkbox">
-								<strong>{{($item->price*(100+$item->tax))/100.0}} บาท</strong>
+								<strong><span id="total"></span> บาท</strong>
 							</div>
 							<!-- /.checkbox -->
 						</div>
@@ -96,6 +88,8 @@
 				
 				{{ Form::submit('ซื้อสินค้า',['class'=>"btn btn-primary"])}}
 			</form>
+			{{ Form::hidden('price',$item->price,['class'=> 'form-control','value'=>$item->price,'disabled'=>'disabled','id'=>'price'])}}
+			{{ Form::hidden('tax',$item->tax,['class'=> 'form-control','value'=>$item->tax,'disabled'=>'disabled','id'=>'tax'])}}
 			{{ Form::close()}}
 		</div>
 	</div>
@@ -131,4 +125,48 @@
 		</div>
 	</div>
 </div>			
+
+<script>
+jQuery(function($) {
+
+
+	// Initial
+	calculateTotalPrice();
+
+	// End Init
+
+
+	$("#amount, #deliver").change(function(){
+		calculateTotalPrice();
+	});
+
+	/*
+	$("#amount, #deliver").change(function() {
+	    var total = 0;
+        var self = $(this),
+             price = parseInt($("#price").val(),10),
+             amount = parseInt($("#amount").val(),10);
+             tax = (parseInt($("#tax").val(),10)+100.0)/100;
+             obj = $("#deliver option:selected");
+        deliver = obj.val();
+        // shipping = json_decode(deliver,true);
+        total = (price*amount)*tax;
+        // total = deliver;
+        $("#total").text(total.toFixed(2));
+	});
+	*/
+	
+	function calculateTotalPrice() {
+		var price = parseInt($("#price").val(),10);
+        var amount = parseInt($("#amount").val(),10);
+        var tax = (parseInt($("#tax").val(),10)+100.0)/100;
+      
+        var total = (price*amount)*tax;
+        
+        $("#total").text(total.toFixed(2));
+	}
+});
+</script>
+
+
 @stop

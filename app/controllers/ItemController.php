@@ -127,7 +127,7 @@ class ItemController extends Controller
 			$title = "สินค้าล่าสุด";
 			$items = Item::orderBy('id', 'desc')->where('quantity','!=','0')->take($latest)->get();
 		}
-		return View::make('hello', [
+		return View::make('itemList', [
 			'items' => $items, 
 			'title' => $title, 
 			'item_count' => $item_count,
