@@ -140,30 +140,20 @@ jQuery(function($) {
 		calculateTotalPrice();
 	});
 
-	/*
-	$("#amount, #deliver").change(function() {
-	    var total = 0;
-        var self = $(this),
-             price = parseInt($("#price").val(),10),
-             amount = parseInt($("#amount").val(),10);
-             tax = (parseInt($("#tax").val(),10)+100.0)/100;
-             obj = $("#deliver option:selected");
-        deliver = obj.val();
-        // shipping = json_decode(deliver,true);
-        total = (price*amount)*tax;
-        // total = deliver;
-        $("#total").text(total.toFixed(2));
-	});
-	*/
-	
+ 	function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
+
 	function calculateTotalPrice() {
 		var price = parseInt($("#price").val(),10);
         var amount = parseInt($("#amount").val(),10);
         var tax = (parseInt($("#tax").val(),10)+100.0)/100;
-      
-        var total = (price*amount)*tax;
-        
-        $("#total").text(total.toFixed(2));
+      	var deliver = $("#deliver option:selected").html();
+      	var shipping = parseInt(deliver.match(/\d+/)[0],10);
+        var total = (price*amount)*tax+shipping;
+        total = total.toFixed(2);
+        total = numberWithCommas(total);
+        $("#total").text(total);
 	}
 });
 </script>
