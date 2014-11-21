@@ -65,7 +65,7 @@
 						<div class="col-sm-8">
 							<div class="checkbox">
 								<label>
-									{{Form::checkbox('option', $item->others)}} {{$item->others}}</strong>
+									{{Form::checkbox('option', 1)}} {{$item->service}}</strong>
 								</label>
 							</div>
 							<!--{{Form::checkbox('option', $item->others)}}-->

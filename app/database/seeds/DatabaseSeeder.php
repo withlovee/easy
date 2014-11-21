@@ -105,7 +105,7 @@ class ItemsTableSeeder extends Seeder{
       'แบบประหยัด' => '30'
     ));
     $item->tax=7;
-    $item->services='ห่อของขวัญฟรี';
+    $item->service='ห่อของขวัญฟรี';
     $item->others='';
     $item->type='direct';
     $item->endDateTime=null;
@@ -133,7 +133,7 @@ class ItemsTableSeeder extends Seeder{
       'แบบประหยัด' => '30'
     ));
     $item2->tax=7;
-    $item2->services='ห่อของขวัญฟรี';
+    $item2->service='ห่อของขวัญฟรี';
     $item2->others='';
     $item2->type='auction';
     $item2->endDateTime=date('d/m/Y',strtotime("30/11/2014"));
@@ -161,7 +161,7 @@ class ItemsTableSeeder extends Seeder{
       'แบบประหยัด' => '30'
     ));
     $rilakkuma->tax=7;
-    $rilakkuma->services='ห่อของขวัญฟรี';
+    $rilakkuma->service='ห่อของขวัญฟรี';
     $rilakkuma->others='';
     $rilakkuma->type='direct';
     $rilakkuma->endDateTime=null;
@@ -189,7 +189,7 @@ class ItemsTableSeeder extends Seeder{
       'แบบประหยัด' => '30'
     ));
     $rilakkuma->tax=7;
-    $rilakkuma->services='ห่อของขวัญฟรี';
+    $rilakkuma->service='ห่อของขวัญฟรี';
     $rilakkuma->others='';
     $rilakkuma->type='direct';
     $rilakkuma->endDateTime=null;
@@ -217,7 +217,7 @@ class ItemsTableSeeder extends Seeder{
       'แบบประหยัด' => '30'
     ));
     $rilakkuma->tax=7;
-    $rilakkuma->services='ห่อของขวัญฟรี';
+    $rilakkuma->service='ห่อของขวัญฟรี';
     $rilakkuma->others='';
     $rilakkuma->type='direct';
     $rilakkuma->endDateTime=null;
@@ -243,7 +243,7 @@ class ItemsTableSeeder extends Seeder{
       'แบบประหยัด' => '30'
     ));
     $item->tax=7;
-    $rilakkuma->services='ห่อของขวัญฟรี';
+    $rilakkuma->service='ห่อของขวัญฟรี';
     $rilakkuma->others='';
     $item->type='direct';
     $item->endDateTime=null;
@@ -269,7 +269,7 @@ class ItemsTableSeeder extends Seeder{
       'แบบประหยัด' => '30'
     ));
     $item->tax=7;
-    $rilakkuma->services='ห่อของขวัญฟรี';
+    $rilakkuma->service='ห่อของขวัญฟรี';
     $rilakkuma->others='';
     $item->type='direct';
     $item->endDateTime=null;
@@ -457,6 +457,8 @@ class TransactionsTableSeeder extends Seeder{
       $transaction->buyerId = $buyer->id;
       $transaction->sellerId = $item->seller->id;
       $transaction->itemId = $item->id;
+      $transaction->service = true;
+
       $transaction->save();
 
       // Paid Transaction for DirectBuyItem
@@ -469,6 +471,7 @@ class TransactionsTableSeeder extends Seeder{
       $transaction->buyerId = $buyer->id;
       $transaction->sellerId = $item->seller->id;
       $transaction->itemId = $item->id;
+      $transaction->service = false;
       $transaction->save();
 
     }

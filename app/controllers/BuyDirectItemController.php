@@ -23,6 +23,11 @@ class BuyDirectItemController extends Controller
 		$transaction->buyerFeedbackId = null;
 		$transaction->sellerFeedbackId = null;
 		$transaction->sellerId=$item->sellerId;
+		if (Input::get('option') === '1') {
+    		$transaction->service=true;
+		} else {
+  			$transaction->service=false;
+		}
 		$transaction->save();
 
 		$item->quantity=$item->quantity-$amount;
