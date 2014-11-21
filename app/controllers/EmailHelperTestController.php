@@ -3,7 +3,6 @@
 class EmailHelperTestController extends BaseController {
 
   public function __construct() {
-    $this->emailHelper = new EmailHelper();
     $this->user = User::findOrFail(7);
     $this->item = Item::findOrFail(3);
     $this->transaction = Transaction::findOrFail(1);
@@ -24,35 +23,35 @@ class EmailHelperTestController extends BaseController {
 
     var_dump($this->user);
 
-    $this->emailHelper->sendPreviousAuctionWinnerEmail($this->user, $this->item, $args);
+    EmailHelper::sendPreviousAuctionWinnerEmail($this->user, $this->item, $args);
 
     return "true";
   }
 
   public function sendAuctionResultEmail() {
 
-    $this->emailHelper->sendAuctionResultEmail($this->user, $this->item);
+    EmailHelper::sendAuctionResultEmail($this->user, $this->item);
 
     return "true";
   }
 
   public function sendInvoiceEmail() {
-    $this->emailHelper->sendInvoiceEmail($this->transaction);
+    EmailHelper::sendInvoiceEmail($this->transaction);
     return "true";
   }
 
   public function sendConfirmPaymentEmail() {
-    $this->emailHelper->sendConfirmPaymentEmail($this->transaction);
+    EmailHelper::sendConfirmPaymentEmail($this->transaction);
     return "true";
   }
 
   public function sendFeedbackRequestEmail() {
-    $this->emailHelper->sendFeedbackRequestEmail($this->transaction, $this->user);
+    EmailHelper::sendFeedbackRequestEmail($this->transaction, $this->user);
     return "true";
   }
 
   public function test() {
-    var_dump($this->emailHelper->test($this->transaction));
+    var_dump(EmailHelper::test($this->transaction));
     return "true";
   }
 
