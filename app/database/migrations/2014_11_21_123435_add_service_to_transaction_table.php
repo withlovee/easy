@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddServiceToItemsTable extends Migration {
+class AddServiceToTransactionTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,9 +12,9 @@ class AddServiceToItemsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('items', function($table)
+		Schema::table('transactions', function($table)
 		{
-			$table->string('service',256);
+			$table->boolean('service');
 			
 		});
 	}
@@ -26,7 +26,7 @@ class AddServiceToItemsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('items', function($table)
+		Schema::table('transactions', function($table)
 		{
 			$table->dropColumn('service');
 		});
