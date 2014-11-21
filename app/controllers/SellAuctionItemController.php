@@ -53,7 +53,19 @@ class SellAuctionItemController extends Controller
 			$this->item->shipping = json_encode($shipping);
 			$this->item->type = 'auction';
 			$this->item->endDateTime = $input['endDate'].' '.$input['endTime'];
-			$this->item->bidManagerId = NULL;
+			
+			// create BidManager
+			$bidManager = new BidManager;
+		    $bidManager->currentBid = Input::get('price');
+		    $bidManager->maxBid = Input::get('price');
+		    $bidManager->increment = 0;
+		    $bidManager->bidderId = null;
+		    $bidManager->shipping = 'แบบมาตรฐาน';
+		    $bidManager->shippingCost = 50;
+		    $bidManager->service = 0;
+			$bidManager->save();
+
+			$this->item->bidManagerId = $bidManager->id;
 			// $this->item->amount=NULL;
 			$this->item->sellerId = Auth::user()->id;
 			// $this->item->id = $input['id'];

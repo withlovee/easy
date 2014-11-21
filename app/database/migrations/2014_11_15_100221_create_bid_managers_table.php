@@ -17,10 +17,10 @@ class CreateBidManagersTable extends Migration {
 			$table->double('currentBid');
 			$table->double('maxBid');
 			$table->double('increment');
-			$table->integer('bidderId')->unsigned();
-		    $table->string('shipping');
-		    $table->decimal('shippingCost');
-			$table->string('others',2048)->nullable();
+			$table->integer('bidderId')->unsigned()->nullable();
+		    $table->string('shipping')->nullable();
+		    $table->decimal('shippingCost')->nullable();
+			$table->integer('service')->unsigned()->nullable();
 		});
 	}
 

@@ -1,20 +1,21 @@
 <?php
 
 class BidManager extends Eloquent {
-    protected $fillable = array('currentBid', 'maxBid', 'increment', 'bidderId', 'shipping', 'shippingCost', 'options');
+    protected $fillable = array('currentBid', 'maxBid', 'increment', 'bidderId', 'shipping', 'shippingCost', 'service');
     public $timestamps = false;
 
-    private function setShipping($shipping, $shippingCost) {
+    private function setShippingService($shipping, $shippingCost, $service) {
         $this->shipping = $shipping;
         $this->shippingCost = $shippingCost;
+        $this->service = $service;
     }
 
-    public function updateManualBidWinner($newMaxBid, $newUserId, $shipping, $shippingCost) {
+    public function updateManualBidWinner($newMaxBid, $newUserId, $shipping, $shippingCost, $service) {
         if ($this->bidderId == $newUserId) {
             $this->currentBid = $this->maxBid = $newMaxBid;
             $this->increment = 0;
 
-            $this->setShipping($shipping, $shippingCost);
+            $this->setShippingService($shipping, $shippingCost, $service);
         }
         else {
             if ($this->maxBid > $newMaxBid) {
@@ -29,19 +30,19 @@ class BidManager extends Eloquent {
                 $this->increment = 0;
                 $this->bidderId = $newUserId;
 
-                $this->setShipping($shipping, $shippingCost);
+                $this->setShippingService($shipping, $shippingCost, $service);
             }
         }
         $this->save();
         return $this->currentBid;
     }
 
-    public function updateAutoBidWinner($newMaxBid, $newIncrement, $newUserId, $shipping, $shippingCost) {
+    public function updateAutoBidWinner($newMaxBid, $newIncrement, $newUserId, $shipping, $shippingCost, $service) {
         if ($this->bidderId == $newUserId) {
             $this->maxBid = $newMaxBid;
             $this->increment = $newIncrement;
 
-            $this->setShipping($shipping, $shippingCost);
+            $this->setShippingService($shipping, $shippingCost, $service);
         }
         else {
             if ($this->maxBid > $newMaxBid) {        // old winner
@@ -76,7 +77,7 @@ class BidManager extends Eloquent {
                 $this->increment = $newIncrement;
                 $this->bidderId = $newUserId;
 
-                $this->setShipping($shipping, $shippingCost);
+                $this->setShippingService($shipping, $shippingCost, $service);
             }
         }
         $this->save();
