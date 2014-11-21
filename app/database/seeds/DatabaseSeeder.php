@@ -374,7 +374,7 @@ class ItemQuestionsTableSeeder extends Seeder{
     $itemQ=new ItemQuestion;
     $itemQ->content = 'มีสีขาวหรือเปล่าคะ';
     $itemQ->answer='ไม่มีค่ะ';
-    $itemQ->userId=4;
+    $itemQ->userId=3;
     $itemQ->itemId=4;
     if(! $itemQ->save()) {
       Log::info('Unable to create item Question');
@@ -385,13 +385,24 @@ class ItemQuestionsTableSeeder extends Seeder{
     $itemQ=new ItemQuestion;
     $itemQ->content = 'ส่งของได้ภายในกี่วันคะ';
     $itemQ->answer='';
-    $itemQ->userId=4;
+    $itemQ->userId=3;
     $itemQ->itemId=4;
     if(! $itemQ->save()) {
       Log::info('Unable to create item Question');
     } else {
       Log::info('Created ticket >>'.$itemQ->content);
     }
+
+    $itemQ=new ItemQuestion;
+    $itemQ->content = 'มีของอีกรึเปล่าคะ';
+    $itemQ->answer='หมดแล้วครับ รอของล๊อตใหม่นะครับ';
+    $itemQ->userId=3;
+    $itemQ->itemId=5;
+    if(! $itemQ->save()) {
+      Log::info('Unable to create item Question');
+    } else {
+      Log::info('Created ticket >>'.$itemQ->content);
+    }    
 
   }
 }
