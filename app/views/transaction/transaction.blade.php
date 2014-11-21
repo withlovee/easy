@@ -4,7 +4,8 @@
 	<div class="row item-header">
 		<div class="col-sm-2">
 			<a href="detail.php">
-				<img src="{{$transaction->item->picture}}" class="img-responsive">
+				<!-- <img src="{{$transaction->item->picture}}" class="img-responsive"> -->
+				{{ HTML::image('upload/'.$transaction->item->picture, $transaction->item->name, ['class' => 'img-responsive']) }}
 			</a>						
 		</div>
 		<!-- /.col-sm-6 -->
