@@ -72,7 +72,7 @@
 					@endif
 				</dd>
 			</dl>
-			@if(Auth::user()->role == 'Buyer' && $transaction->buyerFeedbackId == null)
+			@if(Auth::user()->role == 'Buyer' && $transaction->sellerFeedbackId== null && $transaction->status == 'received')
 				<h2>ให้ Feedback กับผู้ขาย</h2>
 				{{ Form::open(array('class' => 'form-horizontal', 'url' => 'feedback/create/'.$transaction->item->seller->id)) }}
 					{{Form::hidden('transaction_id', $transaction->id)}}
@@ -91,7 +91,7 @@
 						<div class="col-sm-2">
 							<div class="radio">
 								<label>
-									{{ Form::radio( 'score','2')}}
+									{{ Form::radio( 'score','0')}}
 									<i class="glyphicon glyphicon-thumbs-down thumb-down"></i>
 								</label>
 							</div>
@@ -103,7 +103,7 @@
 						</div>
 					</div>
 				</form>
-			@elseif(Auth::user()->role == 'Seller' && $transaction->sellerFeedbackId == null)
+			@elseif(Auth::user()->role == 'Seller' && $transaction->buyerFeedbackId  == null && $transaction->status == 'received')
 				<h2>ให้ Feedback กับผู้ซื้อ</h2>
 				{{ Form::open(array('class' => 'form-horizontal', 'url' => 'feedback/create'.$transaction->buyer->id)) }}
 					{{Form::hidden('transaction_id', $transaction->id)}}
@@ -122,7 +122,7 @@
 						<div class="col-sm-2">
 							<div class="radio">
 								<label>
-									{{ Form::radio( 'score','-1')}}
+									{{ Form::radio( 'score','0')}}
 									<i class="glyphicon glyphicon-thumbs-down thumb-down"></i>
 								</label>
 							</div>
@@ -134,9 +134,7 @@
 						</div>
 					</div>
 				</form>
-			@else
-				<h2>Feedback ที่ส่งไปแล้ว</h2>
-				<p>{x{ $transaction->buyerFeedback->content }}</p>
+	
 			@endif
 			<nav>
 				<ul class="pager">
