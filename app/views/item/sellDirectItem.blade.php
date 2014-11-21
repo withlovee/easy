@@ -1,6 +1,5 @@
 @extends('layouts.master', ['title' => 'SellNewDirectBuyItem'])
 @section('content')
-
 		<h1 class="line">ขายสินค้าโดยตรง</h1>
 		@include('layouts.error')
 		<form class="form-horizontal" role="form" method="POST" action="{{{ URL::to('createDirectItem') }}}" enctype="multipart/form-data">
@@ -158,6 +157,7 @@
 				<div class="col-sm-offset-3 col-sm-8">
 					<!-- <button type="submit" class="btn btn-primary">ลงสินค้า</button> -->
 					{{Form::submit("ลงสินค้า",array("class"=>"btn btn-primary"))}}
+					{{Form::close()}}
 				</div>
 			</div>
 		</form>

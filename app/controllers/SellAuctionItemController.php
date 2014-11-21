@@ -29,7 +29,7 @@ class SellAuctionItemController extends Controller
 
 		// $this->item->name = $input['name'];
 		$this->item->picture = $filename;
-
+		$this->item->quantity = 1;
 		// $this->item->price = $input['price'];
 		// $this->item->brand = $input['brand'];
 		// $this->item->model = $input['model'];
@@ -55,7 +55,7 @@ class SellAuctionItemController extends Controller
 		// $this->item->id = $input['id'];
 		
 		if (!$this->item->fill($input)->isValid()) {
-			return Redirect::back()->withInput()->withErrors($this->item->errors);
+			return Redirect::back()->withInput()->withErrors($this->item->errors)->with('error',$this->item->errors);
 		}
 		// echo "<pre>";
 		// print_r($path);

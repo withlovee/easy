@@ -17,7 +17,7 @@
 		<h4>ประกาศขายโดย: {{ HTML::link('users/show/'.$item->seller->id, $item->seller->username) }}</h4>
 		<p>{{$item->property}}</p>
 
-		@if(is_buyer())
+		@if(is_buyer() && $item->quantity >0)
 		<!-- Nav tabs -->
 		<ul class="nav nav-tabs" role="tablist">
 			<li role="presentation" class="active"><a href="#auc1" role="tab" data-toggle="tab">ประมูลแบบกดเอง</a></li>

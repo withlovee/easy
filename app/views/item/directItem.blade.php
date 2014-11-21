@@ -21,7 +21,7 @@
 			<!--{{ Form::number('amount','1',['min'=>'1'])}}-->
 			&nbsp;
 			<!--<a href="" class="btn btn-primary" data-toggle="modal" data-target="#myModal">ซื้อสินค้า</a>-->
-			@if(is_buyer())
+			@if(is_buyer() && $item->quantity >0)
 			{{ Form::button('ซื้อสินค้า',['class'=>"btn btn-primary", "data-toggle"=>"modal", "data-target"=>"#myModal"])}}
 			@endif
 			@if(Auth::user()!=null && $item->sellerId==Auth::user()->id)

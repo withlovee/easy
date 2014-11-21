@@ -23,7 +23,7 @@
 					<!--<input type="text" class="form-control">-->
 					<div class="input-group">
 						<!--<button class="btn btn-default" title="" data-placement="top" data-toggle="tooltip" type="button" data-original-title="ท่านสามารถประกาศขายสินค้าประมูลได้ครั้งละ 1 ชิ้น"> 1 </button>-->
-						{{ Form::text('quantity','1',['class'=> 'form-control', 'data-placement'=>"top",  'data-toggle'=>"tooltip",'data-original-title'=>"ท่านสามารถประกาศขายสินค้าประมูลได้ครั้งละ 1 ชิ้น",'disabled'=>'disabled','required' => 'required'])}}
+						{{ Form::number('quantity','1',['class'=> 'form-control', 'disabled'=>'disabled','required' => 'required'])}}
 						<span class="input-group-addon">ชิ้น</span>
 					</div>
 				</div>
@@ -172,6 +172,7 @@
 				<div class="col-sm-offset-3 col-sm-8">
 					<!-- <button type="submit" class="btn btn-primary">ลงสินค้า</button> -->
 					{{Form::submit("ลงสินค้า",array("class"=>"btn btn-primary"))}}
+					{{Form::close()}}
 				</div>
 			</div>
 		</form>
