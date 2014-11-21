@@ -1,7 +1,7 @@
 <?php
 
 class PaymentGateway extends Controller {
-	public function pay()
+	public static function pay($cardType,$cardId,$cvv,$endMonth,$endYear)
 	{
 		return "true";
 	}

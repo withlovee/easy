@@ -25,11 +25,15 @@ class PaymentController extends Controller {
 	}
 
 	public function proceedPayment($id){
+		$transaction = Transaction::find($id);
+		$transaction->status = 'paid';
+		$transaction->save();
 		$cardType = Input::get('cardType');
 		$cardId = Input::get('cardId');
 		$cvv = Input::get('cvv');
 		$endMonth = Input::get('month');
 		$endYear = Input::get('year');
+		PaymentGateway::pay($cardType, $cardId, $cvv, $endMonth, $endYear);
 		return Redirect::to('transactions');
 	}
 
