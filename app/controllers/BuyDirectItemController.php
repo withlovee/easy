@@ -28,6 +28,8 @@ class BuyDirectItemController extends Controller
 		$item->quantity=$item->quantity-$amount;
 		$item->save();
 
+		EmailHelper::sendInvoiceEmail($transaction);
+
 		return Redirect::to('pay/'.$transaction->id);		
 	}
 
