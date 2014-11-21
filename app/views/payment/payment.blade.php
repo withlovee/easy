@@ -29,14 +29,14 @@
 			</div>
 			<!-- /.col-md-6 -->
 			<div class="col-md-6">
-				<form class="form-horizontal content-grey" action="transactions.php" role="form">
+				{{Form::open(array('url' => 'pay/'.$transaction->id, 'method' =>'post', 'class' => 'form-horizontal'))}}
 					<input type="hidden" name="success" value="1">
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-3 control-label">ประเภทบัตร</label>
 						<div class="col-sm-3">
 							<div class="checkbox">
 								<label>
-									<input type="radio" name="type">
+									{{ Form::radio('cardType', 'visa', true) }}
 									<img src="../img/visa.PNG" alt="">
 								</label>
 							</div>
@@ -45,7 +45,7 @@
 						<div class="col-sm-3">
 							<div class="checkbox">
 								<label>
-									<input type="radio" name="type">
+									{{ Form::radio('cardType', 'master') }}
 									<img src="../img/master.png" alt="">									
 								</label>
 							</div>
@@ -55,34 +55,32 @@
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-3 control-label">รหัสบัตร</label>
 						<div class="col-sm-6">
-							<input type="text" class="form-control" placeholder="1234-1234-1234-1234">
+							{{Form::text('cardId','',array('class'=>'form-control','for'=>'inputEmail3','placeholder'=>'1234-1234-1234-1234','pattern'=>'[0-9]{13,16}','required'=>"required"))}}
 						</div>
 						<!-- /.col-sm-8 -->
 					</div>
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-3 control-label">CVV</label>
 						<div class="col-sm-2">
-							<input type="text" class="form-control" placeholder="123">
+							{{Form::text('cvv','',array('class'=>'form-control','placeholder'=>'123','pattern'=>'[0-9]{3}','required'=>"required"))}}
 						</div>
 						<!-- /.col-sm-8 -->
 					</div>
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-3 control-label">วันหมดอายุ</label>
 						<div class="col-sm-3">
-							<select name="" id="" class="form-control">
-								<option value="">MM</option>
-							</select>
+							{{Form::selectRange('month', 01, 12,01,array('class'=>'form-control'))}}
 						</div>
 						<div class="col-sm-3">
-							<select name="" id="" class="form-control">
-								<option value="">YYYY</option>
-							</select>
+							
+								{{Form::selectYear('year', 1900, 2030, 2015, array('class'=>'form-control'))}}
+							
 						</div>
 						<!-- /.col-sm-8 -->
 					</div>
 					<div class="form-group">
 						<div class="col-sm-offset-3 col-sm-8">
-							<button type="submit" class="btn btn-primary">ชำระเงิน</button>
+							{{ Form::submit('ชำระเงิน',['class'=>"btn btn-primary"])}}
 						</div>
 					</div>
 				</form>

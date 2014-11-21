@@ -24,6 +24,15 @@ class PaymentController extends Controller {
 		return View::make('payment.payment', array('transaction'=>$transaction,'item'=>$item));
 	}
 
+	public function proceedPayment($id){
+		$cardType = Input::get('cardType');
+		$cardId = Input::get('cardId');
+		$cvv = Input::get('cvv');
+		$endMonth = Input::get('month');
+		$endYear = Input::get('year');
+		return Redirect::to('transactions');
+	}
+
 
 	/**
 	 * Store a newly created resource in storage.
