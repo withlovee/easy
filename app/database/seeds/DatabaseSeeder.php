@@ -76,10 +76,23 @@ class UsersTableSeeder extends Seeder {
 class BidManagersTableSeeder extends Seeder{
   public function run(){
     $bidManager = new BidManager;
-    $bidManager->currentBid = 0;
+    $bidManager->currentBid = 145;
+    $bidManager->maxBid = 200;
+    $bidManager->increment = 2;
+    $bidManager->bidderId = 5;
+    $bidManager->shipping = 'แบบมาตรฐาน';
+    $bidManager->shippingCost = 50;
+    $bidManager->others = "อื่นๆ"
     $bidManager->save();
+    
     $bidManager = new BidManager;
-    $bidManager->currentBid = 0;
+    $bidManager->currentBid = 67;
+    $bidManager->maxBid = 100;
+    $bidManager->increment = 3;
+    $bidManager->bidderId = 6;
+    $bidManager->shipping = 'แบบมาตรฐาน';
+    $bidManager->shippingCost = 50;
+    $bidManager->others = "อื่นๆ"
     $bidManager->save();
   }
 }

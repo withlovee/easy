@@ -45,6 +45,13 @@ Route::filter('auth', function()
 		{
 			return Redirect::guest('login');
 		}
+
+	}
+	else if(Auth::check() && Auth::user()->isBanned){
+		
+		return Redirect::to('users/forceLogout');
+		
+		//return Redirect::guest('login')->with('message','ขณะนี้คุณถูกระงับการใช้งาน เนื่องจากทำผิดกฏของเว็บ');
 	}
 });
 

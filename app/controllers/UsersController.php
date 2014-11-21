@@ -87,7 +87,9 @@ class UsersController extends Controller
 
 		if ($repo->login($input)) {
 			return Redirect::intended('/');
-		} else {
+		} 
+
+		else {
 			if ($repo->isThrottled($input)) {
 				$err_msg = Lang::get('confide::confide.alerts.too_many_attempts');
 			} elseif ($repo->existsButNotConfirmed($input)) {
@@ -200,6 +202,13 @@ class UsersController extends Controller
 		Confide::logout();
 
 		return Redirect::to('/');
+	}
+
+	public function forceLogout(){
+		Confide::logout();
+
+		return Redirect::to('login')->with('error','ขณะนี้คุณถูกระงับการใช้งาน เนื่องจากทำผิดกฏของเว็บ');
+		
 	}
 
 	// public function edit($id){
