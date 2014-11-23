@@ -9,7 +9,7 @@ class BuyAuctionItemController extends Controller
 
 		$bidManager = BidManager::find($item->bidManagerId);
 		$price = $bidManager->updateAutoBidWinner($input['maxBid'], $input['increment'], 
-						Auth::user()->id, $deliver, $obj[$deliver]);	// w/o others
+						Auth::user()->id, $deliver, $obj[$deliver], Input::get('service', 0));
 
 		if ($item->price != $price) {
 			$item->price = $price;
@@ -27,7 +27,7 @@ class BuyAuctionItemController extends Controller
 
 		$bidManager = BidManager::find($item->bidManagerId);
 		$price = $bidManager->updateManualBidWinner($input['maxBid'], 
-						Auth::user()->id, $deliver, $obj[$deliver]);	// w/o others
+						Auth::user()->id, $deliver, $obj[$deliver], Input::get('service', 0));
 		
 		if ($item->price != $price) {
 			$item->price = $price;

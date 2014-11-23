@@ -22,4 +22,6 @@ class Transaction extends Eloquent{
 		return $this->amount * $this->price + $this->shippingCost;
 	}
 
+	
+
 }

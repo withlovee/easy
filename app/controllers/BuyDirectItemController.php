@@ -7,7 +7,7 @@ class BuyDirectItemController extends Controller
 		$item = Item::find($id);
 		$amount = Input::get('amount');
 		$deliver = Input::get('deliver');
-		$price = $item->price*$amount*(100+$item->tax)/100.0;
+		$price = $item->getTotalCostWithTax($amount);
 		$obj = json_decode($item->shipping,true);
 
 		$transaction = new Transaction;

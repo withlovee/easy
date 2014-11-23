@@ -82,7 +82,7 @@ class BidManagersTableSeeder extends Seeder{
     $bidManager->bidderId = 5;
     $bidManager->shipping = 'แบบมาตรฐาน';
     $bidManager->shippingCost = 50;
-    $bidManager->others = "อื่นๆ";
+    $bidManager->service = 1;
     $bidManager->save();
     
     $bidManager = new BidManager;
@@ -92,7 +92,7 @@ class BidManagersTableSeeder extends Seeder{
     $bidManager->bidderId = 6;
     $bidManager->shipping = 'แบบมาตรฐาน';
     $bidManager->shippingCost = 50;
-    $bidManager->others = "อื่นๆ";
+    $bidManager->service = 0;
     $bidManager->save();
   }
 }

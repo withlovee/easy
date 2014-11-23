@@ -15,7 +15,9 @@
 		</h2>
 		<h3>สินค้าประมูล ราคาปัจจุบัน: {{ number_format($item->price) }} บาท</h3>
 		<h4>ประกาศขายโดย: {{ HTML::link('users/show/'.$item->seller->id, $item->seller->username) }}</h4>
-		<h4>ผู้ชนะการประมูลปัจจุบัน: {{ HTML::link('users/show/'.$bidder->id, $bidder->username) }}</h4>
+		@if($bidder != null)
+			<h4>ผู้ชนะการประมูลปัจจุบัน: {{ HTML::link('users/show/'.$bidder->id, $bidder->username) }}</h4>
+		@endif
 		<p>{{$item->property}}</p>
 
 		@if(is_buyer() && $item->quantity >0)
@@ -65,10 +67,9 @@
 						<div class="col-sm-8">
 							<div class="checkbox">
 								<label>
-									{{Form::checkbox('option', 1)}} {{$item->service}}</strong>
+									{{Form::checkbox('service', 1)}} {{$item->service}}</strong>
 								</label>
 							</div>
-							<!--{{Form::checkbox('option', $item->others)}}-->
 						</div>
 					</div><!--form-group-->
 					<div class="form-group">
@@ -129,10 +130,9 @@
 						<div class="col-sm-8">
 							<div class="checkbox">
 								<label>
-									{{Form::checkbox('option', $item->others)}} {{$item->others}}</strong>
+									{{Form::checkbox('service', 1)}} {{$item->service}}</strong>
 								</label>
 							</div>
-							<!--{{Form::checkbox('option', $item->others)}}-->
 						</div>
 					</div><!--form-group-->
 					<div class="form-group">
