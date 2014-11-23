@@ -33,9 +33,12 @@ class PaymentController extends Controller {
 		$cvv = Input::get('cvv');
 		$endMonth = Input::get('month');
 		$endYear = Input::get('year');
-		PaymentGateway::pay($cardType, $cardId, $cvv, $endMonth, $endYear);
-		EmailHelper::sendConfirmPaymentEmail($transaction);
-		return Redirect::to('transactions');
+		$paymentResult = PaymentGateway::pay($cardType, $cardId, $cvv, $endMonth, $endYear);
+		if($paymentResult) {
+			EmailHelper::sendConfirmPaymentEmail($transaction);
+			return Redirect::to('transactions')->with('notice', 'ซื้อสินค้าเรียบร้อย!');	
+		}
+		
 	}
 
 
