@@ -61,33 +61,31 @@ class ItemController extends Controller
 			$items_id = [];
 			foreach ($searchs as $search) {
 				$query = Item::where('sellerId','=',$sellerId)->where('name','LIKE','%'.$search.'%')
-				->orWhere('property','LIKE','%'.$search.'%')->lists('id'); 	
+				->orWhere('property','LIKE','%'.$search.'%')->lists('id');
 				$items_id = array_unique(array_merge($items_id,$query));
 			}
-			if($items_id==[]) $items = [];
-			else $items = Item::whereIn('id', $items_id)->orderBy('id', 'desc')->paginate($perPage);;
+			if(count($items_id) > 0)
+				$items = Item::whereIn('id', $items_id)->orderBy('id', 'desc')->paginate($perPage);
+			else
+				$items = [];
 		}
 		elseif(Input::get('show') == 'all'){
 			$title = "สินค้าทั้งหมดของฉัน";
-			if($item_count['all']==0)  $items = [];
-			else $items = Item::where('sellerId','=',$sellerId)->orderBy('id', 'desc')->paginate($perPage);;
+			$items = Item::where('sellerId','=',$sellerId)->orderBy('id', 'desc')->paginate($perPage);;
 		}
 		elseif(Input::get('show') == 'direct'){
 			$title = "สินค้าขายโดยตรงของฉัน";
-			if($item_count['direct']==0)  $items = [];
-			else $items = Item::where('sellerId','=',$sellerId)->where('type','=','direct')->orderBy('id', 'desc')->paginate($perPage);;
+			$items = Item::where('sellerId','=',$sellerId)->where('type','=','direct')->orderBy('id', 'desc')->paginate($perPage);;
 		}
 		elseif(Input::get('show') == 'auction'){
 			$title = "สินค้าประมูลของฉัน";
-			if($item_count['auction']==0)  $items = [];
-			else $items = Item::where('sellerId','=',$sellerId)->where('type','=','auction')->orderBy('id', 'desc')->paginate($perPage);;
+			$items = Item::where('sellerId','=',$sellerId)->where('type','=','auction')->orderBy('id', 'desc')->paginate($perPage);;
 		}
 		else{
 			$title = "สินค้าทั้งหมดของฉัน";
-			if($item_count['all']==0)  $items = [];
-			else $items = Item::where('sellerId','=',$sellerId)->orderBy('id', 'desc')->paginate($perPage);;
+			$items = Item::where('sellerId','=',$sellerId)->orderBy('id', 'desc')->paginate($perPage);;
 		}
-		return View::make('users.sellerListItem',compact('items','title','item_count'));
+		return View::make('item.sellerListItem', compact('items', 'title', 'item_count'));
 	}
 
 	// public function findSellerName($item){
@@ -115,7 +113,7 @@ class ItemController extends Controller
 			}
 
 			if($items_id==[]) $items = [];
-			else $items = $items = Item::whereIn('id', $items_id)->orderBy('id', 'desc')->paginate($perPage);
+			else $items = Item::whereIn('id', $items_id)->orderBy('id', 'desc')->paginate($perPage);
 		}
 		else if(Input::get('show') == 'all'){
 			$title = "สินค้าทั้งหมด";

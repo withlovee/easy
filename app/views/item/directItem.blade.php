@@ -1,21 +1,22 @@
-@extends('layouts.master', ['title' => 'DirectItem'])
+@extends('layouts.master', ['title' => $item->name])
 @section('content')
 <div class="row item-header">
 	@include('layouts.error')
 	<div class="col-md-5">
-		{{ HTML::image('upload/'.$item->picture, $item->name, ['class' => 'img-responsive']) }}
+		{{ HTML::image('upload/'.$item->picture, $item->name, ['class' => 'img-responsive wow fadeInDown']) }}
 	</div>
 	<!-- /.col-md-6 -->
-	<div class="col-md-7">
+	<div class="col-md-7 item-detail wow fadeInRight">
 		{{Form::open(array('url' => 'buy/'.$item->id, 'method' => 'post', 'class' => 'form-horizontal'))}}
+		<h4>ประกาศขายโดย: {{ HTML::link('users/show/'.$item->seller->id, $item->seller->username) }}</h4>
 		<h2>
 			@if($item->quantity==0)
-				<span class="label label-danger">หมดแล้ว</span>
+				<span class="label label-danger">หมดแล้ว</span>&nbsp;
 			@endif
-			&nbsp;{{$item->name}}
+			{{$item->name}}
 		</h2>
-		<h3>สินค้าขายโดยตรง ราคา: {{ number_format($item->price) }} บาท</h3>
-		<h4>ประกาศขายโดย: {{ HTML::link('users/show/'.$item->seller->id, $item->seller->username) }}</h4>
+		<h3>สินค้าขายโดยตรง ราคา {{ number_format($item->price) }} บาท</h3>
+		<div class="line"></div>
 		<p>{{$item->property}}</p>
 		<p>
 			<!--{{ Form::number('amount','1',['min'=>'1'])}}-->

@@ -1,5 +1,16 @@
 /*@import url(bootstrap.min.css);*/
 /*@import url(http://fonts.googleapis.com/css?family=Lato:300,400,500,700,900);*/
+@font-face {
+    font-family: 'thaisansneue';
+    src: url('../fonts/thaisansneue-bold.eot');
+    src: url('../fonts/thaisansneue-bold.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/thaisansneue-bold.woff') format('woff'),
+         url('../fonts/thaisansneue-bold.ttf') format('truetype'),
+         url('../fonts/thaisansneue-bold.svg#rsubold') format('svg');
+    font-weight: 700;
+    font-style: normal;
+
+}
 .textshadow (dark, @alpha)
 {
     text-shadow: 0 1px 1px rgba(0, 0, 0, @alpha);
@@ -39,6 +50,10 @@
         -ms-transition: @text;
          -o-transition: @text;
             transition: @text;
+}
+.thaisans{
+    font-family: 'thaisansneue';
+    font-weight: 700;
 }
 .gradient (@color1, @color2, @default)
 {
@@ -511,4 +526,62 @@ h1.line
 }
 #content-list{
     background-color: #fff;
+}
+.item-detail{
+    h2,h3,h4{
+        .thaisans;
+        margin: 0;
+    }
+    h4{
+        color: #777;
+        font-size: 1.5em;
+        font-weight: normal;
+    }
+    h3{
+        color: #777;
+        font-size: 1.8em;
+    }
+    h2{
+        color: #158cba;
+        font-size: 2.5em;
+        line-height: 1em;
+        margin: 10px 0;
+    }
+    .label-danger{
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    .line{
+        border-top: 1px solid #eee;
+        margin-top: 25px;
+    }
+}
+#sidebar{
+    h3{
+        .thaisans;
+        font-size: 1.8em;
+        color: #666;
+    }
+}
+h1{
+    .thaisans;
+    font-size: 3em;
+    color: #666;
+    .btn{
+        font-family: 'Tahoma', sans-serif;
+        font-weight: normal;
+    }
+}
+.item{
+    h3{
+        .thaisans;
+        font-size: 1.8em;
+    }
+    p{
+        line-height: 1.8em;
+    }
+    .btn-primary,
+    .btn-danger{
+        font-weight: normal;
+    }
 }

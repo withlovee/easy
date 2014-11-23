@@ -1,4 +1,4 @@
-@extends('layouts.master', ['title' => 'ListAllItemSeller'])
+@extends('layouts.master', ['title' => $title, 'class' => 'content-grey'])
 @section('content')
 @include('layouts.error')
 <h1 class="line">
@@ -12,7 +12,7 @@
 	@endif
 	<div class="clear"></div>
 </h1>
-@if($items==[])
+@if(count($items) == 0)
 	@if($title == "ผลลัพธ์การค้นหาสินค้าของฉัน")
 		<h3>ไม่พบผลลัพธ์ที่ท่านต้องการค้นหา</h3>
 	@elseif($title == "สินค้าทั้งหมดของฉัน")
