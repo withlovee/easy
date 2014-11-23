@@ -98,7 +98,7 @@
 <br><br>
 <h2>ถามคำถามเกี่ยวกับสินค้าชิ้นนี้</h2>
 
-<form class="form-horizontal" role="form" method="POST" action="{{{ URL::to('askQuestion') }}}">		
+<form role="form" method="POST" action="{{{ URL::to('askQuestion') }}}">		
 	{{Form::hidden('id',$item->id)}}
 	<div class="form-group">
 		<!--<textarea name="" id="" cols="30" rows="2" class="form-control" placeholder="คำถามที่ต้องการสอบถาม"></textarea>-->

@@ -19,9 +19,7 @@ class AdministratorController extends BaseController {
       $username = Input::get('username');
       $password = Input::get('password');
 
-      $admin = Administrator::where('username', '=', $username)
-                            ->where('password', '=', sha1($password))
-                            ->first();
+      $admin = Administrator::findWithUsernameAndPassword($username, $password);
 
       if($admin) {
         Session::put('admin', $admin->id);
