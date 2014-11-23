@@ -22,3 +22,11 @@ EASY
 ## Code Inspection
 - `transaction.blade.php` line 30, 33: no link in `<a href=“”>`
 - `AdministratorController@doLogin` line 22: move username/password query into model 
+- 
+## add aliases
+edit
+'aliases' => array(
+      ...
+     'Carbon' 		  => 'Carbon\Carbon',
+),
+in easy/app/app.php 
