@@ -29,6 +29,12 @@
 				
 				<dt>ผู้ซื้อ</dt>
 				<dd><a href="{{ URL::to('user/'.$transaction->buyer->id) }}">{{ $transaction->buyer->username }}</a> (<a href="{{ URL::to('/supporttickets/create?reporteeId='.$transaction->buyer->id) }}">ร้องเรียน</a>)</dd>
+				<dt>ที่อยู่จัดส่ง</dt>
+				<dd>
+				<strong>{{ $transaction->buyer->name }} {{ $transaction->buyer->surname }}</strong><br>
+				{{ $transaction->buyer->address }}<br>
+				โทร: {{ $transaction->buyer->telephone }}
+				</dd>
 				
 				<dt>จำนวน</dt>
 				<dd>{{ $transaction->amount }} ชิ้น</dd>

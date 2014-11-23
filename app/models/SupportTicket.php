@@ -28,12 +28,12 @@ class SupportTicket extends Eloquent{
 
 	public function reporter()
     {
-        return $this->belongsTo('User','reporter_id');
+        return $this->belongsTo('User','reporterId');
     }
 
     public function reportee()
     {
-        return $this->belongsTo('User','reportee_id');
+        return $this->belongsTo('User','reporteeId');
     }
 
     public function administrator()
