@@ -34,18 +34,24 @@ class UsersController extends Controller
 	{
 		$repo = App::make('UserRepository');
 		$input = Input::all();
+
+		// Two passwords should be the same
 		if($input['password'] != $input['password_confirmation'])
 			return Redirect::action('UsersController@create')
 				->withInput(Input::except('password'))
-				->with('error', 'กรุณายืนยันรหัสผ่านให้เหมือนกับรหัสผ่าน');			
+				->with('error', 'กรุณายืนยันรหัสผ่านให้เหมือนกับรหัสผ่าน');
+
+		// Password should be between 6-20 characters
 		if(strlen($input['password']) < 6 || strlen($input['password']) > 20)
 			return Redirect::action('UsersController@create')
 				->withInput(Input::except('password'))
 				->with('error', 'รหัสผ่านต้องมีขนาดระหว่าง 6-20 ตัว');
+
 		$user = $repo->signup(Input::all());
-		var_dump($user);
+
 		if ($user->id) {
 			if (Config::get('confide::signup_email')) {
+				// Send confirmation code to user's email
 				Mail::queueOn(
 					Config::get('confide::email_queue'),
 					Config::get('confide::email_account_confirmation'),
@@ -58,7 +64,8 @@ class UsersController extends Controller
 				);
 			}
 
-			return Redirect::to('/')->with('notice', 'สมัครสมาชิกเรียบร้อยแล้วค่ะ กรุณาตรวจสอบอีเมลล์ของท่านเพื่อกดยืนยันตัวตนก่อนเข้าใช้งาน');
+			return Redirect::to('/')
+				->with('notice', 'สมัครสมาชิกเรียบร้อยแล้วค่ะ กรุณาตรวจสอบอีเมลล์ของท่านเพื่อกดยืนยันตัวตนก่อนเข้าใช้งาน');
 		} else {
 			$error = $user->errors()->all(':message');
 
@@ -137,75 +144,6 @@ class UsersController extends Controller
 	}
 
 	/**
-	 * Displays the forgot password form
-	 *
-	 * @return  Illuminate\Http\Response
-	 */
-	// public function forgotPassword()
-	// {
-	// 	return View::make('users.forgot_password');
-	// }
-
-	// /**
-	//  * Attempt to send change password link to the given email
-	//  *
-	//  * @return  Illuminate\Http\Response
-	//  */
-	// public function doForgotPassword()
-	// {
-	// 	if (Confide::forgotPassword(Input::get('email'))) {
-	// 		$notice_msg = Lang::get('confide::confide.alerts.password_forgot');
-	// 		return Redirect::action('UsersController@login')
-	// 			->with('notice', $notice_msg);
-	// 	} else {
-	// 		$error_msg = Lang::get('confide::confide.alerts.wrong_password_forgot');
-	// 		return Redirect::action('UsersController@doForgotPassword')
-	// 			->withInput()
-	// 			->with('error', $error_msg);
-	// 	}
-	// }
-
-	/**
-	 * Shows the change password form with the given token
-	 *
-	 * @param  string $token
-	 *
-	 * @return  Illuminate\Http\Response
-	 */
-	// public function resetPassword($token)
-	// {
-	// 	return View::make('users.reset_password')
-	// 			->with('token', $token);
-	// }
-
-	/**
-	 * Attempt change password of the user
-	 *
-	 * @return  Illuminate\Http\Response
-	 */
-	// public function doResetPassword()
-	// {
-	// 	$repo = App::make('UserRepository');
-	// 	$input = array(
-	// 		'token'                 =>Input::get('token'),
-	// 		'password'              =>Input::get('password'),
-	// 		'password_confirmation' =>Input::get('password_confirmation'),
-	// 	);
-
-	// 	// By passing an array with the token, password and confirmation
-	// 	if ($repo->resetPassword($input)) {
-	// 		$notice_msg = Lang::get('confide::confide.alerts.password_reset');
-	// 		return Redirect::action('UsersController@login')
-	// 			->with('notice', $notice_msg);
-	// 	} else {
-	// 		$error_msg = Lang::get('confide::confide.alerts.wrong_password_reset');
-	// 		return Redirect::action('UsersController@resetPassword', array('token'=>$input['token']))
-	// 			->withInput()
-	// 			->with('error', $error_msg);
-	// 	}
-	// }
-
-	/**
 	 * Log the user out of the application.
 	 *
 	 * @return  Illuminate\Http\Response
@@ -222,31 +160,6 @@ class UsersController extends Controller
 		return Redirect::to('login')->with('error','ขณะนี้คุณถูกระงับการใช้งาน เนื่องจากทำผิดกฏของเว็บ');
 		
 	}
-
-	// public function edit($id){
-	// 	$user = User::find($id);
-	// 	return View::make('users.edit', compact('user'));		
-	// }
-
-	// public function update($id){
-	// 	$repo = App::make('UserRepository');
-	// 	$user = $repo->update($id, Input::all());
-	// 	$error = $user->errors()->all();
-	// 	if(empty($error)) {
-	// 		return Redirect::action('UsersController@index')
-	// 			->with('notice', 'The user has been updated successfully.');
-	// 	} else {
-	// 		return Redirect::action('UsersController@edit', array($user->id))
-	// 			->withInput(Input::except('password'))
-	// 			->with('error', $error);
-	// 	}
-	// }
-
-	// public function destroy($id){
-	// 	User::destroy($id);
-	// 	return Redirect::action('UsersController@index')
-	// 		->with('notice', 'The user has been deleted successfully.');
-	// }
 
 	public function profile(){
 		$user = Auth::user();

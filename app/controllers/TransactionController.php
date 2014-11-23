@@ -31,28 +31,9 @@ class TransactionController extends BaseController {
 
 	public function setStatus(){
 		$input = Input::all();
-		$transaction = Transaction::find($input['id']);
-
-		if(!$this->hasPermission($transaction))
-			return Redirect::to('/');
-
-		$transaction->status = $input['status'];
-		$transaction->save();
-
-		if($input['status'] == 'received'){
-			//send email to remind buyer/seller to post feedback
-			EmailHelper::sendFeedbackRequestEmail($transaction);
-		}
-
-		return Redirect::to('/transaction/'.$input['id'])->with('notice', 'ปรับปรุงสถานะของสินค้าเรียบร้อยแล้ว');
-	}
-
-	// The user must be an item buyer or item seller
-	protected function hasPermission($transaction){
-		if($transaction->buyer->id != Auth::user()->id && 
-		   $transaction->item->seller->id != Auth::user()->id)
-			return false;
-		return true;
+		$transaction = Transaction::setStatus($input['id'], $input['status']);
+		return Redirect::to('/transaction/'.$input['id'])
+			->with('notice', 'ปรับปรุงสถานะของสินค้าเรียบร้อยแล้ว');
 	}
 
 }

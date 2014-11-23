@@ -8,8 +8,14 @@ class BuyAuctionItemController extends Controller
 		$obj = json_decode($item->shipping, true);
 
 		$bidManager = BidManager::find($item->bidManagerId);
-		$price = $bidManager->updateAutoBidWinner($input['maxBid'], $input['increment'], 
-						Auth::user()->id, $deliver, $obj[$deliver], Input::get('service', 0));
+		$price = $bidManager->updateAutoBidWinner(
+			$input['maxBid'], 
+			$input['increment'], 
+			Auth::user()->id, 
+			$deliver, 
+			$obj[$deliver], 
+			Input::get('service', 0)
+		);
 
 		if ($item->price != $price) {
 			$item->price = $price;
@@ -26,8 +32,13 @@ class BuyAuctionItemController extends Controller
 		$obj = json_decode($item->shipping, true);
 
 		$bidManager = BidManager::find($item->bidManagerId);
-		$price = $bidManager->updateManualBidWinner($input['maxBid'], 
-						Auth::user()->id, $deliver, $obj[$deliver], Input::get('service', 0));
+		$price = $bidManager->updateManualBidWinner(
+			$input['maxBid'], 
+			Auth::user()->id, 
+			$deliver, 
+			$obj[$deliver], 
+			Input::get('service', 0)
+		);
 		
 		if ($item->price != $price) {
 			$item->price = $price;

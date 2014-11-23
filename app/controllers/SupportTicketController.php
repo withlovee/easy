@@ -2,12 +2,12 @@
 
 class SupportTicketController extends BaseController {
 
-    protected $support_ticket;
+	protected $support_ticket;
 
-    public function __construct(SupportTicket $support_ticket)
-    {
-        $this->support_ticket = $support_ticket;
-    }
+	public function __construct(SupportTicket $support_ticket)
+	{
+		$this->support_ticket = $support_ticket;
+	}
 
 	public function showAll()
 	{
@@ -47,66 +47,31 @@ class SupportTicketController extends BaseController {
 
 	public function create()
 	{
-		// if(is_admin())
-		// 	return Redirect::action('SupportTicketController@showAll');
-
 		$reporter = Auth::user();
 
 		$users = SupportTicket::getReporteeCandidate($reporter);
-
-		// $users = User::all();
 		$list_users = ['' => 'เลือกชื่อผู้ใช้'];
 		foreach ($users as $user) {
-      $list_users[$user->id] = $user->username;
+			$list_users[$user->id] = $user->username;
 		}
-		return View::make('support_ticket.CreateSupportTicket',
-			['list_users' => $list_users]);
+		return View::make('support_ticket.CreateSupportTicket', [
+			'list_users' => $list_users
+		]);
 	}
 
 	public function reply($id)
 	{
-
 		$input = Input::all();
-		$ticket = SupportTicket::find($id);
-		$ticket->answer = $input['content'];
-		$ticket->answered_at = date('Y-m-d h:i:s', time());
-		$ticket->administratorId = get_admin();
-
-		$ticket->save();
- 	// echo "</pre>";
-		//return View::make('emptypage');
-
-		// $input['content']
-		 return Redirect::back();
+		SupportTicket::reply($id, $input);
+		return Redirect::back();
 	}
 
 	public function store()
-    {
+	{
 		$input = Input::all();
-		$this->support_ticket->reporterId = Auth::user()->id;
-		$this->support_ticket->administratorId = null;
-		$this->support_ticket->answer = '';
-		if (!$this->support_ticket->fill($input)->isValid()) {
-            return Redirect::back()->withInput()->withErrors($this->support_ticket->errors);
-        }
-
-        //$input['']
-
-		// echo "<pre>";
-		// print_r($this->support_ticket);
-		// print_r($input);
-		// echo "</pre>";
-
-        $this->support_ticket->save();
-
-		// return View::make('emptypage', 
-		// 	[
-		// 		'reporterId' => $this->support_ticket->reporterId,
-		// 		'reporteeId' => $this->support_ticket->reporteeId,
-		// 		'title' => $this->support_ticket->title,
-		// 		'content' => $this->support_ticket->content
-		// 	]);
-
+		$this->support_ticket = SupportTicket::createTicker($input);
+		if(!$this->support_ticket)
+			return Redirect::back()->withInput()->withErrors($this->support_ticket->errors);
 		return Redirect::action('SupportTicketController@showAll')->with('notice', 'ระบบได้รับข้อร้องเรียนเรียบร้อยแล้วค่ะ');
-    }
+	}
 }
