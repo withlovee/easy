@@ -7,10 +7,6 @@ class PaymentController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index()
-	{
-		//
-	}
 
 	/**
 	 * Show the form for creating a new resource.
