@@ -51,7 +51,6 @@ Route::filter('auth', function()
 		
 		return Redirect::to('users/forceLogout');
 		
-		//return Redirect::guest('login')->with('message','ขณะนี้คุณถูกระงับการใช้งาน เนื่องจากทำผิดกฏของเว็บ');
 	}
 });
 
@@ -77,7 +76,7 @@ Route::filter('admin-auth', function()
 			return Redirect::to('admin/login');
 		}
 	}
-	elseif(Auth::user()->role != 'Admin'){
+	elseif(!is_admin()){
 		return Response::make('Unauthorized', 401);
 	}
 });

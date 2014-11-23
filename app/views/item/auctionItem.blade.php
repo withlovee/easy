@@ -68,6 +68,8 @@
 							{{Form::select('deliver', $deliver, 'แบบมาตรฐาน', ['class'=>"form-control",'id'=>'deliverManual'])}}
 						</div>
 					</div><!--form-group-->
+
+					@if($item->service)
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-4 control-label">บริการพิเศษ</label>
 						<div class="col-sm-8">
@@ -78,6 +80,8 @@
 							</div>
 						</div>
 					</div><!--form-group-->
+					@endif
+					
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-4 control-label">ราคารวมภาษี ({{$item->tax}}%)</label>
 						<div class="col-sm-8">
@@ -113,7 +117,6 @@
 						<label for="" class="col-sm-4 control-label">ราคาที่จะประมูลสูงสุด</label>
 						<div class="col-sm-6">
 							{{ Form::number('maxBid',$item->price+1,['min' => $item->price+1, 'class' => 'form-control', 'id' => 'maxBidAuto', 'required' => 'required'])}}
-							<!-- <input type="number" class="form-control" value="146"> -->
 						</div>
 						<label class="col-sm-1 control-label">บาท</label>
 					</div><!--form-group-->
@@ -131,6 +134,8 @@
 							{{Form::select('deliver', $deliver, 'แบบมาตรฐาน', ['class'=>"form-control", 'id' => 'deliverAuto'])}}
 						</div>
 					</div><!--form-group-->
+
+					@if($item->service)
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-4 control-label">บริการพิเศษ</label>
 						<div class="col-sm-8">
@@ -141,6 +146,8 @@
 							</div>
 						</div>
 					</div><!--form-group-->
+					@endif
+
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-4 control-label">ราคารวมภาษี ({{$item->tax}}%)</label>
 						<div class="col-sm-8">

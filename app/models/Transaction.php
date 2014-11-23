@@ -44,8 +44,6 @@ class Transaction extends Eloquent{
 
 		$transaction = new Transaction;
 		$transaction->amount = $input['amount'];
-		$transaction->deliver = $input['deliver'];
-		// Chompoo please fix this
 		$transaction->price = $item->getTotalCostWithoutTaxAndShipping($input['amount']);
 		$transaction->shipping = $input['deliver'];
 		$transaction->shippingCost = $item->getShippingPrice($input['deliver']);
@@ -55,7 +53,7 @@ class Transaction extends Eloquent{
 		$transaction->buyerFeedbackId = null;
 		$transaction->sellerFeedbackId = null;
 		$transaction->sellerId = $item->sellerId;
-    	$transaction->service = ($input['option'] == '1');
+		$transaction->service = ($input['option'] == '1');
 		$transaction->save();
 
 		$item->quantity = $item->quantity - $input['amount'];
@@ -75,7 +73,7 @@ class Transaction extends Eloquent{
 	static public function setStatus($id, $status){
 		$transaction = self::find($id);
 
-		if(!$this->hasPermission($transaction))
+		if(!self::hasPermission($transaction))
 			return false;
 
 		$transaction->status = $status;
@@ -88,7 +86,7 @@ class Transaction extends Eloquent{
 		return $transaction;
 	}
 
-	static protected function hasPermission($transaction){
+	public static function hasPermission($transaction){
 		if($transaction->buyer->id != Auth::user()->id && 
 		   $transaction->item->seller->id != Auth::user()->id)
 			return false;
