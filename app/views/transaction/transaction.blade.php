@@ -113,7 +113,7 @@
 				</form>
 			@elseif(Auth::user()->role == 'Seller' && $transaction->buyerFeedbackId  == null && $transaction->status == 'received')
 				<h2>ให้ Feedback กับผู้ซื้อ</h2>
-				{{ Form::open(array('class' => 'form-horizontal', 'url' => 'feedback/create'.$transaction->buyer->id)) }}
+				{{ Form::open(array('class' => 'form-horizontal', 'url' => 'feedback/create/'.$transaction->buyer->id)) }}
 					{{Form::hidden('transaction_id', $transaction->id)}}
 					<div class="form-group">
 						<div class="col-sm-8">
