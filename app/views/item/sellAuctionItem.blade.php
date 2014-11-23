@@ -1,8 +1,7 @@
 @extends('layouts.master', ['title' => 'SellNewAuctionBuyItem'])
-<div class="row wrapper">
-	<div class="col-md-9 content-wrapper content-white">
-		@include('layouts.error')
+@section('content')
 		<h1 class="line">ขายสินค้าประมูล</h1>
+		@include('layouts.error')
 		<form class="form-horizontal" role="form" method="POST" action="{{{ URL::to('createAuctionItem') }}}" enctype="multipart/form-data">
 			<div class="form-group">
 				<label for="inputEmail3" class="col-sm-3 control-label">ชื่อสินค้า<span class="required">*</span></label>
@@ -23,7 +22,8 @@
 				<div class="col-sm-3">
 					<!--<input type="text" class="form-control">-->
 					<div class="input-group">
-						{{ Form::number('quantity','1',['min'=>'1','class'=> 'form-control', 'required' => 'required'])}}
+						<!--<button class="btn btn-default" title="" data-placement="top" data-toggle="tooltip" type="button" data-original-title="ท่านสามารถประกาศขายสินค้าประมูลได้ครั้งละ 1 ชิ้น"> 1 </button>-->
+						{{ Form::number('quantity','1',['class'=> 'form-control', 'disabled'=>'disabled','required' => 'required'])}}
 						<span class="input-group-addon">ชิ้น</span>
 					</div>
 				</div>
@@ -90,11 +90,47 @@
 				<label for="inputEmail3" class="col-sm-3 control-label">วิธีบรรจุหีบห่อ การขนส่ง และการยืนยันการจัดส่ง</label>
 				<div class="col-sm-8">
 					<!-- <textarea name="" id="" cols="30" rows="4" class="form-control"></textarea> -->
-					{{ Form::textarea('shipping', null, ['class' => 'form-control', 'cols' => 30, 'rows' => 4]) }}
+					<div class="row">
+						<label for="inputEmail3" class="col-sm-3 control-label">แบบด่วน</label>
+						<div class="col-sm-4">
+							<div class="input-group">
+								{{ Form::number('quick','0',['min'=>'0','class'=> 'form-control', 'required' => 'required'])}}
+								<span class="input-group-addon">บาท</span>
+							</div>
+						</div>
+					<!--{{ Form::textarea('shipping', null, ['class' => 'form-control', 'cols' => 30, 'rows' => 4]) }}-->
+					</div>
+					<div class="row">
+						<label for="inputEmail3" class="col-sm-3 control-label">แบบมาตรฐาน</label>
+						<div class="col-sm-4">
+							<div class="input-group">
+								{{ Form::number('standard','0',['min'=>'0','class'=> 'form-control', 'required' => 'required'])}}
+								<span class="input-group-addon">บาท</span>
+							</div>
+						</div>
+					<!--{{ Form::textarea('shipping', null, ['class' => 'form-control', 'cols' => 30, 'rows' => 4]) }}-->
+					</div>
+					<div class="row">
+						<label for="inputEmail3" class="col-sm-3 control-label">แบบประหยัด</label>
+						<div class="col-sm-4">
+							<div class="input-group">
+								{{ Form::number('cheap','0',['min'=>'0','class'=> 'form-control', 'required' => 'required'])}}
+								<span class="input-group-addon">บาท</span>
+							</div>
+						</div>
+					<!--{{ Form::textarea('shipping', null, ['class' => 'form-control', 'cols' => 30, 'rows' => 4]) }}-->
+					</div>
 				</div>
 			</div><!--form-group-->
 			<div class="form-group">
-				<label for="inputEmail3" class="col-sm-3 control-label">บริการพิเศษ และอื่นๆ</label>
+				<label for="inputEmail3" class="col-sm-3 control-label">บริการพิเศษ</label>
+				<div class="col-sm-8">
+					<!-- <textarea name="" id="" cols="30" rows="4" class="form-control"></textarea> -->
+					{{Form::text('service','',array("class"=>"form-control"))}}
+				</div>
+			</div><!--form-group-->
+			<div class="form-group">
+				<label for="inputEmail3" class="col-sm-3 control-label">อื่นๆ</label>
 				<div class="col-sm-8">
 					<!-- <textarea name="" id="" cols="30" rows="4" class="form-control"></textarea> -->
 					{{ Form::textarea('others', null, ['class' => 'form-control', 'cols' => 30, 'rows' => 4]) }}
@@ -136,11 +172,12 @@
 				<div class="col-sm-offset-3 col-sm-8">
 					<!-- <button type="submit" class="btn btn-primary">ลงสินค้า</button> -->
 					{{Form::submit("ลงสินค้า",array("class"=>"btn btn-primary"))}}
+					{{Form::close()}}
 				</div>
 			</div>
 		</form>
-	</div>
-	<div class="col-md-3 sidebar-wrapper" id="sidebar">
+@stop
+@section('sidebar')
 		<h3>เงื่อนไขในการใช้งาน</h3>
 		<div class="box small-text">
 			<ol>
@@ -151,5 +188,4 @@
 				<li>สำหรับสมาชิกออนไลน์ที่มีอายุต่ำกว่า 18 ปี การทำธุรกรรมใดๆที่เกี่ยวข้องกับการเงินเช่น สั่งซื้อสินค้าออนไลน์ หรือเข้าร่วมทำการประมูลจะต้องได้รับความเห็นชอบ จากผู้ปกครองก่อนทุกครั้ง</li>
 			</ol>
 		</div>
-	</div><!--sidebar-->
-</div><!--row-->
+@stop

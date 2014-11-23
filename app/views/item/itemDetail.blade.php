@@ -35,7 +35,11 @@
 		</td>
 	</tr>
 	<tr>
-		<th>บริการพิเศษ และอื่นๆ</th>
+		<th>บริการพิเศษ</th>
+		<td>{{$item->service}}</td>
+	</tr>
+	<tr>
+		<th>อื่นๆ</th>
 		<td>{{$item->others}}</td>
 	</tr>
 	<tr>

@@ -1,5 +1,5 @@
 @extends('layouts.master', ['title' => 'Payment'])
-@section('content')
+@section('wrapper')
 	<div class="container">
 		<h1 class="line">ชำระเงิน</h1>
 		<div class="row">
@@ -7,37 +7,37 @@
 				<table class="table table-striped table-bordered payment-info">
 					<tr>
 						<th>ชื่อสินค้า</th>
-						<td>มือถืออเนกประสงค์ : สีแดง/น้ำเงิน/ดำ/ชมพู</td>
+						<td>{{$item->name}}</td>
 					</tr>
 					<tr>
 						<th>ราคาสินค้า</th>
-						<td>146 บาท</td>
+						<td>{{number_format($item->price*$transaction->amount)}} บาท</td>
 					</tr>
 					<tr>
 						<th>ค่าขนส่ง</th>
-						<td>50 บาท</td>
+						<td>{{number_format($transaction->shippingCost)}} บาท</td>
 					</tr>
 					<tr>
 						<th>ภาษี</th>
-						<td>4 บาท</td>
+						<td>{{number_format($item->tax/100.0*$transaction->amount*$item->price)}} บาท</td>
 					</tr>
 					<tr>
 						<th>รวม</th>
-						<td><strong>200 บาท</strong></td>
+						<td><strong>{{number_format($transaction->price+$transaction->shippingCost)}} บาท</strong></td>
 					</tr>
 				</table>
 			</div>
 			<!-- /.col-md-6 -->
 			<div class="col-md-6">
-				<form class="form-horizontal content-grey" action="transactions.php" role="form">
+				{{Form::open(array('url' => 'pay/'.$transaction->id, 'method' =>'post', 'class' => 'form-horizontal'))}}
 					<input type="hidden" name="success" value="1">
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-3 control-label">ประเภทบัตร</label>
 						<div class="col-sm-3">
 							<div class="checkbox">
 								<label>
-									<input type="radio" name="type">
-									<img src="img/visa.PNG" alt="">
+									{{ Form::radio('cardType', 'visa', true) }}
+									<img src="../img/visa.PNG" alt="">
 								</label>
 							</div>
 							<!-- /.checkbox -->
@@ -45,8 +45,8 @@
 						<div class="col-sm-3">
 							<div class="checkbox">
 								<label>
-									<input type="radio" name="type">
-									<img src="img/master.png" alt="">									
+									{{ Form::radio('cardType', 'master') }}
+									<img src="../img/master.png" alt="">									
 								</label>
 							</div>
 							<!-- /.checkbox -->
@@ -55,34 +55,32 @@
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-3 control-label">รหัสบัตร</label>
 						<div class="col-sm-6">
-							<input type="text" class="form-control" placeholder="1234-1234-1234-1234">
+							{{Form::text('cardId','',array('class'=>'form-control','for'=>'inputEmail3','placeholder'=>'1234-1234-1234-1234','pattern'=>'[0-9]{13,16}','required'=>"required"))}}
 						</div>
 						<!-- /.col-sm-8 -->
 					</div>
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-3 control-label">CVV</label>
 						<div class="col-sm-2">
-							<input type="text" class="form-control" placeholder="123">
+							{{Form::text('cvv','',array('class'=>'form-control','placeholder'=>'123','pattern'=>'[0-9]{3}','required'=>"required"))}}
 						</div>
 						<!-- /.col-sm-8 -->
 					</div>
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-3 control-label">วันหมดอายุ</label>
 						<div class="col-sm-3">
-							<select name="" id="" class="form-control">
-								<option value="">MM</option>
-							</select>
+							{{Form::selectRange('month', 01, 12,01,array('class'=>'form-control'))}}
 						</div>
 						<div class="col-sm-3">
-							<select name="" id="" class="form-control">
-								<option value="">YYYY</option>
-							</select>
+							
+								{{Form::selectYear('year', 1900, 2030, 2015, array('class'=>'form-control'))}}
+							
 						</div>
 						<!-- /.col-sm-8 -->
 					</div>
 					<div class="form-group">
 						<div class="col-sm-offset-3 col-sm-8">
-							<button type="submit" class="btn btn-primary">ชำระเงิน</button>
+							{{ Form::submit('ชำระเงิน',['class'=>"btn btn-primary"])}}
 						</div>
 					</div>
 				</form>
@@ -92,7 +90,4 @@
 		<!-- /.row -->
 	</div>
 	<!-- /.container -->
-@stop
-@section('sidebar')
-	@include('sidebars.personal')
 @stop

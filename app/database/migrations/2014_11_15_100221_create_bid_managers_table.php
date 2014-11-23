@@ -15,7 +15,12 @@ class CreateBidManagersTable extends Migration {
 		Schema::create('bid_managers', function ($table) {
 			$table->increments('id');
 			$table->double('currentBid');
-			
+			$table->double('maxBid');
+			$table->double('increment');
+			$table->integer('bidderId')->unsigned()->nullable();
+		    $table->string('shipping')->nullable();
+		    $table->decimal('shippingCost')->nullable();
+			$table->integer('service')->unsigned()->nullable();
 		});
 	}
 

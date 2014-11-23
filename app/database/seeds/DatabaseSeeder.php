@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder {
 		Eloquent::unguard();
 
 		$this->call('UsersTableSeeder');
+
     $this->call('BidManagersTableSeeder');
     $this->call('ItemsTableSeeder');
     $this->call('AdministratorsTableSeeder');
@@ -32,13 +33,13 @@ class UsersTableSeeder extends Seeder {
     $names = ['ณัฐพล','ขวัญฤทัย','ณสกล','ปริยวิศว์','ปิยวัฒน์','พนิดา','วิภาวี'];
     $surnames = ['พัฒนาวิจิตร','ทิพยศักดิ์','พงศ์กอปรสกล','จาตุกัญญาประทีป','เลิศวิทยากำจร','นิ่มนวล','ไตรรัตนาภา'];
     $addressess = ['12/23 ถนนพระราม 1 เขตปทุมวัน กรุงเทพฯ 10100',
-                    'ดาวอังคาร',
+                    '106 หมู่ 4, ตำบลเพ, อำเภอเมือง, ระยอง, อ่าวไผ่, เกาะแก้วพิศดาร, ประเทศไทย',
                     '198 อาคาร U-Center ซอยจุฬา 42 แขวงวังใหม่ เขตปทุมวัน กรุงเทพมหานคร 10330',
                     '888/135 Hive Sathorn คลองสาน 10600',
-                    '',
+                    '655 Avenue du Technopole, 29200 Plouzané, France',
                     '112 ถนนสมเด็จเจ้าพระยา แขวงคลองสาน เขตคลองสาน กรุงเทพฯ 10600',
                     'Villa 35, Street No. 16, Community 366 Umm Suqeim 3, P.O. Box 51844 Dubai, United Arab Emirates'];
-    $countries = ['TH','MARS','TH','TH','TH','TH','UAE'];
+    $countries = ['TH','TH','TH','TH','FR','TH','AE'];
     $telephones = ['0850615555','02536711','087567566','0850504040','0815566777','081234356','0850615555'];
     $usernames = ['nuttt','quanruthai','nasakol','pariyawit','lkumjorn','cppanida','veevee'];
     $emails = ['nuttt.p@gmail.com','Quanruthai.t@gmail.com','nasakol@gmail.com','pariyawit.jat@gmail.com','plkumjorn@gmail.com','cp.panida@gmail.com','vibhavee.t@gmail.com'];
@@ -75,10 +76,23 @@ class UsersTableSeeder extends Seeder {
 class BidManagersTableSeeder extends Seeder{
   public function run(){
     $bidManager = new BidManager;
-    $bidManager->currentBid = 0;
+    $bidManager->currentBid = 145;
+    $bidManager->maxBid = 200;
+    $bidManager->increment = 2;
+    $bidManager->bidderId = 5;
+    $bidManager->shipping = 'แบบมาตรฐาน';
+    $bidManager->shippingCost = 50;
+    $bidManager->service = 1;
     $bidManager->save();
+    
     $bidManager = new BidManager;
-    $bidManager->currentBid = 0;
+    $bidManager->currentBid = 67;
+    $bidManager->maxBid = 100;
+    $bidManager->increment = 3;
+    $bidManager->bidderId = 6;
+    $bidManager->shipping = 'แบบมาตรฐาน';
+    $bidManager->shippingCost = 50;
+    $bidManager->service = 0;
     $bidManager->save();
   }
 }
@@ -104,7 +118,8 @@ class ItemsTableSeeder extends Seeder{
       'แบบประหยัด' => '30'
     ));
     $item->tax=7;
-    $item->others='ห่อของขวัญฟรี';
+    $item->service='ห่อของขวัญฟรี';
+    $item->others='';
     $item->type='direct';
     $item->endDateTime=null;
     $item->bidManagerId=null;
@@ -131,7 +146,8 @@ class ItemsTableSeeder extends Seeder{
       'แบบประหยัด' => '30'
     ));
     $item2->tax=7;
-    $item2->others='ห่อของขวัญ';
+    $item2->service='ห่อของขวัญฟรี';
+    $item2->others='';
     $item2->type='auction';
     $item2->endDateTime=date('d/m/Y',strtotime("30/11/2014"));
     $item2->bidManagerId=1;
@@ -158,7 +174,8 @@ class ItemsTableSeeder extends Seeder{
       'แบบประหยัด' => '30'
     ));
     $rilakkuma->tax=7;
-    $rilakkuma->others='ห่อของขวัญ';
+    $rilakkuma->service='ห่อของขวัญฟรี';
+    $rilakkuma->others='';
     $rilakkuma->type='direct';
     $rilakkuma->endDateTime=null;
     $rilakkuma->bidManagerId=null;
@@ -185,7 +202,8 @@ class ItemsTableSeeder extends Seeder{
       'แบบประหยัด' => '30'
     ));
     $rilakkuma->tax=7;
-    $rilakkuma->others='ห่อของขวัญ';
+    $rilakkuma->service='ห่อของขวัญฟรี';
+    $rilakkuma->others='';
     $rilakkuma->type='direct';
     $rilakkuma->endDateTime=null;
     $rilakkuma->bidManagerId=null;
@@ -212,7 +230,8 @@ class ItemsTableSeeder extends Seeder{
       'แบบประหยัด' => '30'
     ));
     $rilakkuma->tax=7;
-    $rilakkuma->others='ห่อของขวัญ';
+    $rilakkuma->service='ห่อของขวัญฟรี';
+    $rilakkuma->others='';
     $rilakkuma->type='direct';
     $rilakkuma->endDateTime=null;
     $rilakkuma->bidManagerId=null;
@@ -237,7 +256,8 @@ class ItemsTableSeeder extends Seeder{
       'แบบประหยัด' => '30'
     ));
     $item->tax=7;
-    $item->others='ห่อของขวัญฟรี';
+    $rilakkuma->service='ห่อของขวัญฟรี';
+    $rilakkuma->others='';
     $item->type='direct';
     $item->endDateTime=null;
     $item->bidManagerId=null;
@@ -257,12 +277,39 @@ class ItemsTableSeeder extends Seeder{
     $item->returnPolicy='สามารถส่งคืนได้';
     $item->returnFee=50;
     $item->shipping= json_encode(array(
-      'แบบด่วน' => '100',
+      'แบบด่วน' => '90',
       'แบบมาตรฐาน' => '50',
       'แบบประหยัด' => '30'
     ));
     $item->tax=7;
-    $item->others='ห่อของขวัญฟรี';
+    $rilakkuma->service='ห่อของขวัญฟรี';
+    $rilakkuma->others='';
+    $item->type='direct';
+    $item->endDateTime=null;
+    $item->bidManagerId=null;
+    $item->sellerId=1;
+    $item->save();
+
+    $item = new Item;
+    $item->name='เหนียวไก่';
+    $item->picture='chicken.jpg';
+    $item->price=30;
+    $item->brand='สตูล';
+    $item->model='ไก่ทอด';
+    $item->volumn='';
+    $item->property='จากกระแสแรงไม่หยุดฉุดไม่อยู่ของ น้องไลล่า ที่โพสต์คลิปต่อว่าหัวขโมยฉกข้าวเหนียวไก่จากตะกร้าหน้ารถจักรยานยนต์ไป ทำให้เธอเป็นที่รู้จักในชั่วข้ามคืน แม้ว่าสุดท้ายผลสรุปจะกลายเป็นว่าสุนัขคาบข้าวเหนียวไก่ของเธอไปรับประทาน ตามที่เสนอข่าวไปก่อนหน้านั้น';
+    $item->quantity=1;
+    $item->quality='น่องไก่ขิ้นโต';
+    $item->returnPolicy='ไม่สามารถส่งคืนได้';
+    $item->returnFee=0;
+    $item->shipping= json_encode(array(
+      'แบบด่วน' => '90',
+      'แบบมาตรฐาน' => '50',
+      'แบบประหยัด' => '30'
+    ));
+    $item->tax=7;
+    $rilakkuma->services='น้ำจิ้มฟรี';
+    $rilakkuma->others='น้ำจิ้มฟรี';
     $item->type='direct';
     $item->endDateTime=null;
     $item->bidManagerId=null;
@@ -290,22 +337,47 @@ class AdministratorsTableSeeder extends Seeder {
 class SupportTicketsTableSeeder extends Seeder {
 
   public function run()
-  {
-    for ($i=1; $i <4 ; $i++) { 
-      $ticket = new SupportTicket;    
-      $ticket->reporterId = User::where('id','>=',$i)->firstOrFail()->id;
-      $ticket->reporteeId = User::where('id','>=',$i+1)->firstOrFail()->id;
-      $ticket->administratorId = Administrator::where('id','>','0')->firstOrFail()->id;
-      $ticket->title = 'I have Problem No.'.$i;
-      $ticket->content = 'CONTENT CONTENT No.'.$i;
-      $ticket->answer = 'ANSWER THIS IS No.'.$i;
-      $ticket->answered_at = '';
+  { 
+    $ticket = new SupportTicket;    
+    $ticket->reporterId = 4;
+    $ticket->reporteeId = 1;
+    $ticket->administratorId = null;
+    $ticket->title = 'ไม่ได้รับสินค้า';
+    $ticket->content = 'สั่งของไปเมื่อวันที่ 20 พ.ย. ยังไม่ได้รับสินค้าเลย';
+    $ticket->answer = '';
+    $ticket->answered_at = '';
+    if(! $ticket->save()) {
+      Log::info('Unable to create ticket '.$ticket->title, (array)$ticket->errors());
+    } else {
+      Log::info('Created ticket >>'.$ticket->title);
+    }
 
-      if(! $ticket->save()) {
-        Log::info('Unable to create ticket '.$ticket->title, (array)$ticket->errors());
-      } else {
-        Log::info('Created ticket >>'.$ticket->title);
-      }
+    $ticket = new SupportTicket;    
+    $ticket->reporterId = 5;
+    $ticket->reporteeId = 1;
+    $ticket->administratorId = null;
+    $ticket->title = 'ได้รับสินค้าไม่ตรงกับที่สั่ง';
+    $ticket->content = 'สั่งกล้องถ่ายรูปไป แต่เมื่อไปรษณีย์มาส่งพบว่าเป็นก้อนหิน';
+    $ticket->answer = '';
+    $ticket->answered_at = '';
+    if(! $ticket->save()) {
+      Log::info('Unable to create ticket '.$ticket->title, (array)$ticket->errors());
+    } else {
+      Log::info('Created ticket >>'.$ticket->title);
+    }
+
+    $ticket = new SupportTicket;    
+    $ticket->reporterId = 6;
+    $ticket->reporteeId = 3;
+    $ticket->administratorId = 1;
+    $ticket->title = 'ได้รับสินค้ามีตำหนิ';
+    $ticket->content = 'หูหมีขาด';
+    $ticket->answer = 'จะติดต่อผู้ขายให้ค่ะ';
+    $ticket->answered_at = '';
+    if(! $ticket->save()) {
+      Log::info('Unable to create ticket '.$ticket->title, (array)$ticket->errors());
+    } else {
+      Log::info('Created ticket >>'.$ticket->title);
     }
   }
 }
@@ -345,6 +417,38 @@ class ItemQuestionsTableSeeder extends Seeder{
       Log::info('Created ticket >>'.$itemQ->content);
     }
 
+    $itemQ=new ItemQuestion;
+    $itemQ->content = 'มีสีขาวหรือเปล่าคะ';
+    $itemQ->answer='ไม่มีค่ะ';
+    $itemQ->userId=3;
+    $itemQ->itemId=4;
+    if(! $itemQ->save()) {
+      Log::info('Unable to create item Question');
+    } else {
+      Log::info('Created ticket >>'.$itemQ->content);
+    }
+
+    $itemQ=new ItemQuestion;
+    $itemQ->content = 'ส่งของได้ภายในกี่วันคะ';
+    $itemQ->answer='';
+    $itemQ->userId=3;
+    $itemQ->itemId=4;
+    if(! $itemQ->save()) {
+      Log::info('Unable to create item Question');
+    } else {
+      Log::info('Created ticket >>'.$itemQ->content);
+    }
+
+    $itemQ=new ItemQuestion;
+    $itemQ->content = 'มีของอีกรึเปล่าคะ';
+    $itemQ->answer='หมดแล้วครับ รอของล๊อตใหม่นะครับ';
+    $itemQ->userId=3;
+    $itemQ->itemId=5;
+    if(! $itemQ->save()) {
+      Log::info('Unable to create item Question');
+    } else {
+      Log::info('Created ticket >>'.$itemQ->content);
+    }    
 
   }
 }
@@ -366,6 +470,8 @@ class TransactionsTableSeeder extends Seeder{
       $transaction->buyerId = $buyer->id;
       $transaction->sellerId = $item->seller->id;
       $transaction->itemId = $item->id;
+      $transaction->service = true;
+
       $transaction->save();
 
       // Paid Transaction for DirectBuyItem
@@ -378,6 +484,7 @@ class TransactionsTableSeeder extends Seeder{
       $transaction->buyerId = $buyer->id;
       $transaction->sellerId = $item->seller->id;
       $transaction->itemId = $item->id;
+      $transaction->service = false;
       $transaction->save();
 
     }

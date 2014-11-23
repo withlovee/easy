@@ -12,7 +12,6 @@ class PaymentController extends Controller {
 		//
 	}
 
-
 	/**
 	 * Show the form for creating a new resource.
 	 *
@@ -21,7 +20,22 @@ class PaymentController extends Controller {
 	public function create($id)
 	{
 		$transaction = Transaction::find($id);
-		return View::make('payment.payment', $transaction);
+		$item = $transaction->item;
+		return View::make('payment.payment', array('transaction'=>$transaction,'item'=>$item));
+	}
+
+	public function proceedPayment($id){
+		$transaction = Transaction::find($id);
+		$transaction->status = 'paid';
+		$transaction->save();
+		$cardType = Input::get('cardType');
+		$cardId = Input::get('cardId');
+		$cvv = Input::get('cvv');
+		$endMonth = Input::get('month');
+		$endYear = Input::get('year');
+		PaymentGateway::pay($cardType, $cardId, $cvv, $endMonth, $endYear);
+		EmailHelper::sendConfirmPaymentEmail($transaction);
+		return Redirect::to('transactions');
 	}
 
 

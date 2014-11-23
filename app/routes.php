@@ -11,8 +11,9 @@
 |
 */
 
-Route::get('/', 'HomeController@showWelcome');
-Route::get('/search/{search}', 'HomeController@showWelcome');
+Route::get('/', 'ItemController@showItemList');
+Route::get('/search/{search}', 'ItemController@showItemList');
+
 Route::get('/supporttickets', 'SupportTicketController@showAll')->before('auth');
 
 
@@ -39,6 +40,7 @@ Route::get('users/confirm/{code}', 'UsersController@confirm');
 // Route::get('users/reset_password/{token}', 'UsersController@resetPassword');
 // Route::post('users/reset_password', 'UsersController@doResetPassword');
 Route::get('users/logout', 'UsersController@logout');
+Route::get('users/forceLogout', 'UsersController@forceLogout');
 Route::get('user/{id}', 'UsersController@show');
 
 
@@ -49,7 +51,7 @@ Route::get('user/{id}', 'UsersController@show');
  */
 
 Route::get('users/show/{id}', 'UsersController@show');
-
+Route::post('feedback/create/{id}','FeedbackController@create');
 
 /**
  * Admin
@@ -67,28 +69,39 @@ Route::get('transactions', 'TransactionController@showList')->before('auth');
 Route::get('transaction/{id}', 'TransactionController@show')->before('auth');
 Route::post('transaction/set_status', 'TransactionController@setStatus')->before('auth');
 
+/**
+ * Payment
+ */
+Route::get('pay/{id}', 'PaymentController@create');
+Route::post('pay/{id}', 'PaymentController@proceedPayment');
 
-
-
+/**
+ * Item
+ */
 Route::get('item/{id}', 'ItemController@showDirectItem');
 Route::post('item/{id}', 'ItemController@showDirectItem');
 
 Route::get('listItemSeller/','ItemController@showItemSeller');
 
+Route::post('buyDirectItem/{id}', 'BuyDirectItemController@buyDirectItem')->before('auth')->before('buyer');
+Route::post('buyAuctionItem/auto/{id}', 'BuyAuctionItemController@autobid')->before('auth')->before('buyer');
+Route::post('buyAuctionItem/manual/{id}', 'BuyAuctionItemController@manualbid')->before('auth')->before('buyer');
 
-Route::post('buyDirectItem/{id}', 'BuyDirectItemController@buyDirectItem');
-Route::post('buyAuctionItem/{id}', 'BuyAuctionItemController@buyAuctionItem');
 
-Route::get('sellDirectItem', 'SellDirectItemController@sellDirectItem')->before('auth');
-Route::get('createDirectItem', 'SellDirectItemController@createDirectItem')->before('auth');
-Route::post('createDirectItem', 'SellDirectItemController@createDirectItem')->before('auth');
+Route::get('sellDirectItem', 'SellDirectItemController@sellDirectItem')->before('auth')->before('seller');
+Route::get('createDirectItem', 'SellDirectItemController@createDirectItem')->before('auth')->before('seller');
+Route::post('createDirectItem', 'SellDirectItemController@createDirectItem')->before('auth')->before('seller');
+Route::get('deleteDirectItem/{id}', 'SellDirectItemController@deleteDirectItem')->before('auth');
+Route::post('deleteDirectItem/{id}', 'SellDirectItemController@deleteDirectItem')->before('auth')->before('seller');
 
-Route::get('sellAuctionItem', 'SellAuctionItemController@sellAuctionItem')->before('auth');
-Route::get('createAuctionItem', 'SellAuctionItemController@createAuctionItem')->before('auth');
-Route::post('createAuctionItem', 'SellAuctionItemController@createAuctionItem')->before('auth');
+Route::get('sellAuctionItem', 'SellAuctionItemController@sellAuctionItem')->before('auth')->before('seller');
+Route::get('createAuctionItem', 'SellAuctionItemController@createAuctionItem')->before('auth')->before('seller');
+Route::post('createAuctionItem', 'SellAuctionItemController@createAuctionItem')->before('auth')->before('seller');
+Route::get('deleteAuctionItem/{id}', 'SellAuctionItemController@deleteAuctionItem')->before('auth')->before('seller');
+Route::post('deleteAuctionItem/{id}', 'SellAuctionItemController@deleteAuctionItem')->before('auth')->before('seller');
 
-Route::post('/askQuestion', 'ItemQuestionController@create')->before('auth');
-Route::post('/answerQuestion', 'ItemQuestionController@answer')->before('auth');
+Route::post('/askQuestion', 'ItemQuestionController@create')->before('auth')->before('buyer');
+Route::post('/answerQuestion', 'ItemQuestionController@answer')->before('auth')->before('seller');
 
 
 

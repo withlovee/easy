@@ -1,36 +1,40 @@
 <?php
 class BuyAuctionItemController extends Controller
 {
-
-	public function buyAuctionItem($id){
-		$input=Input::all();
+	public function autobid($id) {
+		$input = Input::all();
 		$item = Item::find($id);
-		$amount = Input::get('amount');
-		$deliver = Input::get('deliver');
-		$price = $item->price*$amount*(100+$item->tax)/100.0;
-		
-		$transaction = new endTradingTransaction;
-		$transaction->paymentId=null;
-		$transaction->shippingId = null;
-		$transaction->status = 'waiting for payment';
-		if(Auth::check()){
-			$transaction->buyerId = Auth::user()->getId();
+		$deliver = $input['deliver'];
+		$obj = json_decode($item->shipping, true);
+
+		$bidManager = BidManager::find($item->bidManagerId);
+		$price = $bidManager->updateAutoBidWinner($input['maxBid'], $input['increment'], 
+						Auth::user()->id, $deliver, $obj[$deliver], Input::get('service', 0));
+
+		if ($item->price != $price) {
+			$item->price = $price;
+			$item->save();
 		}
-		$transaction->price=$price;
-		$transaction->save();
 
-		$directBuyTransaction = new endDirectBuyTransaction;
-		$directBuyTransaction->amount = $amount;
-		$directBuyTransaction->shippingType = $deliver;
-		$directBuyTransaction->endTradingTransactionId=$transaction->id;
-		$directBuyTransaction->itemId=$id;
-		$directBuyTransaction->save();
-
-		$item->quantity=$item->quantity-$amount;
-		$item->save();
-
-		return Redirect::to('item/'.$id);		
+		return Redirect::to('item/'.$id);
 	}
 
+	public function manualbid($id) {
+		$input = Input::all();
+		$item = Item::find($id);
+		$deliver = $input['deliver'];
+		$obj = json_decode($item->shipping, true);
+
+		$bidManager = BidManager::find($item->bidManagerId);
+		$price = $bidManager->updateManualBidWinner($input['maxBid'], 
+						Auth::user()->id, $deliver, $obj[$deliver], Input::get('service', 0));
+		
+		if ($item->price != $price) {
+			$item->price = $price;
+			$item->save();
+		}
+
+		return Redirect::to('item/'.$id);
+	}
 
 }

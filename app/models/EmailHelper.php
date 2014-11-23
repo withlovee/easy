@@ -1,7 +1,6 @@
 <?php
 
-class EmailHelper extends Eloquent {
-
+class EmailHelper{
 
   /**
    * Send email to tell user that he is outbidded.
@@ -10,7 +9,7 @@ class EmailHelper extends Eloquent {
    * @param Array $args Array of parameters required. currentBid, currentBidTimestamp, endAuctionTimestamp, and itemLink are required as a key-value of array.
    * @return type
    */
-  public function sendPreviousAuctionWinnerEmail($user, $item, $args) {
+  public static function sendPreviousAuctionWinnerEmail($user, $item, $args) {
     $data = $args;
     $data['userEmail'] = $user->email;
     $data['userFullName'] = $user->getFullName();
@@ -31,7 +30,7 @@ class EmailHelper extends Eloquent {
  * @param User $user 
  * @param Item $item 
  */
-  public function sendAuctionResultEmail($user, $item) {
+  public static function sendAuctionResultEmail($user, $item) {
     $data = array();
     $data['userEmail'] = $user->email;
     $data['userFullName'] = $user->getFullName();
@@ -46,7 +45,7 @@ class EmailHelper extends Eloquent {
 
   }
 
-  public function sendInvoiceEmail($transaction) {
+  public static function sendInvoiceEmail($transaction) {
 
     $data = array();
 
@@ -85,7 +84,7 @@ class EmailHelper extends Eloquent {
 
   }
 
-  public function sendConfirmPaymentEmail ($transaction) {
+  public static function sendConfirmPaymentEmail ($transaction) {
     $data = array();
 
     $item = Item::find($transaction->itemId);
@@ -117,7 +116,7 @@ class EmailHelper extends Eloquent {
   }
 
 
-  public function sendFeedbackRequestEmail($transaction) {
+  public static function sendFeedbackRequestEmail($transaction) {
 
     $item = Item::find($transaction->itemId);
     $users = array();
