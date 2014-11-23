@@ -7,42 +7,73 @@ class User extends Eloquent implements ConfideUserInterface
 {
   use ConfideUser;
 
-    public function ban()
-    {
-    $status = $this->isBanned;
+    public function ban(){
+        $status = $this->isBanned;
         if($status==0){
-
             $this->isBanned=1;
             $this->save();
 
+        }
     }
-  }
-    public function unBan(){
-    $status = $this->isBanned;
-        if($status==1){
 
+    public function banWithExpireDate($timest){
+        $status = $this->isBanned;
+        if($status==0){
+            $this->banExpirationDate = $timest;
+            $this->isBanned=1;
+            $this->save();
+
+        }
+    }
+
+    public function unBan(){
+        $status = $this->isBanned;
+        if($status==1){
+            $this->banExpirationDate=NULL;
             $this->isBanned=0;
             $this->save();
+        }
+
+    } 
+
+public static function checkUpdateBanStatus($user){
+    if($user->isBanned==1){
+        $today = date('Y-m-d H:i:s');
+        if($today>=$user->banExpirationDate) {
+            $user->unban();
+        }
+    }
+    if($user->isBanned==0){
+        $trans = Transaction::where('buyerId','=',$user->id)->where('status','=','payment_waiting')->orderBy('created_at', 'desc')->lists('created_at');
+        $last2week = date('Y-m-d H:i:s',mktime(0, 0, 0, date("m"), date("d")-14, date("Y")));
+        $last3month2week = date('Y-m-d H:i:s',mktime(0, 0, 0, date("m")-3, date("d")-14, date("Y")));
+        foreach($trans as $tran){
+            if($tran < $last2week && $tran > $last3month2week){
+                Auth::user()->banWithExpireDate(date('Y-m-d H:i:s',mktime(0, 0, 0, date("m",strtotime($tran))+3, date("d",strtotime($tran))+14, date("Y",strtotime($tran)))));
+                break;
+            }
+        }
     }
 
-  } 
-  protected $fillable = array(
+}
+
+protected $fillable = array(
    'name', 'surname', 'address', 'country',
    'telephone', 'username', 'email', 'password',
    'confirmation_code', 'remember_token',
    'role', 'isBanned', 'banExpirationDate'
    );
 
-  public function getFullName() {
+public function getFullName() {
     return $this->name.' '.$this->surname;
-  }
+}
 
-  public function getId()
-  {
+public function getId()
+{
     return $this->id;
-  }
+}
 
-  static function countryList(){
+static function countryList(){
    return array(
     '' => 'กรุณาเลือก',
     'AX' => 'หมู่เกาะเออแลนด์',

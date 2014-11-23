@@ -65,27 +65,27 @@ class ItemController extends Controller
 				$items_id = array_unique(array_merge($items_id,$query));
 			}
 			if($items_id==[]) $items = [];
-			else $items = Item::whereIn('id', $items_id)->orderBy('id', 'desc')->paginate($perPage);;
+			else $items = Item::whereIn('id', $items_id)->orderBy('id', 'desc')->paginate($perPage);
 		}
 		elseif(Input::get('show') == 'all'){
 			$title = "สินค้าทั้งหมดของฉัน";
 			if($item_count['all']==0)  $items = [];
-			else $items = Item::where('sellerId','=',$sellerId)->orderBy('id', 'desc')->paginate($perPage);;
+			else $items = Item::where('sellerId','=',$sellerId)->orderBy('id', 'desc')->paginate($perPage);
 		}
 		elseif(Input::get('show') == 'direct'){
 			$title = "สินค้าขายโดยตรงของฉัน";
 			if($item_count['direct']==0)  $items = [];
-			else $items = Item::where('sellerId','=',$sellerId)->where('type','=','direct')->orderBy('id', 'desc')->paginate($perPage);;
+			else $items = Item::where('sellerId','=',$sellerId)->where('type','=','direct')->orderBy('id', 'desc')->paginate($perPage);
 		}
 		elseif(Input::get('show') == 'auction'){
 			$title = "สินค้าประมูลของฉัน";
 			if($item_count['auction']==0)  $items = [];
-			else $items = Item::where('sellerId','=',$sellerId)->where('type','=','auction')->orderBy('id', 'desc')->paginate($perPage);;
+			else $items = Item::where('sellerId','=',$sellerId)->where('type','=','auction')->orderBy('id', 'desc')->paginate($perPage);
 		}
 		else{
 			$title = "สินค้าทั้งหมดของฉัน";
 			if($item_count['all']==0)  $items = [];
-			else $items = Item::where('sellerId','=',$sellerId)->orderBy('id', 'desc')->paginate($perPage);;
+			else $items = Item::where('sellerId','=',$sellerId)->orderBy('id', 'desc')->paginate($perPage);
 		}
 		return View::make('users.sellerListItem',compact('items','title','item_count'));
 	}
@@ -97,9 +97,6 @@ class ItemController extends Controller
 	// }
 	public function showItemList()
 	{
-		if(Auth::check()&&Auth::user()->isBanned){
-			return Redirect::to('users/forceLogout');
-		}
 		$auction = Item::where('quantity','>','0')->where('type','=','auction')->count();
 		$direct = Item::where('quantity','>','0')->where('type','=','direct')->count();
 		$item_count = ['auction' => $auction,
