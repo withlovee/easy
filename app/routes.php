@@ -1,3 +1,4 @@
+
 <?php
 
 /*
@@ -18,7 +19,7 @@ Route::get('/supporttickets', 'SupportTicketController@showAll')->before('auth')
 
 
 Route::get('/supporttickets/show/{id}', 'SupportTicketController@show')->before('auth');
-Route::post('/supporttickets/show/{id}','SupportTicketController@reply');
+Route::post('/supporttickets/show/{id}','SupportTicketController@reply')->before('admin-auth');
 
 Route::get('/supporttickets/create', 'SupportTicketController@create')->before('auth');
 Route::post('/supporttickets', 'SupportTicketController@store')->before('auth');

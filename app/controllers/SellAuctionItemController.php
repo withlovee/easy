@@ -19,41 +19,16 @@ class SellAuctionItemController extends Controller
 	}
 	public function createAuctionItem(){
 		$file_max = ini_get('upload_max_filesize');
+		try{
 
-		//try{
-
-			//'id','name','picture','price','brand','model','volumn','property','size','quantity','quality','defect','returnPolicy','returnFee','shipping','tax','others','type','endDateTime','amount','bidManagerId','sellerId'
 			$input = Input::all();
-			
+
 			$file = Input::file('picture');
-			$destinationPath = 'upload/';
 			$filename = $file->getClientOriginalName();
-			Input::file('picture')->move($destinationPath, $filename);
-			// $path = '../public/'.$destinationPath.$filename;
+			Input::file('picture')->move('upload/', $filename);
 
-			// $this->item->name = $input['name'];
-			$this->item->picture = $filename;
-			$this->item->quantity = 1;
-			// $this->item->price = $input['price'];
-			// $this->item->brand = $input['brand'];
-			// $this->item->model = $input['model'];
-			// $this->item->volumn = $input['volumn'];
-			// $this->item->property = $input['property'];
-			// $this->item->size = $input['size'];
-			// $this->item->quantity = $input['quantity'];
-			// $this->item->quality = $input['quality'];
-			//'defect','returnPolicy','returnFee','shipping','tax','others','type','endDateTime','amount','bidManagerId',
-			// $this->item->defect = $input['defect'];
-			// $this->item->returnPolicy = $input['returnPolicy'];
-			// $this->item->returnFee = $input['returnFee'];
-			// $this->item->shipping = $input['shipping'];
-			// $this->item->tax = $input['tax'];
-			// $this->item->others = $input['others'];
-			$shipping = array('แบบด่วน' => $input['quick'], 'แบบมาตรฐาน' => $input['standard'], 'แบบประหยัด' => $input['cheap']);
-			$this->item->shipping = json_encode($shipping);
-			$this->item->type = 'auction';
-			$this->item->endDateTime = $input['endDate'].' '.$input['endTime'];
-
+			$input['filename'] = $file->getClientOriginalName();
+			$this->item = Item::createAuctionItem($input);
 			
 
 			// create BidManager
@@ -90,7 +65,6 @@ class SellAuctionItemController extends Controller
 			Queue::later($inputDate, 'SellAuctionItemController@endAuction', array('itemId' => "".$this->item->id));
 
 			return Redirect::to('item/'.$newItem->id)->with('notice','ระบบเพิ่มสินค้าของท่านเรียบร้อยแล้วค่ะ');		
-			//return Redirect::action('SellAuctionItemController@sellAuctionItem')->with('notice','ระบบเพิ่มสินค้าของคุณเรียบร้อยแล้วค่ะ'.$this->item->id);
 		}
 		catch(Exception $e){
 
