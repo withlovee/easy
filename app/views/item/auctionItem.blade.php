@@ -20,7 +20,7 @@
 				{{var_dump(new DateTime($item->endDateTime))}}
 				{{var_dump(new DateTime())}}
 			</h2>
-			<h3>สินค้าประมูล ราคาปัจจุบัน: {{ number_format($item->price) }} บาท</h3>
+			<h3>สินค้าประมูล ราคาปัจจุบัน: {{ number_format($item->price,2) }} บาท</h3>
 			@if($bidder != null)
 				<h4>ผู้ชนะการประมูลปัจจุบัน: {{ HTML::link('users/show/'.$bidder->id, $bidder->username) }}</h4>
 			@endif
@@ -178,7 +178,7 @@
 					<div class="col-sm-6">
 						<h3>{{$item->name}}</h3>
 						<br>
-						<h4>ราคา: {{number_format($item->price)}} บาท</h4>
+						<h4>ราคา: {{number_format($item->price,2)}} บาท</h4>
 					</div>
 				</div>
 			</div>

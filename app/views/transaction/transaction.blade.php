@@ -33,11 +33,11 @@
 				<dt>จำนวน</dt>
 				<dd>{{ $transaction->amount }} ชิ้น</dd>
 				<dt>ราคาสินค้า</dt>
-				<dd>{{ number_format($transaction->price) }} บาท (รวมภาษี {{ $transaction->item->tax }}% แล้ว)</dd>
+				<dd>{{ number_format($transaction->price,2) }} บาท (รวมภาษี {{ $transaction->item->tax }}% แล้ว)</dd>
 				<dt>ค่าจัดส่ง</dt>
-				<dd>{{ number_format($transaction->shippingCost) }} บาท</dd>
+				<dd>{{ number_format($transaction->shippingCost,2) }} บาท</dd>
 				<dt>ราคารวม</dt>
-				<dd>{{ number_format($transaction->price + $transaction->shippingCost) }} บาท</dd>
+				<dd>{{ number_format($transaction->price + $transaction->shippingCost,2) }} บาท</dd>
 				<dt>สถานะ</dt>
 				<dd>
 				@if($transaction->status == 'payment_waiting')
