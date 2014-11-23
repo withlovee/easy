@@ -6,8 +6,8 @@
 		]) }}
 	</a>
 	<br>
-	<a href="https://www.facebook.com/plkumjorn" target="_blank">
-		{{ HTML::image('img/tutortui.PNG', 'ตุ้ยติวเตอร์', [
+	<a href="http://www.acm-icpc.eng.chula.ac.th/acm-2014/index.php" target="_blank">
+		{{ HTML::image('img/acmicpc.jpg', 'ACMThailand', [
 			'class' => 'img-responsive'
 		]) }}
 	</a>

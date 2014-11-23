@@ -49,8 +49,7 @@ class UsersController extends Controller
 				);
 			}
 
-			return Redirect::action('UsersController@index')
-				->with('notice', Lang::get('confide::confide.alerts.account_created'));
+			return Redirect::to('/')->with('notice', 'สมัครสมาชิกเรียบร้อยแล้วค่ะ กรุณาตรวจสอบอีเมลล์ของท่านเพื่อกดยืนยันตัวตนก่อนเข้าใช้งาน');
 		} else {
 			$error = $user->errors()->all(':message');
 
