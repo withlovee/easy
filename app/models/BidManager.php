@@ -4,6 +4,20 @@ class BidManager extends Eloquent {
     protected $fillable = array('currentBid', 'maxBid', 'increment', 'bidderId', 'shipping', 'shippingCost', 'service');
     public $timestamps = false;
 
+    public static function createBidManager($price) {
+        $bidManager = new BidManager;
+        $bidManager->currentBid = $price;
+        $bidManager->maxBid = $price;
+        $bidManager->increment = 0;
+        $bidManager->bidderId = null;
+        $bidManager->shipping = null;
+        $bidManager->shippingCost = null;
+        $bidManager->service = 0;
+        $bidManager->save();
+
+        return $bidManager;
+    }
+
     private function setShippingService($shipping, $shippingCost, $service) {
         $this->shipping = $shipping;
         $this->shippingCost = $shippingCost;

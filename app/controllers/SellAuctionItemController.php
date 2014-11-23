@@ -33,15 +33,8 @@ class SellAuctionItemController extends Controller
 			
 
 			// create BidManager
-			$bidManager = new BidManager;
-			$bidManager->currentBid = Input::get('price');
-			$bidManager->maxBid = Input::get('price');
-			$bidManager->increment = 0;
-			$bidManager->bidderId = null;
-			$bidManager->shipping = null;
-			$bidManager->shippingCost = null;
-			$bidManager->service = 0;
-			$bidManager->save();
+
+			$bidManager = BidManager::createBidManager(Input::get('price'));
 
 			$this->item->bidManagerId = $bidManager->id;
 			// $this->item->amount=NULL;
@@ -69,7 +62,7 @@ class SellAuctionItemController extends Controller
 		catch(Exception $e){
 
 		 	return Redirect::back()->withInput()->withErrors($this->item->errors)->with('error','The file size should be lower than '.$file_max. 'B');
-
+	
 		}
 	}
 
@@ -90,20 +83,6 @@ class SellAuctionItemController extends Controller
 			
 			if($bidManager->bidderId != null){
 
-				// $transaction = new Transaction;
-				// $transaction->amount = 1;
-				// $transaction->price = $item->price;
-				// $transaction->shipping = $bidManager->shipping;
-				// $transaction->shippingCost = $bidManager->shippingCost;
-				// $transaction->status = 'payment_waiting';
-				// $transaction->buyerId = $bidManager->bidderId;
-				// $transaction->itemId=$item->id;
-				// $transaction->buyerFeedbackId = null;
-				// $transaction->sellerFeedbackId = null;
-				// $transaction->sellerId = $item->sellerId;
-				// $transaction->service = $bidManager->service;
-
-				// $transaction->save();
 
 				$transaction = Transaction::createAuctionTransaction($item, $bidManager);
 
