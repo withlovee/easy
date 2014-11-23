@@ -15,7 +15,7 @@ class SellDirectItemController extends Controller
 		$this->item = $item;
 	}
 	public function sellDirectItem(){
-		return View::make('item.sellDirectItem');		
+		return View::make('sell_item.sellDirectItem');		
 	}
 	public function createDirectItem(){
 		$file_max = ini_get('upload_max_filesize');
@@ -66,7 +66,7 @@ class SellDirectItemController extends Controller
 			$this->item->save();
 			$newItem = Item::orderBy('id', 'desc')->first();
 			return Redirect::to('item/'.$newItem->id)->with('notice','ระบบเพิ่มสินค้าของท่านเรียบร้อยแล้วค่ะ');		
-			//return Redirect::action('SellDirectItemController@sellDirectItem')->with('notice','ระบบเพิ่มสินค้าของคุณเรียบร้อยแล้วค่ะ');		
+			return Redirect::action('SellDirectItemController@sellDirectItem')->with('notice','ระบบเพิ่มสินค้าของคุณเรียบร้อยแล้วค่ะ');		
 		}
 		catch(Exception $e){
 			return Redirect::back()->withInput()->withErrors($this->item->errors)->with('error','The file size should be lower than '.$file_max. 'B');

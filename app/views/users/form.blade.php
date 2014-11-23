@@ -1,6 +1,6 @@
 
 		<div class="form-group">
-			<label for="name" class="col-sm-3 control-label">ชื่อ-นามสกุล</label>
+			<label for="name" class="col-sm-3 control-label">ชื่อ-นามสกุล <span class="required">*</span></label>
 			<div class="col-sm-4">
 				{{ Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'ชื่อจริง', 'required' => 'required']) }}
 			</div>
@@ -9,7 +9,7 @@
 			</div>
 		</div><!--form-group-->
 		<div class="form-group">
-			<label for="address" class="col-sm-3 control-label">ที่อยู่</label>
+			<label for="address" class="col-sm-3 control-label">ที่อยู่ <span class="required">*</span></label>
 			<div class="col-sm-8">
 				{{ Form::textarea('address', null, ['class' => 'form-control', 'placeholder' => 'บ้านเลขที่ ซอย 
 ถนน แขวง เขต
@@ -17,17 +17,17 @@
 			</div>
 		</div><!--form-group-->
 		<div class="form-group">
-			<label for="country" class="col-sm-3 control-label">ประเทศ</label>
+			<label for="country" class="col-sm-3 control-label">ประเทศ <span class="required">*</span></label>
 			<div class="col-sm-3">
 				{{ Form::select('country', User::countryList(), null, ['class' => 'form-control', 'required' => 'required']) }}
 			</div>
-			<label for="telephone" class="col-sm-2 control-label">เบอร์โทรศัพท์</label>
+			<label for="telephone" class="col-sm-2 control-label">เบอร์โทรศัพท์ <span class="required">*</span></label>
 			<div class="col-sm-3">
 				{{ Form::input('tel', 'telephone', null, ['class' => 'form-control', 'placeholder' => '6681-123-1234', 'required' => 'required']) }}
 			</div>
 		</div><!--form-group-->
 		<div class="form-group">
-			<label for="email" class="col-sm-3 control-label">อีเมล์</label>
+			<label for="email" class="col-sm-3 control-label">อีเมล์ <span class="required">*</span></label>
 			<div class="col-sm-3">
 				{{ Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'your-email@email.com', 'required' => 'required']) }}
 			</div>

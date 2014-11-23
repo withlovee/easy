@@ -28,5 +28,5 @@
 	{{ Form::close() }}
 @stop
 @section('sidebar')
-	@include('sidebars.personal')
+	@include('users.sidebar')
 @stop

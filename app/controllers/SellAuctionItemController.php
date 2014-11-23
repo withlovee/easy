@@ -15,7 +15,7 @@ class SellAuctionItemController extends Controller
 		$this->item = $item;
 	}
 	public function sellAuctionItem(){
-		return View::make('item.sellAuctionItem');		
+		return View::make('sell_item.sellAuctionItem');		
 	}
 	public function createAuctionItem(){
 		$file_max = ini_get('upload_max_filesize');
@@ -93,7 +93,9 @@ class SellAuctionItemController extends Controller
 			//return Redirect::action('SellAuctionItemController@sellAuctionItem')->with('notice','ระบบเพิ่มสินค้าของคุณเรียบร้อยแล้วค่ะ'.$this->item->id);
 		}
 		catch(Exception $e){
+
 		 	return Redirect::back()->withInput()->withErrors($this->item->errors)->with('error','The file size should be lower than '.$file_max. 'B');
+
 		}
 	}
 

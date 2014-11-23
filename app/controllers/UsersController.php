@@ -33,6 +33,15 @@ class UsersController extends Controller
 	public function store()
 	{
 		$repo = App::make('UserRepository');
+		$input = Input::all();
+		if($input['password'] != $input['password_confirmation'])
+			return Redirect::action('UsersController@create')
+				->withInput(Input::except('password'))
+				->with('error', 'กรุณายืนยันรหัสผ่านให้เหมือนกับรหัสผ่าน');			
+		if(strlen($input['password']) < 6 || strlen($input['password']) > 20)
+			return Redirect::action('UsersController@create')
+				->withInput(Input::except('password'))
+				->with('error', 'รหัสผ่านต้องมีขนาดระหว่าง 6-20 ตัว');
 		$user = $repo->signup(Input::all());
 		var_dump($user);
 		if ($user->id) {
@@ -49,8 +58,7 @@ class UsersController extends Controller
 				);
 			}
 
-			return Redirect::action('UsersController@index')
-				->with('notice', Lang::get('confide::confide.alerts.account_created'));
+			return Redirect::to('/')->with('notice', 'สมัครสมาชิกเรียบร้อยแล้วค่ะ กรุณาตรวจสอบอีเมลล์ของท่านเพื่อกดยืนยันตัวตนก่อนเข้าใช้งาน');
 		} else {
 			$error = $user->errors()->all(':message');
 
@@ -261,6 +269,7 @@ class UsersController extends Controller
 
 	public function show($id){
 		$user = User::find($id);
+		$country = User::countryList();
 		$feedbacks = Feedback::where('receiverId', '=', $id)->orderBy('created_at', 'desc')->get();
 
 		foreach ($feedbacks as $feedback) {
@@ -269,7 +278,7 @@ class UsersController extends Controller
 		}
 
 		return View::make('users.member_profile', 
-			['user' => $user, 'feedbacks' => $feedbacks]);
+			['user' => $user, 'feedbacks' => $feedbacks, 'country' => $country]);
 	}
 
 	public function ban($id){
@@ -282,8 +291,8 @@ class UsersController extends Controller
 			$feedback->sender = User::find($senderId)->username;
 		}
 		if(is_admin()){
-
-			$user->ban();
+			
+			$user->banWithExpireDate(date('Y-m-d H:i:s'));
 			//$user->unBan();
 		}
 		return View::make('users.member_profile', 

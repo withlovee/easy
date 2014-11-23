@@ -3,41 +3,46 @@
 <div class="row item-header">
 	@include('layouts.error')
 	<div class="col-md-5">
-		{{ HTML::image('upload/'.$item->picture, $item->name, ['class' => 'img-responsive wow fadeInDown']) }}
+		{{ HTML::image('upload/'.$item->picture, $item->name, [
+			'class' => 'img-responsive wow fadeInDown',
+			'data-wow-delay' => '1s'
+		]) }}
 	</div>
 	<!-- /.col-md-6 -->
-	<div class="col-md-7 item-detail wow fadeInRight">
-		{{Form::open(array('url' => 'buy/'.$item->id, 'method' => 'post', 'class' => 'form-horizontal'))}}
-		<h4>ประกาศขายโดย: {{ HTML::link('users/show/'.$item->seller->id, $item->seller->username) }}</h4>
-		<h2>
-			@if($item->quantity==0)
-				<span class="label label-danger">หมดแล้ว</span>&nbsp;
-			@endif
-			{{$item->name}}
-		</h2>
-		<h3>สินค้าขายโดยตรง ราคา {{ number_format($item->price) }} บาท</h3>
-		<div class="line"></div>
-		<p>{{$item->property}}</p>
-		<p>
-			<!--{{ Form::number('amount','1',['min'=>'1'])}}-->
-			&nbsp;
-			<!--<a href="" class="btn btn-primary" data-toggle="modal" data-target="#myModal">ซื้อสินค้า</a>-->
-			@if(is_buyer() && $item->quantity >0)
-			{{ Form::button('ซื้อสินค้า',['class'=>"btn btn-primary", "data-toggle"=>"modal", "data-target"=>"#myModal"])}}
-			@endif
-			@if(Auth::user()!=null && $item->sellerId==Auth::user()->id)
-			{{ Form::button('ลบสินค้าชิ้นนี้',['class'=>"btn btn-danger", "data-toggle"=>"modal", "data-target"=>"#myModal$item->id"])}}
-			@endif
-		</p>
+	<div class="col-md-7 item-detail">
+		<div class="inner">
+			{{Form::open(array('url' => 'buy/'.$item->id, 'method' => 'post', 'class' => 'form-horizontal'))}}
+			<h4>ประกาศขายโดย: {{ HTML::link('user/'.$item->seller->id, $item->seller->username) }}</h4>
+			<h2>
+				@if($item->quantity==0)
+					<span class="label label-danger">หมดแล้ว</span>&nbsp;
+				@endif
+				{{$item->name}}
+			</h2>
+			<h3>สินค้าขายโดยตรง ราคา {{ number_format($item->price) }} บาท</h3>
+			<div class="line"></div>
+			<p>{{ nl2br($item->property) }}</p>
+			<p>
+				<!--{{ Form::number('amount','1',['min'=>'1'])}}-->
+				&nbsp;
+				<!--<a href="" class="btn btn-primary" data-toggle="modal" data-target="#myModal">ซื้อสินค้า</a>-->
+				@if(is_buyer() && $item->quantity >0)
+				{{ Form::button('ซื้อสินค้า',['class'=>"btn btn-primary", "data-toggle"=>"modal", "data-target"=>"#myModal"])}}
+				@endif
+				@if(Auth::user()!=null && $item->sellerId==Auth::user()->id)
+				{{ Form::button('ลบสินค้าชิ้นนี้',['class'=>"btn btn-danger", "data-toggle"=>"modal", "data-target"=>"#myModal$item->id"])}}
+				@endif
+			</p>
 		{{Form::close()}}
+			
+		</div>
+		<!-- /.inner -->
 	</div>
 	<!-- /.col-md-6 -->
 </div>
 <!-- /.row -->
 @include('item.itemDetail')
-@stop
-@section('sidebar')
-@include('item.sidebar')
+
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		{{Form::open(array('url' => 'buyDirectItem/'.$item->id, 'method' => 'post', 'class' => 'form-horizontal', 'id'=>'buyDirectItemForm'))}}
@@ -164,5 +169,7 @@ jQuery(function($) {
 });
 </script>
 
-
+@stop
+@section('sidebar')
+	@include('item.sidebar')
 @stop
