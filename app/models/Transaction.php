@@ -27,11 +27,11 @@ class Transaction extends Eloquent{
 	}
 
 	public function scopeListByBuyer($query,$id){
-		return $query->where('buyerId', '=', $id);
+		return $query->where('buyerId', '=', $id)->orderBy('created_at', 'desc');
 	}
 
 	public function scopeListBySeller($query,$id){
-		return $query->where('sellerId', '=', $id);
+		return $query->where('sellerId', '=', $id)->orderBy('created_at', 'desc');
 	}
 
 	static public function createTransaction($id, $input){
