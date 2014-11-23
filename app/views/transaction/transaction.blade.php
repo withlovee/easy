@@ -60,7 +60,7 @@
 							@if(Auth::user()->role == 'Seller' && $transaction->status == 'paid')
 								{{ Form::hidden('status', 'shipped') }}
 								<button type="submit" class="btn btn-info" role="button">ส่งสินค้าแล้ว</button>
-							@elseif($transaction->status == 'shipped')
+							@elseif(Auth::user()->role == 'Buyer' && $transaction->status == 'shipped')
 								{{ Form::hidden('status', 'received') }}
 								<button type="submit" class="btn btn-info" role="button">ได้รับสินค้าแล้ว</button>
 							@else
