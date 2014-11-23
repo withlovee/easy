@@ -11,6 +11,10 @@
 	{{ HTML::script('js/jquery.min.js'); }}
 	{{ HTML::script('js/bootstrap.min.js'); }}
 	{{ HTML::script('js/less.js'); }}
+	{{ HTML::script('js/wow.min.js'); }}
+	<script>
+		new WOW().init();
+	</script>
 	<!--[if lt IE 9]>
 		{{ HTML::script('js/html5shiv.js'); }}
 		{{ HTML::script('js/respond.min.js'); }}
@@ -28,14 +32,14 @@
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 		</button>
-		<a class="navbar-brand" href="{{ URL::to('/') }}" style="padding: 4px 15px;">
+		<a class="navbar-brand wow bounceInDown" href="{{ URL::to('/') }}" style="padding: 4px 15px;">
 			{{ HTML::image('img/logo.png', 'EASY') }}
 		</a>
 	</div>
 
 	<!-- Collect the nav links, forms, and other content for toggling -->
 	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-		<ul class="nav navbar-nav">
+		<ul class="nav navbar-nav wow fadeInRight" data-wow-delay="0.5s">
 			<li>{{ HTML::link('/', 'หน้าหลัก') }}</li>
 			@if(is_buyer())
 			<li class="dropdown">
