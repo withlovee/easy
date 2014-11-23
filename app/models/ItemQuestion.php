@@ -19,7 +19,7 @@ class ItemQuestion extends Eloquent
 		return $query->where('itemId', '=', $id)->orderBy('id', 'ASC');
 	}
 
-	public function scopeListAnsweredByQuestion($query, $id){
+	public function scopeListAnsweredByItem($query, $id){
 		return $query->where('itemId', '=', $id)->where('answer','!=','')->orderBy('id', 'ASC');
 	}
 	public function isValid()
