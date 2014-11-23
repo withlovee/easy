@@ -140,7 +140,7 @@ class EmailHelper{
 
     $subject = "ยืนยันการชำระเงิน - ".$item->name;
     
-    Mail::queue('emails.ConfirmPaymentSeller', $data, function($message) use ($data, $subject) {
+    Mail::queue('emails.SellerConfirmPayment', $data, function($message) use ($data, $subject) {
       $message->to($data['email'], $data['fullName'])
               ->subject($subject);
     });
