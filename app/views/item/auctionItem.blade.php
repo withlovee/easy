@@ -24,8 +24,9 @@
 			@endif
 			<div class="line"></div>
 			<p>{{ nl2br($item->property) }}</p>
-
-			@if(is_buyer() && $item->quantity >0)
+			<h3>{{$timeSentence}}</h3>
+			<br>
+			@if(is_buyer() && $item->quantity >0 && $timeSentence != 'หมดเวลาประมูล')
 				<a href="" id="manualButton" class="btn btn-primary" style="margin-top:-3px;" data-toggle="modal" data-target="#myModalManual">ประมูลด้วยตนเอง</a>
 				<a href="" id="autoButton" class="btn btn-primary" style="margin-top:-3px;" data-toggle="modal" data-target="#myModalAuto">ประมูลด้วยระบบอัตโนมัติ</a>
 				

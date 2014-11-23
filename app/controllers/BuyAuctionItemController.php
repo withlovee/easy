@@ -4,6 +4,9 @@ class BuyAuctionItemController extends Controller
 	public function autobid($id) {
 		$input = Input::all();
 		$item = Item::find($id);
+		if(Item::timeSentence($item)=='หมดเวลาประมูล'){
+			return Redirect::to('item/'.$id)->with('error','ขออภัย สินค้าชิ้นนี้หมดเวลาประมูลแล้วค่ะ');
+		}
 		$deliver = $input['deliver'];
 		$obj = json_decode($item->shipping, true);
 
@@ -22,6 +25,9 @@ class BuyAuctionItemController extends Controller
 	public function manualbid($id) {
 		$input = Input::all();
 		$item = Item::find($id);
+		if(Item::timeSentence($item)=='หมดเวลาประมูล'){
+			return Redirect::to('item/'.$id)->with('error','ขออภัย สินค้าชิ้นนี้หมดเวลาประมูลแล้วค่ะ');
+		}
 		$deliver = $input['deliver'];
 		$obj = json_decode($item->shipping, true);
 

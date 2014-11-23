@@ -30,7 +30,7 @@ class ItemQuestionController extends Controller
 
         $this->question->save();
         
-		return Redirect::action('ItemController@showDirectItem', array('id'=>$input['id']))->with('notice','คำถามของท่านถูกส่งไปยังผู้ขายเรียบร้อยแล้วค่ะ');
+		return Redirect::action('ItemController@showItem', array('id'=>$input['id']))->with('notice','คำถามของท่านถูกส่งไปยังผู้ขายเรียบร้อยแล้วค่ะ');
     }
 
     public function answer()
