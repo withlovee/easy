@@ -11,30 +11,11 @@ class FeedbackController extends BaseController {
 
 	public function create($id)
 	{
-		$feedback = new Feedback;
-		$user = Auth::user();
-		$feedback->senderId = $user->getId();
-		$feedback->receiverId = $id;
-		$feedback->content = Input::get('content');
-		$feedback->transactionId = Input::get('transaction_id');
-		$feedback->score = Input::get('score');
-
-		$feedback->save();
-
-		if($user->role=='Seller'){
-			$transaction = Transaction::find($feedback->transactionId);
-			$transaction->buyerFeedbackId = $feedback->id;
-			$transaction->save();
-		}
-		if($user->role=='Buyer'){
-			$transaction = Transaction::find($feedback->transactionId);
-			$transaction->sellerFeedbackId = $feedback->id;
-			$transaction->save();
-		}
-
+		$input = Input::all();
+		Feedback::newFeedback($id, $input);
 
 		$user = User::find($id);
-		$feedbacks = Feedback::where('receiverId', '=', $id)->orderBy('created_at', 'desc')->get();
+		$feedbacks = Feedback::receiver($id)->get();
 
 		foreach ($feedbacks as $feedback) {
 			$senderId = $feedback->senderId;

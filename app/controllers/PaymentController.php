@@ -20,26 +20,29 @@ class PaymentController extends Controller {
 	public function create($id)
 	{
 		$transaction = Transaction::find($id);
-		$item = $transaction->item;
-		$totalTax = $transaction->getTotalTax();
-		$total = $totalTax+$transaction->price;
-		return View::make('payment.payment', array('transaction'=>$transaction,'item'=>$item,'tax'=>$totalTax,'total'=>$total));
+		$item        = $transaction->item;
+		$totalTax    = $transaction->getTotalTax();
+		$total       = $transaction->getTotal();
+		return View::make('payment.payment', array(
+			'transaction' => $transaction,
+			'item'=>$item,
+			'tax'=>$totalTax,
+			'total'=>$total)
+		);
 	}
 
 	public function proceedPayment($id){
-		$transaction = Transaction::find($id);
-		$transaction->status = 'paid';
-		$transaction->save();
-		$cardType = Input::get('cardType');
-		$cardId = Input::get('cardId');
-		$cvv = Input::get('cvv');
-		$endMonth = Input::get('month');
-		$endYear = Input::get('year');
+		$transaction   = Transaction::pay($id);
+		$cardType      = Input::get('cardType');
+		$cardId        = Input::get('cardId');
+		$cvv           = Input::get('cvv');
+		$endMonth      = Input::get('month');
+		$endYear       = Input::get('year');
 		$paymentResult = PaymentGateway::pay($cardType, $cardId, $cvv, $endMonth, $endYear);
 		if($paymentResult) {
 			EmailHelper::sendConfirmPaymentEmail($transaction);
 			EmailHelper::sendSellerConfirmPaymentEmail($transaction);
-			return Redirect::to('transactions')->with('notice', 'ซื้อสินค้าเรียบร้อย!');
+			return Redirect::to('transactions')->with('notice', 'ชำระเงินสินค้าเรียบร้อยแล้ว');
 		}
 		
 	}

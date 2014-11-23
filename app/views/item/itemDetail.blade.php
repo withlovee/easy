@@ -1,51 +1,104 @@
 <br>
 <h2>เกี่ยวกับสินค้า</h2>
 <table class="table table-striped table-bordered item-info">
+
+	@if($item->brand)
 	<tr>
 		<th width="30%">ยี่ห้อ</th>
 		<td>{{$item->brand}}</td>
 	</tr>
+	@endif
+
+	@if($item->model)
 	<tr>
-		<th>รุ่น</th>
+		<th width="30%">รุ่น</th>
 		<td>{{$item->model}}</td>
 	</tr>
+	@endif
+
+	@if($item->volumn)
 	<tr>
-		<th>คุณสมบัติ</th>
-		<td>{{ nl2br($item->property) }}</td>
+		<th width="30%">ความจุ</th>
+		<td>{{$item->volumn}}</td>
 	</tr>
+	@endif
+
+	@if($item->size)
+	<tr>
+		<th width="30%">ขนาด</th>
+		<td>{{$item->size}}</td>
+	</tr>
+	@endif
+
+	@if($item->quality)
+	<tr>
+		<th width="30%">สภาพ</th>
+		<td>{{$item->quality}}</td>
+	</tr>
+	@endif
+
+	@if($item->defect)
+	<tr>
+		<th width="30%">จุดบกพร่อง</th>
+		<td>{{$item->defect}}</td>
+	</tr>
+	@endif
+
+	<tr>
+		<th width="30%">จำนวนสินค้า</th>
+		<td>{{$item->quantity}} ชิ้น</td>
+	</tr>
+
 </table>
 <!-- /.table -->
 <br><br>
 <h2>การส่งคืนและการจัดส่ง</h2>
 <table class="table table-striped table-bordered item-info">
+
+	@if($item->returnPolicy)
 	<tr>
 		<th width="30%">นโยบายการรับสินค้าคืน</th>
 		<td>{{$item->returnPolicy}}</td>
 	</tr>
+	@endif
+
+	@if($item->returnFee)
 	<tr>
-		<th>ค่าธรรมเนียมการส่งสินค้าคืน</th>
+		<th width="30%">ค่าธรรมเนียมการส่งสินค้าคืน</th>
 		<td>{{ nl2br($item->returnFee) }} บาท</td>
 	</tr>
+	@endif
+
 	<tr>
-		<th>วิธีบรรจุหีบห่อ การขนส่ง และการยืนยันการจัดส่ง</th>
+		<th width="30%">วิธีบรรจุหีบห่อ การขนส่ง และการยืนยันการจัดส่ง</th>
 		<td>
 			@foreach(json_decode($item->shipping) as $text => $price)
 				{{ $text }} ({{ $price }} บาท)<br>
 			@endforeach
 		</td>
 	</tr>
+
+	@if($item->service)
 	<tr>
-		<th>บริการพิเศษ</th>
+		<th width="30%">บริการพิเศษ</th>
 		<td>{{$item->service}}</td>
 	</tr>
+	@endif
+
+	@if($item->others)
 	<tr>
-		<th>อื่นๆ</th>
+		<th width="30%">อื่นๆ</th>
 		<td>{{ nl2br($item->others) }}</td>
 	</tr>
+	@endif
+
+	@if($item->tax)
 	<tr>
-		<th>รูปแบบภาษี</th>
+		<th width="30%">รูปแบบภาษี</th>
 		<td>{{$item->tax}}%</td>
 	</tr>
+	@endif
+
 </table>
 <!-- /.table -->
 <br><br>
@@ -76,7 +129,7 @@
 					@if($question->answer != null)
 						{{ $question->answer }}
 					@else 
-						<form class="form-horizontal" role="form" method="POST" action="{{{ URL::to('answerQuestion') }}}">		
+						<form role="form" method="POST" action="{{{ URL::to('answerQuestion') }}}">		
 							{{Form::hidden('id',$question->id)}}
 							<div class="form-group">
 								<!--<textarea name="" id="" cols="30" rows="2" class="form-control" placeholder="คำถามที่ต้องการสอบถาม"></textarea>-->
@@ -95,6 +148,7 @@
 	@endforeach
 
 </div>
+@if(is_buyer())
 <br><br>
 <h2>ถามคำถามเกี่ยวกับสินค้าชิ้นนี้</h2>
 
@@ -109,3 +163,4 @@
 		{{Form::submit("ส่งคำถาม",array("class"=>"btn btn-primary btn-sm"))}}
 	</div>
 </form>
+@endif

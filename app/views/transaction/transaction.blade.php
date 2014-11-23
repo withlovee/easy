@@ -69,6 +69,16 @@
 						{{ Form::close() }}
 					@endif
 				</dd>
+				
+				@if($transaction->sellerFeedback)
+				<dt>Feedback จากผู้ซื้อ</dt>
+				<dd>{{ $transaction->sellerFeedback->content }}</dd>
+				@endif
+
+				@if($transaction->buyerFeedback)
+				<dt>Feedback จากผู้ขาย</dt>
+				<dd>{{ $transaction->buyerFeedback->content }}</dd>
+				@endif
 			</dl>
 			@if(Auth::user()->role == 'Buyer' && $transaction->sellerFeedbackId== null && $transaction->status == 'received')
 				<h2>ให้ Feedback กับผู้ขาย</h2>

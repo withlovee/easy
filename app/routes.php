@@ -1,3 +1,4 @@
+
 <?php
 
 /*
@@ -18,7 +19,7 @@ Route::get('/supporttickets', 'SupportTicketController@showAll')->before('auth')
 
 
 Route::get('/supporttickets/show/{id}', 'SupportTicketController@show')->before('auth');
-Route::post('/supporttickets/show/{id}','SupportTicketController@reply');
+Route::post('/supporttickets/show/{id}','SupportTicketController@reply')->before('admin-auth');
 
 Route::get('/supporttickets/create', 'SupportTicketController@create')->before('auth');
 Route::post('/supporttickets', 'SupportTicketController@store')->before('auth');
@@ -88,8 +89,8 @@ Route::post('item/{id}', 'ItemController@showItem');
 Route::get('listItemSeller/','ItemController@showItemSeller');
 
 Route::post('buyDirectItem/{id}', 'BuyDirectItemController@buyDirectItem')->before('auth')->before('buyer');
-Route::post('buyAuctionItem/auto/{id}', 'BuyAuctionItemController@autobid')->before('auth')->before('buyer');
-Route::post('buyAuctionItem/manual/{id}', 'BuyAuctionItemController@manualbid')->before('auth')->before('buyer');
+Route::post('buyAuctionItem/auto/{id}', 'BuyAuctionItemController@autoBid')->before('auth')->before('buyer');
+Route::post('buyAuctionItem/manual/{id}', 'BuyAuctionItemController@manualBid')->before('auth')->before('buyer');
 
 
 Route::get('sellDirectItem', 'SellDirectItemController@sellDirectItem')->before('auth')->before('seller');
