@@ -57,6 +57,10 @@ Route::post('feedback/create/{id}','FeedbackController@create');
  * Admin
  */
 
+Route::get('admin', function(){
+  return Redirect::to('admin/login');
+});
+
 Route::get('admin/login', 'AdministratorController@login');
 Route::post('admin/login', 'AdministratorController@doLogin');
 Route::get('admin/logout', 'AdministratorController@doLogout');
