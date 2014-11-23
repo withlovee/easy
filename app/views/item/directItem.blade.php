@@ -12,7 +12,7 @@
 	<div class="col-md-7 item-detail">
 		<div class="inner wow fadeInRight" data-wow-delay="1s">
 			{{Form::open(array('url' => 'buy/'.$item->id, 'method' => 'post', 'class' => 'form-horizontal'))}}
-			<h4>ประกาศขายโดย: {{ HTML::link('users/show/'.$item->seller->id, $item->seller->username) }}</h4>
+			<h4>ประกาศขายโดย: {{ HTML::link('user/'.$item->seller->id, $item->seller->username) }}</h4>
 			<h2>
 				@if($item->quantity==0)
 					<span class="label label-danger">หมดแล้ว</span>&nbsp;

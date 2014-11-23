@@ -25,10 +25,10 @@
 				<dd>{{ $transaction->created_at }}</dd>
 				@if(Auth::user()->role == 'Buyer')
 				<dt>ผู้ขาย</dt>
-				<dd><a href="">{{ $transaction->item->seller->username }}</a> (<a href="{{ URL::to('/supporttickets/create?reporteeId='.$transaction->item->seller->id) }}">ร้องเรียน</a>)</dd>
+				<dd><a href="{{ URL::to('user/'.$transaction->item->seller->id) }}">{{ $transaction->item->seller->username }}</a> (<a href="{{ URL::to('/supporttickets/create?reporteeId='.$transaction->item->seller->id) }}">ร้องเรียน</a>)</dd>
 				@else
 				<dt>ผู้ซื้อ</dt>
-				<dd><a href="">{{ $transaction->buyer->username }}</a> (<a href="{{ URL::to('/supporttickets/create?reporteeId='.$transaction->buyer->id) }}">ร้องเรียน</a>)</dd>
+				<dd><a href="{{ URL::to('user/'.$transaction->buyer->id) }}">{{ $transaction->buyer->username }}</a> (<a href="{{ URL::to('/supporttickets/create?reporteeId='.$transaction->buyer->id) }}">ร้องเรียน</a>)</dd>
 				@endif
 				<dt>จำนวน</dt>
 				<dd>{{ $transaction->amount }} ชิ้น</dd>
