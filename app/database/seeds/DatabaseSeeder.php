@@ -29,16 +29,16 @@ class UsersTableSeeder extends Seeder {
 
   public function run()
   {
-    $names = ['ณัฐพล','ขวัญฤทัย','ณสกล','ปริยวิศว์','ปิยวัฒน์','พนิดา','Vibhavee'];
-    $surnames = ['พัฒนาวิจิตร','ทิพยศักดิ์','พงศ์กอปรสกล','จาตุกัญญาประทีป','เลิศวิทยากำจร','นิ่มนวล','Trairattanapa'];
+    $names = ['ณัฐพล','ขวัญฤทัย','ณสกล','ปริยวิศว์','ปิยวัฒน์','พนิดา','วิภาวี'];
+    $surnames = ['พัฒนาวิจิตร','ทิพยศักดิ์','พงศ์กอปรสกล','จาตุกัญญาประทีป','เลิศวิทยากำจร','นิ่มนวล','ไตรรัตนาภา'];
     $addressess = ['12/23 ถนนพระราม 1 เขตปทุมวัน กรุงเทพฯ 10100',
                     'ดาวอังคาร',
                     '198 อาคาร U-Center ซอยจุฬา 42 แขวงวังใหม่ เขตปทุมวัน กรุงเทพมหานคร 10330',
                     '888/135 Hive Sathorn คลองสาน 10600',
-                    'อาคารเจริญวิศวกรรม คณะวิศวกรรมศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย',
+                    '',
                     '112 ถนนสมเด็จเจ้าพระยา แขวงคลองสาน เขตคลองสาน กรุงเทพฯ 10600',
                     'Villa 35, Street No. 16, Community 366 Umm Suqeim 3, P.O. Box 51844 Dubai, United Arab Emirates'];
-    $countries = ['TH','TH','TH','TH','TH','TH','AE'];
+    $countries = ['TH','MARS','TH','TH','TH','TH','UAE'];
     $telephones = ['0850615555','02536711','087567566','0850504040','0815566777','081234356','0850615555'];
     $usernames = ['nuttt','quanruthai','nasakol','pariyawit','lkumjorn','cppanida','withlovee'];
     $emails = ['nuttt.p@gmail.com','Quanruthai.t@gmail.com','nasakol@gmail.com','pariyawit.jat@gmail.com','plkumjorn@gmail.com','cp.panida@gmail.com','vibhavee.t@gmail.com'];
