@@ -9,7 +9,8 @@
 		"twitter/bootstrap": "*",
 		"way/generators": "~2.0",
 		"guzzlehttp/guzzle": "~4.0",
-		"nesbot/Carbon": "*"
+		"nesbot/Carbon": "*",
+		"pda/pheanstalk": "~2.0"
 	},
 	"autoload": {
 		"classmap": [
