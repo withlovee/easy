@@ -15,7 +15,7 @@ class FeedbackController extends BaseController {
 		Feedback::newFeedback($id, $input);
 
 		$user = User::find($id);
-		$feedbacks = Feedback::where('receiverId', '=', $id)->orderBy('created_at', 'desc')->get();
+		$feedbacks = Feedback::receiver($id)->get();
 
 		foreach ($feedbacks as $feedback) {
 			$senderId = $feedback->senderId;

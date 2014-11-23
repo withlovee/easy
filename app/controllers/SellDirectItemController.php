@@ -40,7 +40,7 @@ class SellDirectItemController extends Controller
 	}
 
 	public function deleteDirectItem($id){
-		$item = Item::where('id', '=', $id)->delete();
-		return Redirect::to('listItemSeller?show=all')->with('notice','ลบสินค้าเรียบร้อยแล้วค่ะ');		
+		$item = Item::find($id)->delete();
+		return Redirect::to('listItemSeller?show=all')->with('notice','ลบสินค้าเรียบร้อยแล้วค่ะ');
 	}
 }

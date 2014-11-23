@@ -14,7 +14,10 @@ class Feedback extends Eloquent
 
     public $errors;
 
-
+    public function scopeReceiver($query, $id){
+        return $query->where('receiverId', '=', $id)->orderBy('created_at', 'desc');
+    }
+    
     public function isValid()
     {
         $validation = Validator::make($this->attributes, static::$rules);

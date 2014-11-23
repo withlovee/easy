@@ -18,6 +18,10 @@ class ItemQuestion extends Eloquent
 	public function scopeListByQuestion($query, $id){
 		return $query->where('itemId', '=', $id)->orderBy('id', 'ASC');
 	}
+
+	public function scopeListAnsweredByQuestion($query, $id){
+		return $query->where('itemId', '=', $id)->where('answer','!=','')->orderBy('id', 'ASC');
+	}
 	public function isValid()
 	{
 		$validation = Validator::make($this->attributes, static::$rules);

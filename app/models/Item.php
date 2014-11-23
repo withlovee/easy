@@ -16,11 +16,56 @@ class Item extends Eloquent
 
 	public $errors;
 
-	public function scopeAvailableAuctionItem($query){
-		return $query->where('quantity','>','0')->where('type','=','auction');
+	public function scopeAvailableItem($query){
+		return $query->where('quantity','>','0')
+			->where(function ($query) {
+				$query->where('endDateTime', '>', new DateTime('now'))
+					->orWhere('endDateTime', '=', null);
+				})
+			->orderBy('id', 'desc');
 	}
+
+	public function scopeAvailableAuctionItem($query){
+		return $query->where('quantity','>','0')
+			->where('type','=','auction')
+			->where('endDateTime', '>', new DateTime('now'))
+			->orderBy('id', 'desc');
+	}
+
 	public function scopeAvailableDirectItem($query){
-		return $query->where('quantity','>','0')->where('type','=','direct');
+		return $query->where('quantity','>','0')->where('type','=','direct')->orderBy('id', 'desc');
+	}
+
+	public function scopeSellerItem($query, $sellerId){
+		return $query->where('sellerId','=',$sellerId)->orderBy('id', 'desc');
+	}
+
+	public function scopeSellerAuctionItem($query, $sellerId){
+		return $query->where('sellerId','=',$sellerId)->where('type','=','auction')->orderBy('id', 'desc');
+	}
+
+	public function scopeSellerDirectItem($query, $sellerId){
+		return $query->where('sellerId','=',$sellerId)->where('type','=','direct')->orderBy('id', 'desc');
+	}
+
+	public function scopeSearchSellerItem($query, $sellerId, $search){
+		return $query->where('sellerId','=',$sellerId)
+			->where('name','LIKE','%'.$search.'%')
+			->orWhere('property','LIKE','%'.$search.'%');
+	}
+
+	public function scopeSearchActiveItem($query, $search){
+		return $query->where('quantity','>','0')
+			->where('name','LIKE','%'.$search.'%')
+			->orWhere('property','LIKE','%'.$search.'%')
+			->where(function($query) {
+				$query->where('endDateTime', '>', new DateTime('now'))
+					->orWhere('endDateTime', '=', null);
+				});
+	}
+
+	public function scopeItemByIds($query, $ids){
+		return $query->whereIn('id', $ids)->orderBy('id', 'desc');
 	}
 
 	public function isValid()

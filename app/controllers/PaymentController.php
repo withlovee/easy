@@ -32,12 +32,12 @@ class PaymentController extends Controller {
 	}
 
 	public function proceedPayment($id){
-		$transaction = Transaction::pay($id);
-		$cardType = Input::get('cardType');
-		$cardId = Input::get('cardId');
-		$cvv = Input::get('cvv');
-		$endMonth = Input::get('month');
-		$endYear = Input::get('year');
+		$transaction   = Transaction::pay($id);
+		$cardType      = Input::get('cardType');
+		$cardId        = Input::get('cardId');
+		$cvv           = Input::get('cvv');
+		$endMonth      = Input::get('month');
+		$endYear       = Input::get('year');
 		$paymentResult = PaymentGateway::pay($cardType, $cardId, $cvv, $endMonth, $endYear);
 		if($paymentResult) {
 			EmailHelper::sendConfirmPaymentEmail($transaction);
