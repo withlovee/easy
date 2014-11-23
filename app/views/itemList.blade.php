@@ -79,7 +79,7 @@
 		<br>
 		<a href="https://www.facebook.com/plkumjorn"><img src="img/tutortui.PNG" class="img-responsive"></a>
 		<br>
-		<a href="https://www.facebook.com/plkumjorn"><img src="img/quaneat.PNG" class="img-responsive"></a>
+		<a href="https://www.facebook.com/foodwithq"><img src="img/quaneat.PNG" class="img-responsive"></a>
 	</div>
 	<!-- /.ad -->
 @stop
