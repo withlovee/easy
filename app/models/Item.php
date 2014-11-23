@@ -45,5 +45,10 @@ class Item extends Eloquent
   public function getTotalCostWithoutTax($amount){
         return $this->price*$amount;
     }
+
+    public function getShippingPrice($shippingType) {
+        $prices = json_decode($this->shipping,true);
+        return $prices[$shippingType];
+    }
     
 }
