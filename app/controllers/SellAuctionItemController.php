@@ -84,29 +84,33 @@ class SellAuctionItemController extends Controller
 
 		$item = Item::find(intval($itemId));
 
-		$bidManager = BidManager::find($item->bidManagerId);
-		
-		if($bidManager->bidderId != null){
+		if($item) {
 
-			$transaction = new Transaction;
-			$transaction->amount = 1;
-			$transaction->price = $item->price;
-			$transaction->shipping = $bidManager->shipping;
-			$transaction->shippingCost = $bidManager->shippingCost;
-			$transaction->status = 'payment_waiting';
-			$transaction->buyerId = $bidManager->bidderId;
-			$transaction->itemId=$item->id;
-			$transaction->buyerFeedbackId = null;
-			$transaction->sellerFeedbackId = null;
-			$transaction->sellerId = $item->sellerId;
-			$transaction->service = $bidManager->service;
-
-			$transaction->save();
-			$user = User::find($bidManager->bidderId);
-
-			EmailHelper::sendAuctionResultEmail($user, $item);
-			EmailHelper::sendInvoiceEmail($transaction);
+			$bidManager = BidManager::find($item->bidManagerId);
 			
+			if($bidManager->bidderId != null){
+
+				$transaction = new Transaction;
+				$transaction->amount = 1;
+				$transaction->price = $item->price;
+				$transaction->shipping = $bidManager->shipping;
+				$transaction->shippingCost = $bidManager->shippingCost;
+				$transaction->status = 'payment_waiting';
+				$transaction->buyerId = $bidManager->bidderId;
+				$transaction->itemId=$item->id;
+				$transaction->buyerFeedbackId = null;
+				$transaction->sellerFeedbackId = null;
+				$transaction->sellerId = $item->sellerId;
+				$transaction->service = $bidManager->service;
+
+				$transaction->save();
+				$user = User::find($bidManager->bidderId);
+
+				EmailHelper::sendAuctionResultEmail($user, $item);
+				EmailHelper::sendInvoiceEmail($transaction);
+				
+			}
+
 		}
 
 		$job->delete();

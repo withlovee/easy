@@ -10,6 +10,7 @@ class EmailHelper{
    * @return type
    */
   public static function sendPreviousAuctionWinnerEmail($user, $item, $args) {
+
     $data = $args;
     $data['userEmail'] = $user->email;
     $data['userFullName'] = $user->getFullName();
