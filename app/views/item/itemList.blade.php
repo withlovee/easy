@@ -30,7 +30,7 @@
 				@if($item->quantity==0)
 					<span href="#" class="btn btn-danger" role="button" disabled="disabled"> หมดแล้ว</span>
 				@endif
-				<span href="#" class="btn btn-default" role="button" disabled="disabled">{{ number_format($item->price) }} บาท</span>
+				<span href="#" class="btn btn-default" role="button" disabled="disabled">{{ number_format($item->price,2) }} บาท</span>
 				@if($item->type=="auction")
 					<span href="#" class="btn btn-warning" role="button" disabled="disabled"><i class="glyphicon glyphicon-time"></i> ประมูล</span>
 				@endif

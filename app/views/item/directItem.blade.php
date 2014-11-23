@@ -19,7 +19,7 @@
 				@endif
 				{{$item->name}}
 			</h2>
-			<h3>สินค้าขายโดยตรง ราคา {{ number_format($item->price) }} บาท</h3>
+			<h3>สินค้าขายโดยตรง ราคา {{ number_format($item->price,2) }} บาท</h3>
 			<div class="line"></div>
 			<p>{{ nl2br($item->property) }}</p>
 			<p>
@@ -123,7 +123,7 @@
 					<div class="col-sm-6">
 						<h3>{{$item->name}}</h3>
 						<br>
-						<h4>ราคา: {{number_format($item->price)}} บาท</h4>
+						<h4>ราคา: {{number_format($item->price,2)}} บาท</h4>
 					</div>
 				</div>
 			</div>
