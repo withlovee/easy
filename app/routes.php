@@ -88,8 +88,8 @@ Route::post('item/{id}', 'ItemController@showDirectItem');
 Route::get('listItemSeller/','ItemController@showItemSeller');
 
 Route::post('buyDirectItem/{id}', 'BuyDirectItemController@buyDirectItem')->before('auth')->before('buyer');
-Route::post('buyAuctionItem/auto/{id}', 'BuyAuctionItemController@autobid')->before('auth')->before('buyer');
-Route::post('buyAuctionItem/manual/{id}', 'BuyAuctionItemController@manualbid')->before('auth')->before('buyer');
+Route::post('buyAuctionItem/auto/{id}', 'BuyAuctionItemController@autoBid')->before('auth')->before('buyer');
+Route::post('buyAuctionItem/manual/{id}', 'BuyAuctionItemController@manualBid')->before('auth')->before('buyer');
 
 
 Route::get('sellDirectItem', 'SellDirectItemController@sellDirectItem')->before('auth')->before('seller');
