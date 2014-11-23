@@ -86,6 +86,10 @@ class UsersController extends Controller
 		$input = Input::all();
 
 		if ($repo->login($input)) {
+			User::checkUpdateBanStatus(Auth::user());
+			if(Auth::check()&&Auth::user()->isBanned){
+				return Redirect::to('users/forceLogout');
+			}
 			return Redirect::intended('/');
 		} 
 

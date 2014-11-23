@@ -27,6 +27,3 @@
 		</div>
 	{{ Form::close() }}
 @stop
-@section('sidebar')
-	@include('sidebars.personal')
-@stop
