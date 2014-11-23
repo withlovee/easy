@@ -71,19 +71,19 @@ class ItemController extends Controller
 		}
 		elseif(Input::get('show') == 'all'){
 			$title = "สินค้าทั้งหมดของฉัน";
-			$items = Item::where('sellerId','=',$sellerId)->orderBy('id', 'desc')->paginate($perPage);;
+			$items = Item::where('sellerId','=',$sellerId)->orderBy('id', 'desc')->paginate($perPage);
 		}
 		elseif(Input::get('show') == 'direct'){
 			$title = "สินค้าขายโดยตรงของฉัน";
-			$items = Item::where('sellerId','=',$sellerId)->where('type','=','direct')->orderBy('id', 'desc')->paginate($perPage);;
+			$items = Item::where('sellerId','=',$sellerId)->where('type','=','direct')->orderBy('id', 'desc')->paginate($perPage);
 		}
 		elseif(Input::get('show') == 'auction'){
 			$title = "สินค้าประมูลของฉัน";
-			$items = Item::where('sellerId','=',$sellerId)->where('type','=','auction')->orderBy('id', 'desc')->paginate($perPage);;
+			$items = Item::where('sellerId','=',$sellerId)->where('type','=','auction')->orderBy('id', 'desc')->paginate($perPage);
 		}
 		else{
 			$title = "สินค้าทั้งหมดของฉัน";
-			$items = Item::where('sellerId','=',$sellerId)->orderBy('id', 'desc')->paginate($perPage);;
+			$items = Item::where('sellerId','=',$sellerId)->orderBy('id', 'desc')->paginate($perPage);
 		}
 		return View::make('item.sellerListItem', compact('items', 'title', 'item_count'));
 	}
@@ -103,8 +103,8 @@ class ItemController extends Controller
 		$item_count = ['auction' => $auction,
 						'direct' => $direct,
 						'all' => $auction+$direct]; 
-		$perPage = 3;
-		$latest = 1;
+		$perPage = 5;
+		$latest = 3;
 		if(Input::get('search') != null){
 			$title = "ผลลัพธ์การค้นหาสินค้า";
 			$searchs = explode(' ', Input::get('search'));
@@ -134,7 +134,7 @@ class ItemController extends Controller
 			$title = "สินค้าล่าสุด";
 			$items = Item::where('quantity','>','0')->orderBy('id', 'desc')->where('quantity','!=','0')->take($latest)->get();
 		}
-		return View::make('itemList', [
+		return View::make('item.itemList', [
 			'items' => $items, 
 			'title' => $title, 
 			'item_count' => $item_count,

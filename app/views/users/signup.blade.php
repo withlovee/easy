@@ -1,10 +1,5 @@
-@extends('layouts.master', ['title' => 'Create a New User'])
+@extends('layouts.master', ['title' => 'สมัครสมาชิก'])
 
-@section('header-buttons')
-	<div class="btn-group right">
-		{{ HTML::link('users', 'Back', array('class' => 'btn btn-default')) }}
-	</div>
-@stop
 
 @section('content')
 	<h1 class="line">สมัครสมาชิก</h1>
@@ -67,24 +62,4 @@
 			<li>สำหรับสมาชิกออนไลน์ที่มีอายุต่ำกว่า 18 ปี การทำธุรกรรมใดๆที่เกี่ยวข้องกับการเงินเช่น สั่งซื้อสินค้าออนไลน์ หรือเข้าร่วมทำการประมูลจะต้องได้รับความเห็นชอบ จากผู้ปกครองก่อนทุกครั้ง</li>
 		</ol>
 	</div>
-@stop
-
-<form method="POST" action="{{{ URL::to('users') }}}" accept-charset="UTF-8">
-	<input type="hidden" name="_token" value="{{{ Session::getToken() }}}">
-	<fieldset class="form-horizontal">
-		@include('users.form')
-		<div class="form-group">
-			<label for="role" class="col-sm-2 control-label">Role</label>
-			<div class="col-sm-3">
-				{{ Form::select('role', array('User' => 'User', 'Admin' => 'Admin'), null, ['class' => 'form-control']) }}
-			</div>
-		</div>
-		<div class="form-group">
-			<div class="col-sm-offset-2 col-sm-10">
-				<button type="submit" class="btn btn-primary">{{{ Lang::get('confide::confide.signup.submit') }}}</button>
-			</div>
-		</div>
-
-	</fieldset>
-</form>
 @stop

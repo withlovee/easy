@@ -15,7 +15,7 @@ class SellDirectItemController extends Controller
 		$this->item = $item;
 	}
 	public function sellDirectItem(){
-		return View::make('item.sellDirectItem');		
+		return View::make('sell_item.sellDirectItem');		
 	}
 	public function createDirectItem(){
 		$file_max = ini_get('upload_max_filesize');

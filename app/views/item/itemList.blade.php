@@ -1,4 +1,4 @@
-@extends('layouts.master', ['title' => 'Dashboard', 'class' => 'content-grey'])
+@extends('layouts.master', ['title' => $title, 'class' => 'content-grey'])
 @section('content')
 	@include('layouts.error')
 	<h1 class="line">
@@ -17,7 +17,7 @@
 	@else
 	@foreach($items as $item)
 	<div class="row item">
-		<div class="col-sm-3">
+		<div class="col-sm-3 thumb">
 			<a href="item/{{$item->id}}">
 				{{ HTML::image('upload/'.$item->picture, $item->name, ['class' => 'img-responsive']) }}
 			</a>
@@ -73,13 +73,5 @@
 		<a href="?show=auction" class="list-group-item"><span class="badge">{{$item_count['auction']}}</span> สินค้าประมูลเท่านั้น</a>
 		<a href="?show=direct" class="list-group-item"><span class="badge">{{$item_count['direct']}}</span> สินค้าขายโดยตรงเท่านั้น</a>
 	</div>
-	<h3>โฆษณา</h3>
-	<div class="ad">
-		<a href="http://www.eng.chula.ac.th/"><img src="img/ChulaEngineering.png" class="img-responsive"></a>
-		<br>
-		<a href="https://www.facebook.com/plkumjorn"><img src="img/tutortui.PNG" class="img-responsive"></a>
-		<br>
-		<a href="https://www.facebook.com/foodwithq"><img src="img/quaneat.PNG" class="img-responsive"></a>
-	</div>
-	<!-- /.ad -->
+	@include('sidebars.ads')
 @stop

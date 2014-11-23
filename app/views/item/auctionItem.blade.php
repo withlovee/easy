@@ -3,39 +3,41 @@
 <div class="row item-header">
 	@include('layouts.error')
 	<div class="col-md-5">
-		{{ HTML::image('upload/'.$item->picture, $item->name, ['class' => 'img-responsive']) }}
+		{{ HTML::image('upload/'.$item->picture, $item->name, [
+			'class' => 'img-responsive wow fadeInDown',
+			'data-wow-delay' => '1s'
+		]) }}
 	</div>
 	<!-- /.col-md-6 -->
 	<div class="col-md-7 item-detail">
-		<h4>ประกาศขายโดย: {{ HTML::link('users/show/'.$item->seller->id, $item->seller->username) }}</h4>
-		<h2>
-			@if($item->quantity==0)
-				<span class="label label-danger">หมดแล้ว</span>
+		<div class="inner wow fadeInRight" data-wow-delay="1s">
+			<h4>ประกาศขายโดย: {{ HTML::link('users/show/'.$item->seller->id, $item->seller->username) }}</h4>
+			<h2>
+				@if($item->quantity==0)
+					<span class="label label-danger">หมดแล้ว</span>
+				@endif
+				{{$item->name}}
+			</h2>
+			<h3>สินค้าประมูล ราคาปัจจุบัน: {{ number_format($item->price) }} บาท</h3>
+			@if($bidder != null)
+				<h4>ผู้ชนะการประมูลปัจจุบัน: {{ HTML::link('users/show/'.$bidder->id, $bidder->username) }}</h4>
 			@endif
-			{{$item->name}}
-		</h2>
-		<h3>สินค้าประมูล ราคาปัจจุบัน: {{ number_format($item->price) }} บาท</h3>
-		@if($bidder != null)
-			<h4>ผู้ชนะการประมูลปัจจุบัน: {{ HTML::link('users/show/'.$bidder->id, $bidder->username) }}</h4>
-		@endif
-		<div class="line"></div>
-		<p>{{$item->property}}</p>
+			<div class="line"></div>
+			<p>{{$item->property}}</p>
 
-		@if(is_buyer() && $item->quantity >0)
-			<a href="" id="manualButton" class="btn btn-primary" style="margin-top:-3px;" data-toggle="modal" data-target="#myModalManual">ประมูลด้วยตนเอง</a>
-			<a href="" id="autoButton" class="btn btn-primary" style="margin-top:-3px;" data-toggle="modal" data-target="#myModalAuto">ประมูลด้วยระบบอัตโนมัติ</a>
-			
-		@endif
-		@if($item->sellerId==Auth::user()->id)
-			{{ Form::button('ลบสินค้าชิ้นนี้',['class'=>"btn btn-danger", "data-toggle"=>"modal", "data-target"=>"#myModal$item->id"])}}
-		@endif	
+			@if(is_buyer() && $item->quantity >0)
+				<a href="" id="manualButton" class="btn btn-primary" style="margin-top:-3px;" data-toggle="modal" data-target="#myModalManual">ประมูลด้วยตนเอง</a>
+				<a href="" id="autoButton" class="btn btn-primary" style="margin-top:-3px;" data-toggle="modal" data-target="#myModalAuto">ประมูลด้วยระบบอัตโนมัติ</a>
+				
+			@endif
+			@if($item->sellerId==Auth::user()->id)
+				{{ Form::button('ลบสินค้าชิ้นนี้',['class'=>"btn btn-danger", "data-toggle"=>"modal", "data-target"=>"#myModal$item->id"])}}
+			@endif	
+		</div>
 	</div>
 	<!-- /.col-md-6 -->
 </div>
 @include('item.itemDetail')
-@stop
-@section('sidebar')
-@include('item.sidebar')
 <div class="modal fade" id="myModalManual" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		{{Form::open(array('url' => 'buyAuctionItem/manual/'.$item->id, 'method' => 'post', 'class' => 'form-horizontal'))}}
@@ -228,4 +230,7 @@ jQuery(function($) {
 	}
 });
 </script>
+@stop
+@section('sidebar')
+	@include('item.sidebar')
 @stop
