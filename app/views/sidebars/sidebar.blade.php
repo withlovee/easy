@@ -15,6 +15,6 @@
 	{{ HTML::link('users/profile', 'แก้ไขข้อมูลส่วนตัว', ['class' => 'list-group-item']) }}
 	{{ HTML::link('users/show/'.Auth::user()->id, 'ดู Feedback', ['class' => 'list-group-item']) }}
 	{{ HTML::link('transactions', 'ดูประวัติการซื้อขาย', ['class' => 'list-group-item']) }}
-	{{ HTML::link('supporttickets', 'ร้องเรียนปัญหา', ['class' => 'list-group-item']) }}
+	{{ HTML::link('supporttickets/create', 'ร้องเรียนปัญหา', ['class' => 'list-group-item']) }}
 </div>
 @include('sidebars.ads')
