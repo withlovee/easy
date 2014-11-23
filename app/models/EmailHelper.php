@@ -115,6 +115,37 @@ class EmailHelper{
     });
   }
 
+  public static function sendSellerConfirmPaymentEmail ($transaction) {
+    $data = array();
+
+    $item = Item::find($transaction->itemId);
+    $user = User::find($transaction->sellerId);
+
+    $data = array(
+        "email"             => $user->email,
+        "itemType"          => $item->type,
+        "fullName"          => $user->getFullName(),
+        "invoiceId"         => $transaction->id,
+        "purchaseTimestamp" => $transaction->created_at->toDateTimeString(),
+        "itemId"            => $item->id,
+        "itemName"          => $item->name,
+        "amount"            => $transaction->amount,
+        "price"             => $transaction->price,
+        "shippingCost"      => $transaction->shippingCost,
+        "total"             => $transaction->getTotalCost(),
+        "shippingAddress"   => $user->address,
+        "billingAddress"    => $user->address
+
+      );
+
+    $subject = "ยืนยันการชำระเงิน - ".$item->name;
+    
+    Mail::queue('emails.ConfirmPaymentSeller', $data, function($message) use ($data, $subject) {
+      $message->to($data['email'], $data['fullName'])
+              ->subject($subject);
+    });
+  }
+
 
   public static function sendFeedbackRequestEmail($transaction) {
 
