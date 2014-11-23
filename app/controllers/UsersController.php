@@ -33,6 +33,15 @@ class UsersController extends Controller
 	public function store()
 	{
 		$repo = App::make('UserRepository');
+		$input = Input::all();
+		if($input['password'] != $input['password_confirmation'])
+			return Redirect::action('UsersController@create')
+				->withInput(Input::except('password'))
+				->with('error', 'กรุณายืนยันรหัสผ่านให้เหมือนกับรหัสผ่าน');			
+		if(strlen($input['password']) < 6 || strlen($input['password']) > 20)
+			return Redirect::action('UsersController@create')
+				->withInput(Input::except('password'))
+				->with('error', 'รหัสผ่านต้องมีขนาดระหว่าง 6-20 ตัว');
 		$user = $repo->signup(Input::all());
 		var_dump($user);
 		if ($user->id) {
