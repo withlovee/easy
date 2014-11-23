@@ -54,7 +54,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => 'postmaster@sandbox5a3ab3adfd794243943b5a79e7436ca5.mailgun.org', 'name' => 'EASY'),
+	'from' => array('address' => 'postmaster@mail.nuttt.me', 'name' => 'EASY'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ return array(
 	|
 	*/
 
-	'username' => 'postmaster@sandbox5a3ab3adfd794243943b5a79e7436ca5.mailgun.org',
+	'username' => 'postmaster@mail.nuttt.me',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ return array(
 	|
 	*/
 
-	'password' => 'f246caeb44879ec2e88da2ea3728ed68',
+	'password' => '3bf62c6d7558bd87146f0600fa94571d',
 
 	/*
 	|--------------------------------------------------------------------------
