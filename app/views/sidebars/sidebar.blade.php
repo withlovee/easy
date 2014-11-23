@@ -10,6 +10,8 @@
 	</form>
 </div>
 <!-- /.box -->
+
+@if(Auth::check())
 <h3>เมนูของฉัน</h3>
 <div class="list-group">
 	{{ HTML::link('users/profile', 'แก้ไขข้อมูลส่วนตัว', ['class' => 'list-group-item']) }}
@@ -17,4 +19,6 @@
 	{{ HTML::link('transactions', 'ดูประวัติการซื้อขาย', ['class' => 'list-group-item']) }}
 	{{ HTML::link('supporttickets/create', 'ร้องเรียนปัญหา', ['class' => 'list-group-item']) }}
 </div>
+@endif
+
 @include('sidebars.ads')
