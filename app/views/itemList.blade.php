@@ -75,9 +75,11 @@
 	</div>
 	<h3>โฆษณา</h3>
 	<div class="ad">
-		<img src="img/390x150.gif" class="img-responsive">
+		<a href="http://www.eng.chula.ac.th/"><img src="img/ChulaEngineering.png" class="img-responsive"></a>
 		<br>
-		<img src="img/390x150.gif" class="img-responsive">
+		<a href="https://www.facebook.com/plkumjorn"><img src="img/tutortui.PNG" class="img-responsive"></a>
+		<br>
+		<a href="https://www.facebook.com/foodwithq"><img src="img/quaneat.PNG" class="img-responsive"></a>
 	</div>
 	<!-- /.ad -->
 @stop

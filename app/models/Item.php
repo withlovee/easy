@@ -42,8 +42,8 @@ class Item extends Eloquent
     return URL::to('item/'.$this->id);
   }
 
-  public function getTotalCostWithTax($amount){
-        return $this->price*$amount*(100+$this->tax)/100.0;
+  public function getTotalCostWithoutTax($amount){
+        return $this->price*$amount;
     }
     
 }
