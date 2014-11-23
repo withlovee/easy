@@ -30,12 +30,12 @@ class Item extends Eloquent
     }
 
 	public function bidManager(){
-		return $this->belongsTo('BidManager','bidManagerId');
+		return $this->belongsTo('BidManager','bidManagerId','id');
 	}
 
     public function seller()
     {
-        return $this->belongsTo('User','sellerId');
+        return $this->belongsTo('User','sellerId','id');
     }
 
   public function getUrl() {

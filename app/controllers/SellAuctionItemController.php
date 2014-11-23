@@ -20,7 +20,7 @@ class SellAuctionItemController extends Controller
 	public function createAuctionItem(){
 		$file_max = ini_get('upload_max_filesize');
 
-        try{
+		//try{
 
 			//'id','name','picture','price','brand','model','volumn','property','size','quantity','quality','defect','returnPolicy','returnFee','shipping','tax','others','type','endDateTime','amount','bidManagerId','sellerId'
 			$input = Input::all();
@@ -53,17 +53,21 @@ class SellAuctionItemController extends Controller
 			$this->item->shipping = json_encode($shipping);
 			$this->item->type = 'auction';
 			$this->item->endDateTime = $input['endDate'].' '.$input['endTime'];
+
 			
+
 			// create BidManager
 			$bidManager = new BidManager;
-		    $bidManager->currentBid = Input::get('price');
-		    $bidManager->maxBid = Input::get('price');
-		    $bidManager->increment = 0;
-		    $bidManager->bidderId = null;
-		    $bidManager->shipping = null;
-		    $bidManager->shippingCost = null;
-		    $bidManager->service = 0;
+			$bidManager->currentBid = Input::get('price');
+			$bidManager->maxBid = Input::get('price');
+			$bidManager->increment = 0;
+			$bidManager->bidderId = null;
+			$bidManager->shipping = null;
+			$bidManager->shippingCost = null;
+			$bidManager->service = 0;
 			$bidManager->save();
+
+			
 
 			$this->item->bidManagerId = $bidManager->id;
 			// $this->item->amount=NULL;
@@ -80,16 +84,48 @@ class SellAuctionItemController extends Controller
 			// return View::make('emptypage');
 			$this->item->save();
 			$newItem = Item::orderBy('id', 'desc')->first();
+
+			$inputDate = Carbon::createFromFormat('Y-m-d H:i',$this->item->endDateTime);
+			//$inputDate=Carbon::now()->addMinutes(10); 
+			Queue::later($inputDate, 'SellAuctionItemController@endAuction', array('itemId' => "".$this->item->id));
+
 			return Redirect::to('item/'.$newItem->id)->with('notice','ระบบเพิ่มสินค้าของท่านเรียบร้อยแล้วค่ะ');		
 			//return Redirect::action('SellAuctionItemController@sellAuctionItem')->with('notice','ระบบเพิ่มสินค้าของคุณเรียบร้อยแล้วค่ะ'.$this->item->id);
 		}
 		catch(Exception $e){
-			return Redirect::back()->withInput()->withErrors($this->item->errors)->with('error','The file size should be lower than '.$file_max. 'B');
+		 	return Redirect::back()->withInput()->withErrors($this->item->errors)->with('error','The file size should be lower than '.$file_max. 'B');
 		}
 	}
 
 	public function deleteAuctionItem($id){
 		$item = Item::where('id', '=', $id)->delete();
 		return Redirect::to('listItemSeller?show=all')->with('notice','ลบสินค้าเรียบร้อยแล้วค่ะ');		
+	}
+
+	public function endAuction($job,$itemId){
+		$item = Item::find((int)$itemId);
+		$bidManager = BidManager::find($item->id);
+		
+		if($bidManager->bidderId!=null){
+			$transaction = new Transaction;
+			$transaction->amount = 1;
+			$transaction->price = $item->price;
+			$transaction->shipping = $bidManager->shipping;
+			$transaction->shippingCost = $bidManager->shippingCost;
+			$transaction->status = 'payment_waiting';
+			$transaction->buyerId = $bidManager->bidderId;
+			$transaction->itemId=$item->id;
+			$transaction->buyerFeedbackId = null;
+			$transaction->sellerFeedbackId = null;
+			$transaction->sellerId = $item->sellerId;
+			$transaction->service = $bidManager->service;
+			$transaction->save();
+			$user = User::find($bidManager->bidderId);
+
+			EmailHelper::sendAuctionResultEmail($user, $item);
+			EmailHelper::sendInvoiceEmail($transaction);
+		}
+
+		
 	}
 }
