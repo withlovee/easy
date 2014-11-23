@@ -24,7 +24,7 @@ class TransactionController extends BaseController {
 	public function show($id){
 		$data['transaction'] = Transaction::find($id);
 		$data['title'] = $this->get_title();
-		if(!$this->hasPermission($data['transaction']))
+		if(!Transaction::hasPermission($data['transaction']))
 			return Redirect::to('/');
 		return View::make('transaction.transaction', $data);
 	}
