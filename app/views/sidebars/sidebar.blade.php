@@ -12,9 +12,9 @@
 <!-- /.box -->
 <h3>เมนูของฉัน</h3>
 <div class="list-group">
-	<a href="edit_profile.php" class="list-group-item">แก้ไขข้อมูลส่วนตัว</a>
-	<a href="member_profile.php" class="list-group-item">ดู Feedback</a>
-	<a href="transactions.php" class="list-group-item">ดูประวัติการสั่งซื้อ</a>
-	<a href="report.php" class="list-group-item">ร้องเรียนปัญหา</a>
+	{{ HTML::link('users/profile', 'แก้ไขข้อมูลส่วนตัว', ['class' => 'list-group-item']) }}
+	{{ HTML::link('users/show/'.Auth::user()->id, 'ดู Feedback', ['class' => 'list-group-item']) }}
+	{{ HTML::link('transactions', 'ดูประวัติการซื้อขาย', ['class' => 'list-group-item']) }}
+	{{ HTML::link('supporttickets', 'ร้องเรียนปัญหา', ['class' => 'list-group-item']) }}
 </div>
 @include('sidebars.ads')

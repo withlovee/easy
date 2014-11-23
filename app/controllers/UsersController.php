@@ -261,6 +261,7 @@ class UsersController extends Controller
 
 	public function show($id){
 		$user = User::find($id);
+		$country = User::countryList();
 		$feedbacks = Feedback::where('receiverId', '=', $id)->orderBy('created_at', 'desc')->get();
 
 		foreach ($feedbacks as $feedback) {
@@ -269,7 +270,7 @@ class UsersController extends Controller
 		}
 
 		return View::make('users.member_profile', 
-			['user' => $user, 'feedbacks' => $feedbacks]);
+			['user' => $user, 'feedbacks' => $feedbacks, 'country' => $country]);
 	}
 
 	public function ban($id){

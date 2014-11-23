@@ -13,7 +13,7 @@
 	</a>
 	<br>
 	<a href="https://www.facebook.com/foodwithq" target="_blank">
-		{{ HTML::image('img/quaneat.PNG', 'ของกินของขวัญ', [
+		{{ HTML::image('img/quaneat.PNG', 'คิดถึงของขวัญ', [
 			'class' => 'img-responsive'
 		]) }}
 	</a>
