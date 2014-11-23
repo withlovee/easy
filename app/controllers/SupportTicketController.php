@@ -16,7 +16,7 @@ class SupportTicketController extends BaseController {
 			
 		}
 		else {
-			$support_tickets = SupportTicket::listByUser(Auth::user()->id)->orderBy('created_at', 'desc')->get();
+			$support_tickets = SupportTicket::listByUser(Auth::user()->id)->get();
 		}
 
 		return View::make('support_ticket.SupportTicketList', ['support_tickets' => $support_tickets]);
@@ -28,7 +28,7 @@ class SupportTicketController extends BaseController {
 			$support_tickets = SupportTicket::orderBy('created_at', 'desc')->get();
 		}
 		else {
-			$support_tickets = SupportTicket::listByUser(Auth::user()->id)->orderBy('created_at', 'desc')->get();
+			$support_tickets = SupportTicket::listByUser(Auth::user()->id)->get();
 		}
 
 		$support_ticket = SupportTicket::find($id);

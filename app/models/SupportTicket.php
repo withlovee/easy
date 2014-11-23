@@ -42,7 +42,7 @@ class SupportTicket extends Eloquent{
     }
 
     public function scopeListByUser($query,$id){
-        return $query->where('reporterId', '=', $id);
+        return $query->where('reporterId', '=', $id)->orderBy('created_at', 'desc');
     }
 
     public static function getReporteeCandidate($reporterUser) {

@@ -183,7 +183,7 @@ class UsersController extends Controller
 	public function show($id){
 		$user = User::find($id);
 		$country = User::countryList();
-		$feedbacks = Feedback::listByReceiver($id)->orderBy('created_at', 'desc')->get();
+		$feedbacks = Feedback::receiver($id)->get();
 
 		foreach ($feedbacks as $feedback) {
 			$senderId = $feedback->senderId;
@@ -197,7 +197,7 @@ class UsersController extends Controller
 	public function ban($id){
 
 		$user = User::find($id);
-		$feedbacks = Feedback::listByReceiver($id)->orderBy('created_at', 'desc')->get();
+		$feedbacks = Feedback::receiver($id)->get();
 
 		foreach ($feedbacks as $feedback) {
 			$senderId = $feedback->senderId;
@@ -220,7 +220,7 @@ class UsersController extends Controller
 		}
 
 		
-		$feedbacks = Feedback::listByReceiver($id)->orderBy('created_at', 'desc')->get();
+		$feedbacks = Feedback::receiver($id)->get();
 
 		foreach ($feedbacks as $feedback) {
 			$senderId = $feedback->senderId;
