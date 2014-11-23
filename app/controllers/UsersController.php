@@ -35,6 +35,12 @@ class UsersController extends Controller
 		$repo = App::make('UserRepository');
 		$input = Input::all();
 
+		// Username should be between 6-20 characters
+		if(strlen($input['username']) < 6 || strlen($input['username']) > 20)
+			return Redirect::action('UsersController@create')
+				->withInput(Input::except('password'))
+				->with('error', 'ชื่อผู้ใช้ต้องมีขนาดระหว่าง 6-20 ตัว');
+
 		// Two passwords should be the same
 		if($input['password'] != $input['password_confirmation'])
 			return Redirect::action('UsersController@create')
@@ -172,7 +178,7 @@ class UsersController extends Controller
 		$error = $user->errors()->all();
 		if(empty($error)) {
 			return Redirect::action('UsersController@profile')
-				->with('notice', 'The user has been updated successfully.');
+				->with('notice', 'ปรับปรุงข้อมูลเรียบร้อยแล้ว');
 		} else {
 			return Redirect::action('UsersController@profile', array($user->id))
 				->withInput(Input::except('password'))
