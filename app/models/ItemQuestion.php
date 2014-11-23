@@ -15,6 +15,9 @@ class ItemQuestion extends Eloquent
 
 	public $errors;
 
+	public function scopeListByQuestion($query, $id){
+		return $query->where('itemId', '=', $id)->orderBy('id', 'ASC');
+	}
 	public function isValid()
 	{
 		$validation = Validator::make($this->attributes, static::$rules);

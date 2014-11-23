@@ -16,15 +16,15 @@ class ItemController extends Controller
 	}
 
 	public function showDirectItem($id){
-		$auction    = Item::where('quantity','>','0')->where('type','=','auction')->count();
-		$direct     = Item::where('quantity','>','0')->where('type','=','direct')->count();
+		$auction    = Item::availableAuctionItems()->count();
+		$direct     = Item::availableDirectItems()->count();
 		$item_count = ['auction' => $auction,
 						'direct' => $direct,
 						'all' => $auction+$direct]; 
 		$item       = Item::find($id);
 
 		if(Auth::user()!=null && $item->sellerId == Auth::user()->id){
-			$questions = ItemQuestion::where('itemId', '=', $id)->orderBy('id', 'ASC')->get();
+			$questions = ItemQuestion::listByItem($id)->get();
 		}
 		else{
 			$questions = ItemQuestion::where('itemId', '=', $id)->where('answer','!=','')->orderBy('id', 'ASC')->get();

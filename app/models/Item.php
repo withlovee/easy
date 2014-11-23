@@ -3,7 +3,7 @@
 class Item extends Eloquent
 {
 	protected $table = 'items';
-	protected $fillable=array('name','price','brand','model','volumn','property','size','quantity','quality','defect','returnPolicy','returnFee','tax','service','others','type','endDateTime','bidManagerId','sellerId');
+	protected $fillable = array('name','price','brand','model','volumn','property','size','quantity','quality','defect','returnPolicy','returnFee','tax','service','others','type','endDateTime','bidManagerId','sellerId');
 
 	public $timestamps = false;
 
@@ -15,6 +15,13 @@ class Item extends Eloquent
 	];
 
 	public $errors;
+
+	public function scopeAvailableAuctionItem($query){
+		return $query->where('quantity','>','0')->where('type','=','auction');
+	}
+	public function scopeAvailableDirectItem($query){
+		return $query->where('quantity','>','0')->where('type','=','direct');
+	}
 
 	public function isValid()
 	{
