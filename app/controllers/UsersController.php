@@ -211,7 +211,7 @@ class UsersController extends Controller
 		}
 		if(is_admin()){
 			
-			$user->banWithExpireDate(date('Y-m-d H:i:s'));
+			$user->banWithExpireDate(date('Y-m-d H:i:s',mktime(0,0,0,date("m")+3,date("d"),date("Y"))));
 			
 			//$user->unBan();
 		}
