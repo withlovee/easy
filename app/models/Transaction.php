@@ -26,4 +26,8 @@ class Transaction extends Eloquent{
 		return $this->item->tax/100.0*$this->price;
 	}
 
+	public function getTotal(){
+		return $this->price + $this->getTotalTax() + $this->shippingCost;
+	}
+
 }

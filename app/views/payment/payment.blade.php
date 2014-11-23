@@ -11,19 +11,19 @@
 					</tr>
 					<tr>
 						<th>ราคาสินค้า</th>
-						<td>{{number_format($transaction->price)}} บาท</td>
+						<td>{{number_format($transaction->price,2)}} บาท</td>
 					</tr>
 					<tr>
 						<th>ค่าขนส่ง</th>
-						<td>{{number_format($transaction->shippingCost)}} บาท</td>
+						<td>{{number_format($transaction->shippingCost,2)}} บาท</td>
 					</tr>
 					<tr>
 						<th>ภาษี</th>
-						<td>{{number_format($tax)}} บาท</td>
+						<td>{{number_format($tax,2)}} บาท</td>
 					</tr>
 					<tr>
 						<th>รวม</th>
-						<td><strong>{{number_format($total)}} บาท</strong></td>
+						<td><strong>{{number_format($total,2)}} บาท</strong></td>
 					</tr>
 				</table>
 			</div>

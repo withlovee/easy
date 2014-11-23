@@ -7,7 +7,7 @@ class BuyDirectItemController extends Controller
 		$item = Item::find($id);
 		$amount = Input::get('amount');
 		$deliver = Input::get('deliver');
-		$price = $item->getTotalCostWithoutTax($amount);
+		$price = $item->getTotalCostWithoutTaxAndShipping($amount);
 
 		if($item->quantity-$amount<0){
 			return Redirect::to('item/'.$id)->with('error', 'ปริมาณสินค้าที่คงเหลือไม่เพียงพอ');	
