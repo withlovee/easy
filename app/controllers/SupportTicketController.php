@@ -19,14 +19,6 @@ class SupportTicketController extends BaseController {
 			$support_tickets = SupportTicket::where('reporterId', '=', Auth::user()->id)->orderBy('created_at', 'desc')->get();
 		}
 
-		foreach ($support_tickets as $support_ticket) {
-			$reporterId = $support_ticket->reporterId;
-			$support_ticket->reporter = User::find($reporterId)->username;
-
-			$reporteeId = $support_ticket->reporteeId;
-			$support_ticket->reportee = User::find($reporteeId)->username;
-		}
-
 		return View::make('support_ticket.SupportTicketList', ['support_tickets' => $support_tickets]);
 	}
 
@@ -55,28 +47,17 @@ class SupportTicketController extends BaseController {
 
 	public function create()
 	{
-		if(is_admin())
-			return Redirect::action('SupportTicketController@showAll');
+		// if(is_admin())
+		// 	return Redirect::action('SupportTicketController@showAll');
 
-		if(Auth::user()->role == 'Buyer') {
-			$users = DB::table('transactions')->where('buyerId', '=', Auth::user()->id)
-					->join('users', 'sellerId', '=', 'users.id')
-					->select('users.*')
-					->distinct()->orderBy('users.username', 'asc')->get();
-		}
-		else {
-			$users = DB::table('transactions')->where('sellerId', '=', Auth::user()->id)
-					->join('users', 'buyerId', '=', 'users.id')
-					->select('users.*')
-					->distinct()->orderBy('users.username', 'asc')->get();
-		}
+		$reporter = Auth::user();
+
+		$users = SupportTicket::getReporteeCandidate($reporter);
 
 		// $users = User::all();
 		$list_users = ['' => 'เลือกชื่อผู้ใช้'];
 		foreach ($users as $user) {
-			if(!isset($list_users[$user->id])) {
-		        $list_users[$user->id] = $user->username;
-		    }
+      $list_users[$user->id] = $user->username;
 		}
 		return View::make('support_ticket.CreateSupportTicket',
 			['list_users' => $list_users]);

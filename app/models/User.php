@@ -73,6 +73,14 @@ public function getId()
     return $this->id;
 }
 
+public function isBuyer() {
+    return $this->role == "Buyer";
+}
+
+public function isSeller() {
+    return $this->role == "Seller";
+}
+
 static function countryList(){
    return array(
     '' => 'กรุณาเลือก',
