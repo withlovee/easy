@@ -11,6 +11,8 @@ class BidManager extends Eloquent {
     }
 
     public function updateManualBidWinner($newMaxBid, $newUserId, $shipping, $shippingCost, $service) {
+        if ($newMaxBid <= $this->currentBid) return $this->currentBid;
+
         if ($this->bidderId == $newUserId) {
             $this->currentBid = $this->maxBid = $newMaxBid;
             $this->increment = 0;
@@ -38,6 +40,8 @@ class BidManager extends Eloquent {
     }
 
     public function updateAutoBidWinner($newMaxBid, $newIncrement, $newUserId, $shipping, $shippingCost, $service) {
+        if ($newMaxBid <= $this->currentBid) return $this->currentBid;
+        
         if ($this->bidderId == $newUserId) {
             $this->maxBid = $newMaxBid;
             $this->increment = $newIncrement;
