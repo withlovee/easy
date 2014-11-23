@@ -67,7 +67,10 @@ class SellAuctionItemController extends Controller
 	}
 
 	public function deleteAuctionItem($id){
-		$item = Item::where('id', '=', $id)->delete();
+		$item = Item::find($id);
+		$bidManager = BidManager::find($item->bidManagerId);
+		$item->delete();
+		$bidManager->delete();
 		return Redirect::to('listItemSeller?show=all')->with('notice','ลบสินค้าเรียบร้อยแล้วค่ะ');		
 	}
 
