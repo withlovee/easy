@@ -17,13 +17,16 @@ class PaymentController extends Controller {
 	{
 		$transaction = Transaction::find($id);
 		$item        = $transaction->item;
+		$totalWithoutTaxAndShipping = $transaction->getTotalCostWithoutTaxAndShipping();
 		$totalTax    = $transaction->getTotalTax();
 		$total       = $transaction->getTotal();
 		return View::make('payment.payment', array(
 			'transaction' => $transaction,
 			'item'=>$item,
 			'tax'=>$totalTax,
-			'total'=>$total)
+			'total'=>$total,
+			'totalWithoutTaxAndShipping'=>$totalWithoutTaxAndShipping
+			)
 		);
 	}
 

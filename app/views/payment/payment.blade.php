@@ -11,7 +11,7 @@
 					</tr>
 					<tr>
 						<th>ราคาสินค้า</th>
-						<td>{{number_format($transaction->price,2)}} บาท</td>
+						<td>{{number_format($totalWithoutTaxAndShipping,2)}} บาท</td>
 					</tr>
 					<tr>
 						<th>ค่าขนส่ง</th>

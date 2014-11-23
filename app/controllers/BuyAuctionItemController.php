@@ -17,7 +17,8 @@ class BuyAuctionItemController extends Controller
 			Auth::user()->id, 
 			$deliver, 
 			$obj[$deliver], 
-			Input::get('service', 0)
+			Input::get('service', 0),
+			$item
 		);
 
 		if ($item->price != $price) {
@@ -43,7 +44,8 @@ class BuyAuctionItemController extends Controller
 			Auth::user()->id, 
 			$deliver, 
 			$obj[$deliver], 
-			Input::get('service', 0)
+			Input::get('service', 0),
+			$item
 		);
 		
 		if ($item->price != $price) {

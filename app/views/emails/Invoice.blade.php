@@ -26,10 +26,10 @@
 <p>
 เลขที่สินค้า  : {{ $itemId }}<br>
 ชื่อสินค้า  : {{ $itemName}}<br>
-จำนวน   : {{ $amount }}<br>
-ราคา    : {{ number_format($price) }}<br>
-ราคาจัดส่ง : {{ number_format($shippingCost) }}<br>
-ยอดรวม  : {{ number_format($total) }}<br>
+จำนวน   : {{ $amount }} ชิ้น<br>
+ราคา    : {{ number_format($price,2) }} บาท<br>
+ราคาจัดส่ง : {{ number_format($shippingCost,2) }} บาท<br>
+ยอดรวม  : {{ number_format($total,2) }} บาท<br>
 <br>
 ที่อยู่จัดส่ง : {{ $shippingAddress }}<br>
 ที่อยู่ส่งใบเสร็จ : {{ $billingAddress }}

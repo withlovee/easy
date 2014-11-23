@@ -4,13 +4,27 @@ class BidManager extends Eloquent {
     protected $fillable = array('currentBid', 'maxBid', 'increment', 'bidderId', 'shipping', 'shippingCost', 'service');
     public $timestamps = false;
 
+    public static function createBidManager($price) {
+        $bidManager = new BidManager;
+        $bidManager->currentBid = $price;
+        $bidManager->maxBid = $price;
+        $bidManager->increment = 0;
+        $bidManager->bidderId = null;
+        $bidManager->shipping = null;
+        $bidManager->shippingCost = null;
+        $bidManager->service = 0;
+        $bidManager->save();
+
+        return $bidManager;
+    }
+
     private function setShippingService($shipping, $shippingCost, $service) {
         $this->shipping = $shipping;
         $this->shippingCost = $shippingCost;
         $this->service = $service;
     }
 
-    public function updateManualBidWinner($newMaxBid, $newUserId, $shipping, $shippingCost, $service) {
+    public function updateManualBidWinner($newMaxBid, $newUserId, $shipping, $shippingCost, $service, $item) {
         if ($newMaxBid <= $this->currentBid) return $this->currentBid;
 
         if ($this->bidderId == $newUserId) {
@@ -27,19 +41,28 @@ class BidManager extends Eloquent {
             else if ($this->maxBid == $newMaxBid) {     // bidder who bids first wins
                 $this->currentBid = $this->maxBid;
             }
-            else {
+            else {                                      // outbid
                 $this->currentBid = $this->maxBid = $newMaxBid;
                 $this->increment = 0;
                 $this->bidderId = $newUserId;
 
                 $this->setShippingService($shipping, $shippingCost, $service);
+
+                EmailHelper::sendPreviousAuctionWinnerEmail(User::find($newUserId), $item,
+                    [
+                        'currentBid'           => $this->currentBid, 
+                        'currentBidTimestamp'  => (new DateTime('now'))->format('Y-m-d H:i:s'),
+                        'endAuctionTimestamp'  => (new DateTime($item->endDateTime))->format('Y-m-d H:i:s'), 
+                        'itemLink'             => $item->getUrl()
+                    ]
+                );
             }
         }
         $this->save();
         return $this->currentBid;
     }
 
-    public function updateAutoBidWinner($newMaxBid, $newIncrement, $newUserId, $shipping, $shippingCost, $service) {
+    public function updateAutoBidWinner($newMaxBid, $newIncrement, $newUserId, $shipping, $shippingCost, $service, $item) {
         if ($newMaxBid <= $this->currentBid) return $this->currentBid;
         
         if ($this->bidderId == $newUserId) {
@@ -66,7 +89,7 @@ class BidManager extends Eloquent {
             else if ($this->maxBid == $newMaxBid) {     // bidder who bids first wins
                 $this->currentBid = $this->maxBid;
             }
-            else {                             // new winner
+            else {                             // out bid - new winner
                 $multiple = (int) ( ($this->maxBid - $this->currentBid) / ($newIncrement + $this->increment));
                 $tmp = $this->currentBid + $multiple*($this->increment+$newIncrement);
                 if ($tmp < $this->maxBid) {
@@ -82,6 +105,15 @@ class BidManager extends Eloquent {
                 $this->bidderId = $newUserId;
 
                 $this->setShippingService($shipping, $shippingCost, $service);
+
+                EmailHelper::sendPreviousAuctionWinnerEmail(User::find($newUserId), $item,
+                    [
+                        'currentBid'           => $this->currentBid, 
+                        'currentBidTimestamp'  => (new DateTime('now'))->format('Y-m-d H:i:s'), 
+                        'endAuctionTimestamp'  => (new DateTime($item->endDateTime))->format('Y-m-d H:i:s'), 
+                        'itemLink'             => $item->getUrl()
+                    ]
+                );
             }
         }
         $this->save();

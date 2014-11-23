@@ -81,7 +81,7 @@ class User extends Eloquent implements ConfideUserInterface
         return $this->role == "Seller";
     }
 
-    static function countryList(){
+    public static function countryList(){
        return array(
         '' => 'กรุณาเลือก',
         'AX' => 'หมู่เกาะเออแลนด์',

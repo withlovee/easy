@@ -23,21 +23,27 @@
 				</dd>
 				<dt>ซื้อเมื่อวันที่</dt>
 				<dd>{{ $transaction->created_at }}</dd>
-				@if(Auth::user()->role == 'Buyer')
+				
 				<dt>ผู้ขาย</dt>
 				<dd><a href="{{ URL::to('user/'.$transaction->item->seller->id) }}">{{ $transaction->item->seller->username }}</a> (<a href="{{ URL::to('/supporttickets/create?reporteeId='.$transaction->item->seller->id) }}">ร้องเรียน</a>)</dd>
-				@else
+				
 				<dt>ผู้ซื้อ</dt>
 				<dd><a href="{{ URL::to('user/'.$transaction->buyer->id) }}">{{ $transaction->buyer->username }}</a> (<a href="{{ URL::to('/supporttickets/create?reporteeId='.$transaction->buyer->id) }}">ร้องเรียน</a>)</dd>
-				@endif
+				<dt>ที่อยู่จัดส่ง</dt>
+				<dd>
+				<strong>{{ $transaction->buyer->name }} {{ $transaction->buyer->surname }}</strong><br>
+				{{ $transaction->buyer->address }}<br>
+				โทร: {{ $transaction->buyer->telephone }}
+				</dd>
+				
 				<dt>จำนวน</dt>
 				<dd>{{ $transaction->amount }} ชิ้น</dd>
 				<dt>ราคาสินค้า</dt>
-				<dd>{{ number_format($transaction->price) }} บาท (รวมภาษี {{ $transaction->item->tax }}% แล้ว)</dd>
+				<dd>{{ number_format($transaction->price,2) }} บาท (รวมภาษี {{ $transaction->item->tax }}% แล้ว)</dd>
 				<dt>ค่าจัดส่ง</dt>
-				<dd>{{ number_format($transaction->shippingCost) }} บาท</dd>
+				<dd>{{ number_format($transaction->shippingCost,2) }} บาท</dd>
 				<dt>ราคารวม</dt>
-				<dd>{{ number_format($transaction->price + $transaction->shippingCost) }} บาท</dd>
+				<dd>{{ number_format($transaction->price + $transaction->shippingCost,2) }} บาท</dd>
 				<dt>สถานะ</dt>
 				<dd>
 				@if($transaction->status == 'payment_waiting')

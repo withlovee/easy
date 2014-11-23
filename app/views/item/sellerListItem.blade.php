@@ -40,7 +40,7 @@
 		</h3>
 		<p>{{$item->property}}</p>
 		<p>
-			<span href="#" class="btn btn-default" role="button" disabled="disabled">{{ number_format($item->price) }} บาท</span>
+			<span href="#" class="btn btn-default" role="button" disabled="disabled">{{ number_format($item->price,2) }} บาท</span>
 			<a href="{{URL::to('item/'.$item->id)}}" class="btn btn-primary" role="button">ดูรายละเอียด</a>
 			{{ Form::button('ลบสินค้าชิ้นนี้',['class'=>"btn btn-danger", "data-toggle"=>"modal", "data-target"=>"#myModal$item->id"])}}
 		</p>
@@ -66,7 +66,7 @@
 						<div class="col-sm-6">
 							<h3>{{$item->name}}</h3>
 							<br>
-							<h4>ราคา: {{number_format($item->price)}} บาท</h4>
+							<h4>ราคา: {{number_format($item->price,2)}} บาท</h4>
 						</div>
 					</div>
 				</div>

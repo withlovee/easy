@@ -11,14 +11,13 @@
 	<div class="row item">
 		<div class="col-sm-3">
 			<a href="{{ URL::to('/transaction/'.$transaction->id) }}">
-				<!-- <img src="{{ $transaction->item->picture }}" class="img-responsive"> -->
 				{{ HTML::image('upload/'.$transaction->item->picture, $transaction->item->name, ['class' => 'img-responsive']) }}
 			</a>
 		</div>
 		<!-- /.col-sm-3 -->
 		<div class="col-sm-9">
 			<h3><a href="{{ URL::to('/transaction/'.$transaction->id) }}">{{ $transaction->item->name }}</a></h3>
-			<p>วันที่สั่งซื้อ: {{ $transaction->created_at }}<br>ราคา: {{ number_format($transaction->price + $transaction->shippingCost) }} บาท</p>
+			<p>วันที่สั่งซื้อ: {{ $transaction->created_at }}<br>ราคา: {{ number_format($transaction->price + $transaction->shippingCost,2) }} บาท</p>
 			<p>
 				@if($transaction->status == 'payment_waiting')
 				<span class="btn btn-warning" role="button" disabled="disabled"><i class="glyphicon glyphicon-time"></i> รอการชำระเงิน</span>

@@ -23,15 +23,15 @@ class Transaction extends Eloquent{
 	}
 
 	public function getTotalTax(){
-		return $this->item->tax/100.0*$this->price;
+		return $this->item->tax/100.0*$this->amount*$this->item->price;
 	}
 
 	public function scopeListByBuyer($query,$id){
-		return $query->where('buyerId', '=', $id);
+		return $query->where('buyerId', '=', $id)->orderBy('created_at', 'desc');
 	}
 
 	public function scopeListBySeller($query,$id){
-		return $query->where('sellerId', '=', $id);
+		return $query->where('sellerId', '=', $id)->orderBy('created_at', 'desc');
 	}
 
 	static public function createTransaction($id, $input){
@@ -44,7 +44,7 @@ class Transaction extends Eloquent{
 
 		$transaction = new Transaction;
 		$transaction->amount = $input['amount'];
-		$transaction->price = $item->getTotalCostWithoutTaxAndShipping($input['amount']);
+		$transaction->price = $item->getTotalCostWithoutShipping($input['amount']);
 		$transaction->shipping = $input['deliver'];
 		$transaction->shippingCost = $item->getShippingPrice($input['deliver']);
 		$transaction->status = 'payment_waiting';
@@ -94,7 +94,30 @@ class Transaction extends Eloquent{
 	}
 
 	public function getTotal(){
-		return $this->price + $this->getTotalTax() + $this->shippingCost;
+		return $this->price + $this->shippingCost;
+	}
+
+	public function getTotalCostWithoutTaxAndShipping(){
+		return $this->item->price*$this->amount;
+	}
+
+	public static function createAuctionTransaction($item, $bidManager) {
+		$transaction = new Transaction;
+		$transaction->amount = 1;
+		$transaction->price = $item->price;
+		$transaction->shipping = $bidManager->shipping;
+		$transaction->shippingCost = $bidManager->shippingCost;
+		$transaction->status = 'payment_waiting';
+		$transaction->buyerId = $bidManager->bidderId;
+		$transaction->itemId=$item->id;
+		$transaction->buyerFeedbackId = null;
+		$transaction->sellerFeedbackId = null;
+		$transaction->sellerId = $item->sellerId;
+		$transaction->service = $bidManager->service;
+
+		$transaction->save();
+
+		return $transaction;
 	}
 
 }
