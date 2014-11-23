@@ -7,8 +7,12 @@ class BuyDirectItemController extends Controller
 		$item = Item::find($id);
 		$amount = Input::get('amount');
 		$deliver = Input::get('deliver');
-		$price = $item->price*$amount*(100+$item->tax)/100.0;
+		$price = $item->getTotalCostWithoutTax($amount);
 		$obj = json_decode($item->shipping,true);
+
+		if($item->quantity-$amount<0){
+			return Redirect::to('item/'.$id)->with('error', 'ปริมาณสินค้าที่คงเหลือไม่เพียงพอ');	
+		}
 
 		$transaction = new Transaction;
 		$transaction->amount = $amount;

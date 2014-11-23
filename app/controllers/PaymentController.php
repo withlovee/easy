@@ -21,7 +21,9 @@ class PaymentController extends Controller {
 	{
 		$transaction = Transaction::find($id);
 		$item = $transaction->item;
-		return View::make('payment.payment', array('transaction'=>$transaction,'item'=>$item));
+		$totalTax = $transaction->getTotalTax();
+		$total = $totalTax+$transaction->price;
+		return View::make('payment.payment', array('transaction'=>$transaction,'item'=>$item,'tax'=>$totalTax,'total'=>$total));
 	}
 
 	public function proceedPayment($id){
@@ -33,9 +35,12 @@ class PaymentController extends Controller {
 		$cvv = Input::get('cvv');
 		$endMonth = Input::get('month');
 		$endYear = Input::get('year');
-		PaymentGateway::pay($cardType, $cardId, $cvv, $endMonth, $endYear);
-		EmailHelper::sendConfirmPaymentEmail($transaction);
-		return Redirect::to('transactions');
+		$paymentResult = PaymentGateway::pay($cardType, $cardId, $cvv, $endMonth, $endYear);
+		if($paymentResult) {
+			EmailHelper::sendConfirmPaymentEmail($transaction);
+			return Redirect::to('transactions')->with('notice', 'ซื้อสินค้าเรียบร้อย!');	
+		}
+		
 	}
 
 

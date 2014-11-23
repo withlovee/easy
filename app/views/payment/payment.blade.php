@@ -1,4 +1,4 @@
-@extends('layouts.master', ['title' => 'Payment'])
+@extends('layouts.master', ['title' => 'ชำระเงิน'])
 @section('wrapper')
 	<div class="container">
 		<h1 class="line">ชำระเงิน</h1>
@@ -11,7 +11,7 @@
 					</tr>
 					<tr>
 						<th>ราคาสินค้า</th>
-						<td>{{number_format($item->price*$transaction->amount)}} บาท</td>
+						<td>{{number_format($transaction->price)}} บาท</td>
 					</tr>
 					<tr>
 						<th>ค่าขนส่ง</th>
@@ -19,11 +19,11 @@
 					</tr>
 					<tr>
 						<th>ภาษี</th>
-						<td>{{number_format($item->tax/100.0*$transaction->amount*$item->price)}} บาท</td>
+						<td>{{number_format($tax)}} บาท</td>
 					</tr>
 					<tr>
 						<th>รวม</th>
-						<td><strong>{{number_format($transaction->price+$transaction->shippingCost)}} บาท</strong></td>
+						<td><strong>{{number_format($total)}} บาท</strong></td>
 					</tr>
 				</table>
 			</div>
@@ -55,7 +55,7 @@
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-3 control-label">รหัสบัตร</label>
 						<div class="col-sm-6">
-							{{Form::text('cardId','',array('class'=>'form-control','for'=>'inputEmail3','placeholder'=>'1234-1234-1234-1234','pattern'=>'[0-9]{13,16}','required'=>"required"))}}
+							{{Form::text('cardId','',array('class'=>'form-control','for'=>'inputEmail3','placeholder'=>'1234-1234-1234-1234','pattern'=>'[0-9]{4}[-][0-9]{4}[-][0-9]{4}[-][0-9]{4}','required'=>"required"))}}
 						</div>
 						<!-- /.col-sm-8 -->
 					</div>
