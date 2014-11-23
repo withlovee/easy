@@ -283,8 +283,8 @@ class UsersController extends Controller
 			$feedback->sender = User::find($senderId)->username;
 		}
 		if(is_admin()){
-
-			$user->ban();
+			
+			$user->banWithExpireDate(date('Y-m-d H:i:s'));
 			//$user->unBan();
 		}
 		return View::make('users.member_profile', 

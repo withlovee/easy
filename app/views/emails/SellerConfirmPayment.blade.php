@@ -14,9 +14,7 @@
 </p>
 
 <p>
-คุณได้รับการยืนยันการชำระเงินเรียบร้อย  สินค้าจะถูกส่งตามที่อยู่จัดส่งที่ระบุไว้ภายในเว็บ<br>
-<br>
-ขอบคุณค่ะ
+คุณได้รับการชำระเงินแล้ว ดังนี้<br>
 </p>
 
 
@@ -24,10 +22,10 @@
 <p>
 เลขที่สินค้า  : {{ $itemId }}<br>
 ชื่อสินค้า  : {{ $itemName}}<br>
-จำนวน   : {{ $amount }} ชิ้น<br>
-ราคา    : {{ number_format($price) }} บาท<br>
-ราคาจัดส่ง : {{ number_format($shippingCost) }} บาท<br>
-ยอดรวม  : {{ number_format($total) }} บาท<br>
+จำนวน   : {{ $amount }}<br>
+ราคา    : {{ number_format($price) }}<br>
+ราคาจัดส่ง : {{ number_format($shippingCost) }}<br>
+ยอดรวม  : {{ number_format($total) }}<br>
 <br>
 ที่อยู่จัดส่ง : {{ $shippingAddress }}<br>
 ที่อยู่ส่งใบเสร็จ : {{ $billingAddress }}<br>
