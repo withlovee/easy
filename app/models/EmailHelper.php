@@ -17,7 +17,7 @@ class EmailHelper{
     $data['itemName'] = $item->name;
     $data['itemUrl'] = $item->getUrl();
 
-    Mail::queue('emails.PreviousAuctionWinner', $data, function($message) use ($data) {
+    Mail::send('emails.PreviousAuctionWinner', $data, function($message) use ($data) {
       $message->to($data['userEmail'], $data['userFullName'])
               ->subject('คุณถูกประมูลแซง! - '.$data['itemName']);
     });
@@ -38,7 +38,7 @@ class EmailHelper{
     $data['itemName'] = $item->name;
 
 
-    Mail::queue('emails.AuctionResult', $data, function($message) use ($data) {
+    Mail::send('emails.AuctionResult', $data, function($message) use ($data) {
       $message->to($data['userEmail'], $data['userFullName'])
               ->subject('ยินดีด้วย! คุณชนะการประมูล - '.$data['itemName']);
     });
@@ -77,7 +77,7 @@ class EmailHelper{
       $subject = "ขอบคุณที่สั่งซื้อสินค้ากับเรา - ".$item->name;
     }
     
-    Mail::queue('emails.Invoice', $data, function($message) use ($data, $subject) {
+    Mail::send('emails.Invoice', $data, function($message) use ($data, $subject) {
       $message->to($data['email'], $data['fullName'])
               ->subject($subject);
     });
@@ -109,7 +109,7 @@ class EmailHelper{
 
     $subject = "ยืนยันการชำระเงิน - ".$item->name;
     
-    Mail::queue('emails.ConfirmPayment', $data, function($message) use ($data, $subject) {
+    Mail::send('emails.ConfirmPayment', $data, function($message) use ($data, $subject) {
       $message->to($data['email'], $data['fullName'])
               ->subject($subject);
     });
@@ -140,7 +140,7 @@ class EmailHelper{
 
     $subject = "ยืนยันการชำระเงิน - ".$item->name;
     
-    Mail::queue('emails.SellerConfirmPayment', $data, function($message) use ($data, $subject) {
+    Mail::send('emails.SellerConfirmPayment', $data, function($message) use ($data, $subject) {
       $message->to($data['email'], $data['fullName'])
               ->subject($subject);
     });
@@ -165,7 +165,7 @@ class EmailHelper{
 
       $subject = "ยืนยันการชำระเงิน - ".$item->name;
 
-      Mail::queue('emails.FeedbackRequest', $data, function($message) use ($data, $subject) {
+      Mail::send('emails.FeedbackRequest', $data, function($message) use ($data, $subject) {
         $message->to($data['email'], $data['fullName'])
                 ->subject($subject);
       });
