@@ -109,8 +109,8 @@ class Item extends Eloquent
     }
 
 
-	public function getTotalCostWithoutTaxAndShipping($amount){
-		return $this->price*$amount;
+	public function getTotalCostWithoutShipping($amount){
+		return $this->price*$amount*(100.0+$this->tax)/100.0;
 	}
 
 	public function getShippingPrice($shippingType) {
