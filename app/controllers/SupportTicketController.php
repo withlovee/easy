@@ -69,7 +69,7 @@ class SupportTicketController extends BaseController {
 	public function store()
 	{
 		$input = Input::all();
-		$this->support_ticket = SupportTicket::createTicker($input);
+		$this->support_ticket = SupportTicket::createTicket($input);
 		if(!$this->support_ticket)
 			return Redirect::back()->withInput()->withErrors($this->support_ticket->errors);
 		return Redirect::action('SupportTicketController@showAll')->with('notice', 'ระบบได้รับข้อร้องเรียนเรียบร้อยแล้วค่ะ');

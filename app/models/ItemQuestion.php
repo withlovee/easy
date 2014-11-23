@@ -3,16 +3,9 @@
 class ItemQuestion extends Eloquent
 {
 	protected $table = 'item_questions';
-	protected $fillable=array('content','answer','itemId','userId');
+	protected $fillable = array('content','answer','itemId','userId');
 
 	public $timestamps = false;
-
-	public static $rules = [
-		'content' => 'required',
-		'itemId' => 'required',
-		'userId' => 'required'
-	];
-
 	public $errors;
 
 	public function scopeListByItem($query, $id){
@@ -21,19 +14,6 @@ class ItemQuestion extends Eloquent
 
 	public function scopeListAnsweredByItem($query, $id){
 		return $query->where('itemId', '=', $id)->where('answer','!=','')->orderBy('id', 'ASC');
-	}
-
-	public function isValid()
-	{
-		$validation = Validator::make($this->attributes, static::$rules);
-
-		if($validation->passes()) {
-			return true;
-		}
-
-		$this->errors = $validation->messages();
-
-		return false;
 	}
 
 	public function item(){
