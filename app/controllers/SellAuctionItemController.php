@@ -15,7 +15,7 @@ class SellAuctionItemController extends Controller
 		$this->item = $item;
 	}
 	public function sellAuctionItem(){
-		return View::make('item.sellAuctionItem');		
+		return View::make('sell_item.sellAuctionItem');		
 	}
 	public function createAuctionItem(){
 		$file_max = ini_get('upload_max_filesize');

@@ -584,4 +584,24 @@ h1{
     .btn-danger{
         font-weight: normal;
     }
+    .thumb{
+        max-width: 400px;
+    }
+}
+@media (min-width: 992px) {
+    .wrapper{
+        display: table;
+        .content-wrapper,
+        .sidebar-wrapper{
+            vertical-align: top;
+            display: table-cell;
+            float: none;
+        }
+        .content-wrapper{
+            width: 75%;
+        }
+        .sidebar-wrapper{
+            width: 25%;
+        }
+    }
 }

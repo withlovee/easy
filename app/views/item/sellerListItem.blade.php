@@ -105,12 +105,7 @@
 	<a href="listItemSeller?show=auction" class="list-group-item"><span class="badge">{{$item_count['auction']}}</span> สินค้าประมูลของฉัน</a>
 	<a href="listItemSeller?show=direct" class="list-group-item"><span class="badge">{{$item_count['direct']}}</span> สินค้าขายโดยตรงของฉัน</a>
 </div>
-<h3>โฆษณา</h3>
-<div class="ad">
-	<img src="img/390x150.gif" class="img-responsive">
-	<br>
-	<img src="img/390x150.gif" class="img-responsive">
-</div>
-<!-- /.ad -->
+
+@include('sidebars.ads')
 
 @stop

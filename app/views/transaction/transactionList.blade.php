@@ -37,5 +37,5 @@
 	</nav>
 @stop
 @section('sidebar')
-	@include('sidebars.personal')
+	@include('sidebars.sidebar')
 @stop
