@@ -1,4 +1,4 @@
-@extends('layouts.master', ['title' => 'SellNewDirectBuyItem'])
+@extends('layouts.master', ['title' => 'ขายสินค้าโดยตรง'])
 @section('content')
 		<h1 class="line">ขายสินค้าโดยตรง</h1>
 		@include('layouts.error')
@@ -6,21 +6,18 @@
 			<div class="form-group">
 				<label for="inputEmail3" class="col-sm-3 control-label">ชื่อสินค้า<span class="required">*</span></label>
 				<div class="col-sm-8">
-					<!--<input type="name" class="form-control" placeholder="" required>-->
 					{{Form::text('name','',array("class"=>"form-control","placeholder"=>"", 'required' => 'required'))}}
 				</div>
 			</div><!--form-group-->
 			<div class="form-group">
 				<label for="inputEmail3" class="col-sm-3 control-label">รูปประกอบ<span class="required">*</span></label>
 				<div class="col-sm-8">
-					<!-- <input type="file" class="form-control"> -->
 					{{Form::file('picture',array('required' => 'required'))}}
 				</div>
 			</div><!--form-group-->
 			<div class="form-group">
 				<label for="inputEmail3" class="col-sm-3 control-label">จำนวนสินค้า<span class="required">*</span></label>
 				<div class="col-sm-3">
-					<!--<input type="text" class="form-control">-->
 					<div class="input-group">
 						{{ Form::number('quantity','1',['min'=>'1','class'=> 'form-control', 'required' => 'required'])}}
 						<span class="input-group-addon">ชิ้น</span>
@@ -29,7 +26,6 @@
 				<label for="inputEmail3" class="col-sm-2 control-label">ราคา<span class="required">*</span></label>
 				<div class="col-sm-3">
 					<div class="input-group">
-						<!--<input type="number" class="form-control">-->
 						{{ Form::number('price','1',['min'=>'1','class'=> 'form-control', 'required' => 'required'])}}
 						<span class="input-group-addon">บาท</span>
 					</div>
@@ -38,57 +34,48 @@
 			<div class="form-group">
 				<label for="inputEmail3" class="col-sm-3 control-label">ยี่ห้อ</label>
 				<div class="col-sm-3">
-					<!--<input type="text" class="form-control">-->
 					{{Form::text('brand','',array("class"=>"form-control"))}}
 				</div>
 				<label for="inputEmail3" class="col-sm-2 control-label">รุ่น</label>
 				<div class="col-sm-3">
-					<!-- <input type="text" class="form-control"> -->
 					{{Form::text('model','',array("class"=>"form-control"))}}
 				</div>
 			</div><!--form-group-->
 			<div class="form-group">
 				<label for="inputEmail3" class="col-sm-3 control-label">ความจุ</label>
 				<div class="col-sm-3">
-					<!-- <input type="text" class="form-control"> -->
 					{{Form::text('volumn','',array("class"=>"form-control"))}}
 				</div>
 				<label for="inputEmail3" class="col-sm-2 control-label">ขนาด</label>
 				<div class="col-sm-3">
-					<!--<input type="text" class="form-control">-->
 					{{Form::text('size','',array("class"=>"form-control"))}}
 				</div>
 			</div><!--form-group-->
 			<div class="form-group">
 				<label for="inputEmail3" class="col-sm-3 control-label">สภาพสินค้า</label>
 				<div class="col-sm-3">
-					<!-- <input type="text" class="form-control"> -->
 					{{Form::text('quality','',array("class"=>"form-control"))}}
 				</div>
 				<label for="inputEmail3" class="col-sm-2 control-label">จุดบกพร่อง</label>
 				<div class="col-sm-3">
-					<!-- <input type="text" class="form-control"> -->
 					{{Form::text('defect','',array("class"=>"form-control"))}}
 				</div>
 			</div><!--form-group-->
 			<div class="form-group">
 				<label for="inputEmail3" class="col-sm-3 control-label">คุณสมบัติ<span class="required">*</span></label>
 				<div class="col-sm-8">
-					<!-- <textarea name="" id="" cols="30" rows="4" class="form-control"></textarea> -->
 					{{ Form::textarea('property', null, ['class' => 'form-control', 'cols' => 30, 'rows' => 4, 'required' => 'required']) }}
 				</div>
 			</div><!--form-group-->
 			<div class="form-group">
 				<label for="inputEmail3" class="col-sm-3 control-label">นโยบายการรับสินค้าคืน</label>
 				<div class="col-sm-8">
-					<!-- <textarea name="" id="" cols="30" rows="4" class="form-control"></textarea> -->
 					{{ Form::textarea('returnPolicy', null, ['class' => 'form-control', 'cols' => 30, 'rows' => 4]) }}
 				</div>
 			</div><!--form-group-->
 			<div class="form-group">
 				<label for="inputEmail3" class="col-sm-3 control-label">วิธีบรรจุหีบห่อ การขนส่ง และการยืนยันการจัดส่ง</label>
 				<div class="col-sm-8">
-					<!-- <textarea name="" id="" cols="30" rows="4" class="form-control"></textarea> -->
 					<div class="row">
 						<label for="inputEmail3" class="col-sm-3 control-label">แบบด่วน</label>
 						<div class="col-sm-4">
@@ -97,7 +84,6 @@
 								<span class="input-group-addon">บาท</span>
 							</div>
 						</div>
-					<!--{{ Form::textarea('shipping', null, ['class' => 'form-control', 'cols' => 30, 'rows' => 4]) }}-->
 					</div>
 					<div class="row">
 						<label for="inputEmail3" class="col-sm-3 control-label">แบบมาตรฐาน</label>
@@ -107,7 +93,6 @@
 								<span class="input-group-addon">บาท</span>
 							</div>
 						</div>
-					<!--{{ Form::textarea('shipping', null, ['class' => 'form-control', 'cols' => 30, 'rows' => 4]) }}-->
 					</div>
 					<div class="row">
 						<label for="inputEmail3" class="col-sm-3 control-label">แบบประหยัด</label>
@@ -117,21 +102,18 @@
 								<span class="input-group-addon">บาท</span>
 							</div>
 						</div>
-					<!--{{ Form::textarea('shipping', null, ['class' => 'form-control', 'cols' => 30, 'rows' => 4]) }}-->
 					</div>
 				</div>
 			</div><!--form-group-->
 			<div class="form-group">
 				<label for="inputEmail3" class="col-sm-3 control-label">บริการพิเศษ</label>
 				<div class="col-sm-8">
-					<!-- <textarea name="" id="" cols="30" rows="4" class="form-control"></textarea> -->
 					{{Form::text('service','',array("class"=>"form-control"))}}
 				</div>
 			</div><!--form-group-->
 			<div class="form-group">
 				<label for="inputEmail3" class="col-sm-3 control-label">อื่นๆ</label>
 				<div class="col-sm-8">
-					<!-- <textarea name="" id="" cols="30" rows="4" class="form-control"></textarea> -->
 					{{ Form::textarea('others', null, ['class' => 'form-control', 'cols' => 30, 'rows' => 4]) }}
 				</div>
 			</div><!--form-group-->
@@ -139,7 +121,6 @@
 				<label for="inputEmail3" class="col-sm-3 control-label">ค่าธรรมเนียมการส่งสินค้าคืน</label>
 				<div class="col-sm-3">
 					<div class="input-group">
-						<!-- <input type="number" class="form-control"> -->
 						{{ Form::number('returnFee','0',['min'=>'0','class'=> 'form-control', 'required' => 'required'])}}
 						<span class="input-group-addon">บาท</span>
 					</div>
@@ -147,7 +128,6 @@
 				<label for="inputEmail3" class="col-sm-2 control-label">ภาษี</label>
 				<div class="col-sm-3">
 					<div class="input-group">
-						<!-- <input type="number" class="form-control"> -->
 						{{ Form::number('tax','7',['min'=>'0','class'=> 'form-control', 'required' => 'required'])}}
 						<span class="input-group-addon">%</span>
 					</div>
@@ -155,7 +135,6 @@
 			</div><!--form-group-->
 			<div class="form-group">
 				<div class="col-sm-offset-3 col-sm-8">
-					<!-- <button type="submit" class="btn btn-primary">ลงสินค้า</button> -->
 					{{Form::submit("ลงสินค้า",array("class"=>"btn btn-primary"))}}
 					{{Form::close()}}
 				</div>

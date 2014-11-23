@@ -41,10 +41,10 @@ class UsersTableSeeder extends Seeder {
                     'Villa 35, Street No. 16, Community 366 Umm Suqeim 3, P.O. Box 51844 Dubai, United Arab Emirates'];
     $countries = ['TH','TH','TH','TH','FR','TH','AE'];
     $telephones = ['0850615555','02536711','087567566','0850504040','0815566777','081234356','0850615555'];
-    $usernames = ['nuttt','quanruthai','nasakol','pariyawit','lkumjorn','cppanida','withlovee'];
+    $usernames = ['nuttt','quanruthai','nasakol','pariyawit','lkumjorn','cppanida','veevee'];
     $emails = ['nuttt.p@gmail.com','Quanruthai.t@gmail.com','nasakol@gmail.com','pariyawit.jat@gmail.com','plkumjorn@gmail.com','cp.panida@gmail.com','vibhavee.t@gmail.com'];
-    $passwords = ['1234','1234','1234','1234','1234','1234','1234'];
-    $password_confirmations = ['1234','1234','1234','1234','1234','1234','1234'];
+    $passwords = ['123456','123456','123456','123456','123456','123456','123456'];
+    $password_confirmations = ['123456','123456','123456','123456','123456','123456','123456'];
     $confirmeds = [true,true,true,true,true,true,true];
     $confirmation_codes = [md5(uniqid(mt_rand(), true)),md5(uniqid(mt_rand(), true)),md5(uniqid(mt_rand(), true)),md5(uniqid(mt_rand(), true)),md5(uniqid(mt_rand(), true)),md5(uniqid(mt_rand(), true)),md5(uniqid(mt_rand(), true))];
     $roles = ['Seller','Seller','Seller','Buyer','Buyer','Buyer','Buyer'];

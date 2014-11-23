@@ -1,4 +1,4 @@
-@extends('layouts.master', ['title' => 'AuctionItem'])
+@extends('layouts.master', ['title' => $item->name])
 @section('content')
 <div class="row item-header">
 	@include('layouts.error')
@@ -6,7 +6,8 @@
 		{{ HTML::image('upload/'.$item->picture, $item->name, ['class' => 'img-responsive']) }}
 	</div>
 	<!-- /.col-md-6 -->
-	<div class="col-md-7">
+	<div class="col-md-7 item-detail">
+		<h4>ประกาศขายโดย: {{ HTML::link('users/show/'.$item->seller->id, $item->seller->username) }}</h4>
 		<h2>
 			@if($item->quantity==0)
 				<span class="label label-danger">หมดแล้ว</span>
@@ -14,10 +15,10 @@
 			{{$item->name}}
 		</h2>
 		<h3>สินค้าประมูล ราคาปัจจุบัน: {{ number_format($item->price) }} บาท</h3>
-		<h4>ประกาศขายโดย: {{ HTML::link('users/show/'.$item->seller->id, $item->seller->username) }}</h4>
 		@if($bidder != null)
 			<h4>ผู้ชนะการประมูลปัจจุบัน: {{ HTML::link('users/show/'.$bidder->id, $bidder->username) }}</h4>
 		@endif
+		<div class="line"></div>
 		<p>{{$item->property}}</p>
 
 		@if(is_buyer() && $item->quantity >0)
