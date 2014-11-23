@@ -1,6 +1,7 @@
 /bootstrap/compiled.php
 /app/config/database.php
 /app/config/app.php
+/public/upload
 /vendor
 composer.phar
 composer.lock

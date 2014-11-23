@@ -95,9 +95,6 @@ class ItemController extends Controller
 	// }
 	public function showItemList()
 	{
-		if(Auth::check()&&Auth::user()->isBanned){
-			return Redirect::to('users/forceLogout');
-		}
 		$auction = Item::where('quantity','>','0')->where('type','=','auction')->count();
 		$direct = Item::where('quantity','>','0')->where('type','=','direct')->count();
 		$item_count = ['auction' => $auction,
