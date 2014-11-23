@@ -10,7 +10,7 @@
 	</div>
 	<!-- /.col-md-6 -->
 	<div class="col-md-7 item-detail">
-		<div class="inner wow fadeInRight" data-wow-delay="1s">
+		<div class="inner">
 			<h4>ประกาศขายโดย: {{ HTML::link('user/'.$item->seller->id, $item->seller->username) }}</h4>
 			<h2>
 				@if($item->quantity==0)
@@ -23,7 +23,7 @@
 				<h4>ผู้ชนะการประมูลปัจจุบัน: {{ HTML::link('users/show/'.$bidder->id, $bidder->username) }}</h4>
 			@endif
 			<div class="line"></div>
-			<p><?php echo nl2br($item->property); ?></p>
+			<p>{{ nl2br($item->property) }}</p>
 
 			@if(is_buyer() && $item->quantity >0)
 				<a href="" id="manualButton" class="btn btn-primary" style="margin-top:-3px;" data-toggle="modal" data-target="#myModalManual">ประมูลด้วยตนเอง</a>

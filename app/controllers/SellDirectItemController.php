@@ -66,7 +66,7 @@ class SellDirectItemController extends Controller
 			$this->item->save();
 			$newItem = Item::orderBy('id', 'desc')->first();
 			return Redirect::to('item/'.$newItem->id)->with('notice','ระบบเพิ่มสินค้าของท่านเรียบร้อยแล้วค่ะ');		
-			//return Redirect::action('SellDirectItemController@sellDirectItem')->with('notice','ระบบเพิ่มสินค้าของคุณเรียบร้อยแล้วค่ะ');		
+			return Redirect::action('SellDirectItemController@sellDirectItem')->with('notice','ระบบเพิ่มสินค้าของคุณเรียบร้อยแล้วค่ะ');		
 		}
 		catch(Exception $e){
 			return Redirect::back()->withInput()->withErrors($this->item->errors)->with('error','The file size should be lower than '.$file_max. 'B');

@@ -11,7 +11,7 @@
 	</tr>
 	<tr>
 		<th>คุณสมบัติ</th>
-		<td>{{$item->property}}</td>
+		<td>{{ nl2br($item->property) }}</td>
 	</tr>
 </table>
 <!-- /.table -->
@@ -24,7 +24,7 @@
 	</tr>
 	<tr>
 		<th>ค่าธรรมเนียมการส่งสินค้าคืน</th>
-		<td>{{$item->returnFee}} บาท</td>
+		<td>{{ nl2br($item->returnFee) }} บาท</td>
 	</tr>
 	<tr>
 		<th>วิธีบรรจุหีบห่อ การขนส่ง และการยืนยันการจัดส่ง</th>
@@ -40,7 +40,7 @@
 	</tr>
 	<tr>
 		<th>อื่นๆ</th>
-		<td>{{$item->others}}</td>
+		<td>{{ nl2br($item->others) }}</td>
 	</tr>
 	<tr>
 		<th>รูปแบบภาษี</th>

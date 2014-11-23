@@ -10,7 +10,7 @@
 	</div>
 	<!-- /.col-md-6 -->
 	<div class="col-md-7 item-detail">
-		<div class="inner wow fadeInRight" data-wow-delay="1s">
+		<div class="inner">
 			{{Form::open(array('url' => 'buy/'.$item->id, 'method' => 'post', 'class' => 'form-horizontal'))}}
 			<h4>ประกาศขายโดย: {{ HTML::link('user/'.$item->seller->id, $item->seller->username) }}</h4>
 			<h2>
@@ -21,7 +21,7 @@
 			</h2>
 			<h3>สินค้าขายโดยตรง ราคา {{ number_format($item->price) }} บาท</h3>
 			<div class="line"></div>
-			<p>{{$item->property}}</p>
+			<p>{{ nl2br($item->property) }}</p>
 			<p>
 				<!--{{ Form::number('amount','1',['min'=>'1'])}}-->
 				&nbsp;
