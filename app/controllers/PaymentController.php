@@ -22,7 +22,7 @@ class PaymentController extends Controller {
 		$transaction = Transaction::find($id);
 		$item        = $transaction->item;
 		$totalTax    = $transaction->getTotalTax();
-		$total       = $totalTax + $transaction->price;
+		$total       = $transaction->getTotal();
 		return View::make('payment.payment', array(
 			'transaction' => $transaction,
 			'item'=>$item,

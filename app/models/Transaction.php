@@ -36,8 +36,9 @@ class Transaction extends Eloquent{
 
 		$transaction = new Transaction;
 		$transaction->amount = $input['amount'];
+		$transaction->deliver = $input['deliver'];
 		// Chompoo please fix this
-		$transaction->price = $item->getTotalCostWithoutTax($input['amount']);
+		$transaction->price = $item->getTotalCostWithoutTaxAndShipping($input['amount']);
 		$transaction->shipping = $input['deliver'];
 		$transaction->shippingCost = $item->getShippingPrice($input['deliver']);
 		$transaction->status = 'payment_waiting';
@@ -85,4 +86,9 @@ class Transaction extends Eloquent{
 			return false;
 		return true;		
 	}
+
+	public function getTotal(){
+		return $this->price + $this->getTotalTax() + $this->shippingCost;
+	}
+
 }
