@@ -16,12 +16,12 @@ class ItemController extends Controller
 	}
 
 	public function showDirectItem($id){
-		$auction = Item::where('quantity','>','0')->where('type','=','auction')->count();
-		$direct = Item::where('quantity','>','0')->where('type','=','direct')->count();
+		$auction    = Item::where('quantity','>','0')->where('type','=','auction')->count();
+		$direct     = Item::where('quantity','>','0')->where('type','=','direct')->count();
 		$item_count = ['auction' => $auction,
 						'direct' => $direct,
 						'all' => $auction+$direct]; 
-		$item = Item::find($id);
+		$item       = Item::find($id);
 
 		if(Auth::user()!=null && $item->sellerId == Auth::user()->id){
 			$questions = ItemQuestion::where('itemId', '=', $id)->orderBy('id', 'ASC')->get();
@@ -95,7 +95,8 @@ class ItemController extends Controller
 	// }
 	public function showItemList()
 	{
-		$auction = Item::where('quantity','>','0')->where('type','=','auction')->count();
+		$auction = Item::where('quantity','>','0')->where('type','=','auction')
+						->where('endDateTime', '>', new DateTime('now'))->count();
 		$direct = Item::where('quantity','>','0')->where('type','=','direct')->count();
 		$item_count = ['auction' => $auction,
 						'direct' => $direct,
@@ -108,7 +109,11 @@ class ItemController extends Controller
 			$items_id = [];
 			foreach ($searchs as $search) {
 				$query = Item::where('quantity','>','0')->where('name','LIKE','%'.$search.'%')
-							 ->orWhere('property','LIKE','%'.$search.'%')->lists('id'); 	
+							 ->orWhere('property','LIKE','%'.$search.'%')
+							 ->where(function ($query) {
+								    $query->where('endDateTime', '>', new DateTime('now'))
+          								  ->orWhere('endDateTime', '=', null);
+								})->lists('id'); 	
 				$items_id = array_unique(array_merge($items_id,$query));
 			}
 
@@ -117,19 +122,31 @@ class ItemController extends Controller
 		}
 		else if(Input::get('show') == 'all'){
 			$title = "สินค้าทั้งหมด";
-			$items = Item::where('quantity','>','0')->orderBy('id', 'desc')->paginate($perPage);
+			$items = Item::where('quantity','>','0')
+							->where(function ($query) {
+								    $query->where('endDateTime', '>', new DateTime('now'))
+          								  ->orWhere('endDateTime', '=', null);
+								})
+							->orderBy('id', 'desc')->paginate($perPage);
 		}
 		elseif(Input::get('show') == 'direct'){
 			$title = "สินค้าขายโดยตรง";
-			$items = Item::where('quantity','>','0')->where('type','=','direct')->where('quantity','!=','0')->orderBy('id', 'desc')->paginate($perPage);
+			$items = Item::where('quantity','>','0')->where('type','=','direct')->orderBy('id', 'desc')->paginate($perPage);
 		}
 		elseif(Input::get('show') == 'auction'){
 			$title = "สินค้าประมูล";
-			$items = Item::where('quantity','>','0')->where('type','=','auction')->where('quantity','!=','0')->orderBy('id', 'desc')->paginate($perPage);
+			$items = Item::where('quantity','>','0')
+							->where('endDateTime', '>', new DateTime('now'))
+							->where('type','=','auction')->where('quantity','!=','0')->orderBy('id', 'desc')->paginate($perPage);
 		}
 		else{
 			$title = "สินค้าล่าสุด";
-			$items = Item::where('quantity','>','0')->orderBy('id', 'desc')->where('quantity','!=','0')->take($latest)->get();
+			$items = Item::where('quantity','>','0')
+								->where(function ($query) {
+								    $query->where('endDateTime', '>', new DateTime('now'))
+          								  ->orWhere('endDateTime', '=', null);
+								})->where('quantity','!=','0')
+								->orderBy('id', 'desc')->take($latest)->get();
 		}
 		return View::make('item.itemList', [
 			'items' => $items, 

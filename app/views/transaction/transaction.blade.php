@@ -25,10 +25,10 @@
 				<dd>{{ $transaction->created_at }}</dd>
 				@if(Auth::user()->role == 'Buyer')
 				<dt>ผู้ขาย</dt>
-				<dd><a href="">{{ $transaction->item->seller->username }}</a> (<a href="{{ URL::to('/supporttickets/create?reporteeId='.$transaction->item->seller->id) }}">ร้องเรียน</a>)</dd>
+				<dd><a href="{{ URL::to('user/'.$transaction->item->seller->id) }}">{{ $transaction->item->seller->username }}</a> (<a href="{{ URL::to('/supporttickets/create?reporteeId='.$transaction->item->seller->id) }}">ร้องเรียน</a>)</dd>
 				@else
 				<dt>ผู้ซื้อ</dt>
-				<dd><a href="">{{ $transaction->buyer->username }}</a> (<a href="{{ URL::to('/supporttickets/create?reporteeId='.$transaction->buyer->id) }}">ร้องเรียน</a>)</dd>
+				<dd><a href="{{ URL::to('user/'.$transaction->buyer->id) }}">{{ $transaction->buyer->username }}</a> (<a href="{{ URL::to('/supporttickets/create?reporteeId='.$transaction->buyer->id) }}">ร้องเรียน</a>)</dd>
 				@endif
 				<dt>จำนวน</dt>
 				<dd>{{ $transaction->amount }} ชิ้น</dd>
@@ -69,6 +69,16 @@
 						{{ Form::close() }}
 					@endif
 				</dd>
+				
+				@if($transaction->sellerFeedback)
+				<dt>Feedback จากผู้ซื้อ</dt>
+				<dd>{{ $transaction->sellerFeedback->content }}</dd>
+				@endif
+
+				@if($transaction->buyerFeedback)
+				<dt>Feedback จากผู้ขาย</dt>
+				<dd>{{ $transaction->buyerFeedback->content }}</dd>
+				@endif
 			</dl>
 			@if(Auth::user()->role == 'Buyer' && $transaction->sellerFeedbackId== null && $transaction->status == 'received')
 				<h2>ให้ Feedback กับผู้ขาย</h2>

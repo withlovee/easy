@@ -8,25 +8,25 @@ class ItemQuestion extends Eloquent
 	public $timestamps = false;
 
 	public static $rules = [
-        'content' => 'required',
-        'itemId' => 'required',
-        'userId' => 'required'
-    ];
+		'content' => 'required',
+		'itemId' => 'required',
+		'userId' => 'required'
+	];
 
-    public $errors;
+	public $errors;
 
-    public function isValid()
-    {
-        $validation = Validator::make($this->attributes, static::$rules);
+	public function isValid()
+	{
+		$validation = Validator::make($this->attributes, static::$rules);
 
-        if($validation->passes()) {
-            return true;
-        }
+		if($validation->passes()) {
+			return true;
+		}
 
-        $this->errors = $validation->messages();
+		$this->errors = $validation->messages();
 
-        return false;
-    }
+		return false;
+	}
 
 	public function item(){
 		return $this->belongsTo('Item','itemId');
@@ -35,5 +35,20 @@ class ItemQuestion extends Eloquent
 	public function user(){
 		return $this->belongsTo('User','userId');
 	}
-    
+
+	static public function createItemQuestion($input){
+		$input['userId'] = Auth::user()->id;
+		$input['itemId'] = $input['id'];
+		$input['answer'] = '';
+		$question = self::create($input);
+		return $question;
+	}
+
+	static public function answer($input){
+		$question = self::find($input['id']);
+		$question->answer = $input['answer'];
+		$question->save();
+		return $question;
+	}
+	
 }

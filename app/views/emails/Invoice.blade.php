@@ -27,9 +27,9 @@
 เลขที่สินค้า  : {{ $itemId }}<br>
 ชื่อสินค้า  : {{ $itemName}}<br>
 จำนวน   : {{ $amount }}<br>
-ราคา    : {{ $price }}<br>
-ราคาจัดส่ง : {{ $shippingCost }}<br>
-ยอดรวม  : {{ $total }}<br>
+ราคา    : {{ number_format($price) }}<br>
+ราคาจัดส่ง : {{ number_format($shippingCost) }}<br>
+ยอดรวม  : {{ number_format($total) }}<br>
 <br>
 ที่อยู่จัดส่ง : {{ $shippingAddress }}<br>
 ที่อยู่ส่งใบเสร็จ : {{ $billingAddress }}

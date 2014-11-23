@@ -36,6 +36,10 @@ class User extends Eloquent implements ConfideUserInterface
 
     } 
 
+    public function scopeListReceiver($query,$id){
+        return $query->where('receiverId', '=', $id);
+    }
+
 public static function checkUpdateBanStatus($user){
     if($user->isBanned==1){
         $today = date('Y-m-d H:i:s');
@@ -71,6 +75,14 @@ public function getFullName() {
 public function getId()
 {
     return $this->id;
+}
+
+public function isBuyer() {
+    return $this->role == "Buyer";
+}
+
+public function isSeller() {
+    return $this->role == "Seller";
 }
 
 static function countryList(){

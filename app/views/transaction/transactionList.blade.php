@@ -4,6 +4,9 @@
 		{{ $title }}
 	</h1>
 	@include('layouts.error')
+	@if(count($transactions) == 0)
+		<p>ยังไม่มีประวัติการสั่งซื้อ</p>
+	@endif
 	@foreach($transactions as $transaction)
 	<div class="row item">
 		<div class="col-sm-3">

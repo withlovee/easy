@@ -402,7 +402,7 @@ body
 {
     margin-right: 0;
     margin-left: 0;
-
+    width: 100%;
     background-color: #ececec;
 }
 h1.line
@@ -485,11 +485,14 @@ h1.line
     dt,
     dd
     {
-        font-size: 1.1em;
+        font-size: 1em;
 
         padding-top: 2px;
         padding-bottom: 2px;
     }
+}
+.content{
+    font-family: sans-serif;
 }
 .container
 {
@@ -563,6 +566,11 @@ h1.line
         color: #666;
     }
 }
+.item-header h2{
+    .thaisans;
+    font-size: 2.5em;
+    color: #555;
+}
 h1{
     .thaisans;
     font-size: 3em;
@@ -588,20 +596,20 @@ h1{
         max-width: 400px;
     }
 }
-@media (min-width: 992px) {
-    .wrapper{
-        display: table;
-        .content-wrapper,
-        .sidebar-wrapper{
-            vertical-align: top;
-            display: table-cell;
-            float: none;
-        }
-        .content-wrapper{
-            width: 75%;
-        }
-        .sidebar-wrapper{
-            width: 25%;
-        }
-    }
-}
+// @media (min-width: 992px) {
+//     .wrapper{
+//         display: table;
+//         .content-wrapper,
+//         .sidebar-wrapper{
+//             vertical-align: top;
+//             display: table-cell;
+//             float: none;
+//         }
+//         .content-wrapper{
+//             width: 75%;
+//         }
+//         .sidebar-wrapper{
+//             width: 25%;
+//         }
+//     }
+// }

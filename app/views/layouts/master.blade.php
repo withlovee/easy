@@ -92,7 +92,7 @@
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">สวัสดี, {{ Auth::user()->username }} <span class="caret"></span></a>
 				<ul class="dropdown-menu" role="menu">
 					<li>{{ HTML::link('users/profile', 'แก้ไขข้อมูลส่วนตัว') }}</li>
-					<li>{{ HTML::link('users/show/'.Auth::user()->id, 'ดู Feedback') }}</li>
+					<li>{{ HTML::link('user/'.Auth::user()->id, 'ดู Feedback') }}</li>
 					<li>{{ HTML::link('transactions', 'ดูประวัติการซื้อขาย') }}</li>
 					<li class="divider"></li>
 					<li>{{ HTML::link('users/logout', 'ออกจากระบบ') }}</li>
