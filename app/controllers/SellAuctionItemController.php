@@ -90,20 +90,23 @@ class SellAuctionItemController extends Controller
 			
 			if($bidManager->bidderId != null){
 
-				$transaction = new Transaction;
-				$transaction->amount = 1;
-				$transaction->price = $item->price;
-				$transaction->shipping = $bidManager->shipping;
-				$transaction->shippingCost = $bidManager->shippingCost;
-				$transaction->status = 'payment_waiting';
-				$transaction->buyerId = $bidManager->bidderId;
-				$transaction->itemId=$item->id;
-				$transaction->buyerFeedbackId = null;
-				$transaction->sellerFeedbackId = null;
-				$transaction->sellerId = $item->sellerId;
-				$transaction->service = $bidManager->service;
+				// $transaction = new Transaction;
+				// $transaction->amount = 1;
+				// $transaction->price = $item->price;
+				// $transaction->shipping = $bidManager->shipping;
+				// $transaction->shippingCost = $bidManager->shippingCost;
+				// $transaction->status = 'payment_waiting';
+				// $transaction->buyerId = $bidManager->bidderId;
+				// $transaction->itemId=$item->id;
+				// $transaction->buyerFeedbackId = null;
+				// $transaction->sellerFeedbackId = null;
+				// $transaction->sellerId = $item->sellerId;
+				// $transaction->service = $bidManager->service;
 
-				$transaction->save();
+				// $transaction->save();
+
+				$transaction = Transaction::createAuctionTransaction($item, $bidManager);
+
 				$user = User::find($bidManager->bidderId);
 
 				EmailHelper::sendAuctionResultEmail($user, $item);

@@ -101,4 +101,23 @@ class Transaction extends Eloquent{
 		return $this->item->price*$this->amount;
 	}
 
+	public static function createAuctionTransaction($item, $bidManager) {
+		$transaction = new Transaction;
+		$transaction->amount = 1;
+		$transaction->price = $item->price;
+		$transaction->shipping = $bidManager->shipping;
+		$transaction->shippingCost = $bidManager->shippingCost;
+		$transaction->status = 'payment_waiting';
+		$transaction->buyerId = $bidManager->bidderId;
+		$transaction->itemId=$item->id;
+		$transaction->buyerFeedbackId = null;
+		$transaction->sellerFeedbackId = null;
+		$transaction->sellerId = $item->sellerId;
+		$transaction->service = $bidManager->service;
+
+		$transaction->save();
+
+		return $transaction;
+	}
+
 }
