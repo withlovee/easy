@@ -84,7 +84,7 @@ class SellAuctionItemController extends Controller
 			//return Redirect::action('SellAuctionItemController@sellAuctionItem')->with('notice','ระบบเพิ่มสินค้าของคุณเรียบร้อยแล้วค่ะ'.$this->item->id);
 		}
 		catch(Exception $e){
-			return Redirect::back()->withInput()->withErrors($this->item->errors)->with('error','The file size should be lower than '.$file_max. 'B');
+			return Redirect::back()->withInput()->withErrors($this->item->errors)->with('error','กรุณาเลือกรูปภาพที่มีขนาดน้อยกว่า '.$file_max. 'B ด้วยค่ะ');
 		}
 	}
 
