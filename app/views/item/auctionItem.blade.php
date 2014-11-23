@@ -17,6 +17,8 @@
 					<span class="label label-danger">หมดแล้ว</span>
 				@endif
 				{{$item->name}}
+				{{var_dump(new DateTime($item->endDateTime))}}
+				{{var_dump(new DateTime())}}
 			</h2>
 			<h3>สินค้าประมูล ราคาปัจจุบัน: {{ number_format($item->price) }} บาท</h3>
 			@if($bidder != null)
@@ -31,7 +33,7 @@
 				<a href="" id="autoButton" class="btn btn-primary" style="margin-top:-3px;" data-toggle="modal" data-target="#myModalAuto">ประมูลด้วยระบบอัตโนมัติ</a>
 				
 			@endif
-			@if($item->sellerId==Auth::user()->id)
+			@if(Auth::user() && $item->sellerId==Auth::user()->id)
 				{{ Form::button('ลบสินค้าชิ้นนี้',['class'=>"btn btn-danger", "data-toggle"=>"modal", "data-target"=>"#myModal$item->id"])}}
 			@endif	
 		</div>

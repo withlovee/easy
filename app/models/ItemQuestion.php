@@ -15,13 +15,14 @@ class ItemQuestion extends Eloquent
 
 	public $errors;
 
-	public function scopeListByQuestion($query, $id){
+	public function scopeListByItem($query, $id){
 		return $query->where('itemId', '=', $id)->orderBy('id', 'ASC');
 	}
 
 	public function scopeListAnsweredByItem($query, $id){
 		return $query->where('itemId', '=', $id)->where('answer','!=','')->orderBy('id', 'ASC');
 	}
+
 	public function isValid()
 	{
 		$validation = Validator::make($this->attributes, static::$rules);

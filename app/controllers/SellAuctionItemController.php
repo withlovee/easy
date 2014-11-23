@@ -19,12 +19,13 @@ class SellAuctionItemController extends Controller
 	}
 	public function createAuctionItem(){
 		$file_max = ini_get('upload_max_filesize');
-		try{
 
+		try{
 			$input = Input::all();
 
 			$file = Input::file('picture');
 			$filename = $file->getClientOriginalName();
+
 			Input::file('picture')->move('upload/', $filename);
 
 			$input['filename'] = $file->getClientOriginalName();
@@ -42,8 +43,6 @@ class SellAuctionItemController extends Controller
 			$bidManager->service = 0;
 			$bidManager->save();
 
-			
-
 			$this->item->bidManagerId = $bidManager->id;
 			// $this->item->amount=NULL;
 			$this->item->sellerId = Auth::user()->id;
@@ -60,8 +59,9 @@ class SellAuctionItemController extends Controller
 			$this->item->save();
 			$newItem = Item::orderBy('id', 'desc')->first();
 
-			$inputDate = Carbon::createFromFormat('Y-m-d H:i',$this->item->endDateTime);
-			//$inputDate=Carbon::now()->addMinutes(10); 
+			$inputDate = Carbon::createFromFormat('Y-m-d H:i',$this->item->endDateTime, "Asia/Bangkok");
+			var_dump($inputDate);
+			// $inputDate=Carbon::now()->addMinutes(10); 
 			Queue::later($inputDate, 'SellAuctionItemController@endAuction', array('itemId' => "".$this->item->id));
 
 			return Redirect::to('item/'.$newItem->id)->with('notice','ระบบเพิ่มสินค้าของท่านเรียบร้อยแล้วค่ะ');		
@@ -78,11 +78,16 @@ class SellAuctionItemController extends Controller
 		return Redirect::to('listItemSeller?show=all')->with('notice','ลบสินค้าเรียบร้อยแล้วค่ะ');		
 	}
 
-	public function endAuction($job,$itemId){
-		$item = Item::find((int)$itemId);
-		$bidManager = BidManager::find($item->id);
+	public function endAuction($job,$args){
+
+		$itemId = $args["itemId"];
+
+		$item = Item::find(intval($itemId));
+
+		$bidManager = BidManager::find($item->bidManagerId);
 		
-		if($bidManager->bidderId!=null){
+		if($bidManager->bidderId != null){
+
 			$transaction = new Transaction;
 			$transaction->amount = 1;
 			$transaction->price = $item->price;
@@ -95,13 +100,16 @@ class SellAuctionItemController extends Controller
 			$transaction->sellerFeedbackId = null;
 			$transaction->sellerId = $item->sellerId;
 			$transaction->service = $bidManager->service;
+
 			$transaction->save();
 			$user = User::find($bidManager->bidderId);
 
 			EmailHelper::sendAuctionResultEmail($user, $item);
 			EmailHelper::sendInvoiceEmail($transaction);
+			
 		}
 
+		$job->delete();
 		
 	}
 }
