@@ -17,8 +17,6 @@
 					<span class="label label-danger">หมดแล้ว</span>
 				@endif
 				{{$item->name}}
-				{{var_dump(new DateTime($item->endDateTime))}}
-				{{var_dump(new DateTime())}}
 			</h2>
 			<h3>สินค้าประมูล ราคาปัจจุบัน: {{ number_format($item->price) }} บาท</h3>
 			@if($bidder != null)
