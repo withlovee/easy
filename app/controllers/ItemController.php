@@ -15,7 +15,7 @@ class ItemController extends Controller
 		$this->item = $item;
 	}
 
-	public function showDirectItem($id){
+	public function showItem($id){
 		$auction    = Item::availableAuctionItem()->count();
 		$direct     = Item::availableDirectItem()->count();
 		$item       = Item::find($id);
@@ -40,9 +40,10 @@ class ItemController extends Controller
 			return View::make('item.directItem', compact('item','questions','deliver','item_count'));
 		}
 		elseif ($item->type == 'auction'){
+			$timeSentence = Item::timesentence($item);
 			$bidManager = BidManager::find($item->bidManagerId);
 			$bidder = User::find($bidManager->bidderId);
-			return View::make('item.auctionItem', compact('item', 'questions', 'deliver', 'item_count', 'bidder'));
+			return View::make('item.auctionItem', compact('item', 'questions', 'deliver', 'item_count', 'bidder','timeSentence'));
 		}
 	
 	}

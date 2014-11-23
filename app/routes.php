@@ -83,8 +83,8 @@ Route::post('pay/{id}', 'PaymentController@proceedPayment');
 /**
  * Item
  */
-Route::get('item/{id}', 'ItemController@showDirectItem');
-Route::post('item/{id}', 'ItemController@showDirectItem');
+Route::get('item/{id}', 'ItemController@showItem');
+Route::post('item/{id}', 'ItemController@showItem');
 
 Route::get('listItemSeller/','ItemController@showItemSeller');
 

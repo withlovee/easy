@@ -94,6 +94,20 @@ class Item extends Eloquent
 		return URL::to('item/'.$this->id);
 	}
 
+    public static function timeSentence($item){
+        $closed = new DateTime($item->endDateTime);
+        $today = new DateTime();
+        $dif = $closed->diff($today);
+        if($dif->invert==0) $timeSentence = 'หมดเวลาประมูล';
+        else{
+            $day = $dif->days;
+            $hour = $dif->h;
+            $min = $dif->i;
+            $timeSentence = 'เหลือเวลาประมูลอีก '.$day.' วัน '.$hour.' ชั่วโมง '.$min.' นาที';
+        }           
+        return $timeSentence;
+    }
+
 
 	public function getTotalCostWithoutTaxAndShipping($amount){
 		return $this->price*$amount;

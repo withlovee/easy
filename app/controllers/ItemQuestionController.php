@@ -22,7 +22,7 @@ class ItemQuestionController extends Controller
 		$this->question = ItemQuestion::createItemQuestion($input);
 		if(!$this->question)
 			return Redirect::back()->withInput()->withErrors($this->question->errors);        
-		return Redirect::action('ItemController@showDirectItem', 
+		return Redirect::action('ItemController@showItem', 
 			array('id'=>$input['id']))
 			->with('notice','คำถามของท่านถูกส่งไปยังผู้ขายเรียบร้อยแล้วค่ะ');
 	}
