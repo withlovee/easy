@@ -1,7 +1,7 @@
 <?php
 class BuyAuctionItemController extends Controller
 {
-	public function autobid($id) {
+	public function autoBid($id) {
 		$input = Input::all();
 		$item = Item::find($id);
 		$deliver = $input['deliver'];
@@ -25,7 +25,7 @@ class BuyAuctionItemController extends Controller
 		return Redirect::to('item/'.$id);
 	}
 
-	public function manualbid($id) {
+	public function manualBid($id) {
 		$input = Input::all();
 		$item = Item::find($id);
 		$deliver = $input['deliver'];

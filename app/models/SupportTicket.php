@@ -41,6 +41,10 @@ class SupportTicket extends Eloquent{
         return $this->belongsTo('Administrator');
     }
 
+    public function scopeListByUser($query,$id){
+        return $query->where('reporterId', '=', $id);
+    }
+
     public static function getReporteeCandidate($reporterUser) {
 
         $users = null;

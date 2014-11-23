@@ -26,6 +26,14 @@ class Transaction extends Eloquent{
 		return $this->item->tax/100.0*$this->price;
 	}
 
+	public function scopeListByBuyer($query,$id){
+		return $query->where('buyerId', '=', $id);
+	}
+
+	public function scopeListBySeller($query,$id){
+		return $query->where('sellerId', '=', $id);
+	}
+
 	static public function createTransaction($id, $input){
 		$item = Item::find($id);
 		if(!array_key_exists('option', $input)) $input['option'] = '0';
