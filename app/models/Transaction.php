@@ -23,7 +23,7 @@ class Transaction extends Eloquent{
 	}
 
 	public function getTotalTax(){
-		return $this->item->tax/100.0*$this->price;
+		return $this->item->tax/100.0*$this->amount*$this->item->price;
 	}
 
 	public function scopeListByBuyer($query,$id){
@@ -44,7 +44,7 @@ class Transaction extends Eloquent{
 
 		$transaction = new Transaction;
 		$transaction->amount = $input['amount'];
-		$transaction->price = $item->getTotalCostWithoutTaxAndShipping($input['amount']);
+		$transaction->price = $item->getTotalCostWithoutShipping($input['amount']);
 		$transaction->shipping = $input['deliver'];
 		$transaction->shippingCost = $item->getShippingPrice($input['deliver']);
 		$transaction->status = 'payment_waiting';
@@ -94,7 +94,11 @@ class Transaction extends Eloquent{
 	}
 
 	public function getTotal(){
-		return $this->price + $this->getTotalTax() + $this->shippingCost;
+		return $this->price + $this->shippingCost;
+	}
+
+	public function getTotalCostWithoutTaxAndShipping(){
+		return $this->item->price*$this->amount;
 	}
 
 }
