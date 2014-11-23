@@ -60,17 +60,22 @@
 							{{Form::select('deliver', $deliver, 'แบบมาตรฐาน', ['class'=>"form-control",'id'=>'deliver'])}}
 						</div>
 					</div><!--form-group-->
+					@if($item->service!='')
 					<div class="form-group">
+						
 						<label for="inputEmail3" class="col-sm-4 control-label">บริการพิเศษ</label>
 						<div class="col-sm-8">
 							<div class="checkbox">
 								<label>
-									{{Form::checkbox('option', 1)}} {{$item->service}}</strong>
+									
+									<strong>{{Form::checkbox('option', 1)}}{{$item->service}}</strong>
+									
 								</label>
 							</div>
 							<!--{{Form::checkbox('option', $item->others)}}-->
 						</div>
 					</div><!--form-group-->
+					@endif
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-4 control-label">ราคารวมภาษี ({{$item->tax}}%)</label>
 						<div class="col-sm-8">
