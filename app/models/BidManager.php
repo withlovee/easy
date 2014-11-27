@@ -44,11 +44,9 @@ class BidManager extends Eloquent {
             else {                                      // outbid
                 $this->currentBid = $this->maxBid = $newMaxBid;
                 $this->increment = 0;
-                $this->bidderId = $newUserId;
 
-                $this->setShippingService($shipping, $shippingCost, $service);
-
-                EmailHelper::sendPreviousAuctionWinnerEmail(User::find($newUserId), $item,
+                if($this->bidderId) {
+                EmailHelper::sendPreviousAuctionWinnerEmail(User::find($this->bidderId), $item,
                     [
                         'currentBid'           => $this->currentBid, 
                         'currentBidTimestamp'  => (new DateTime('now'))->format('Y-m-d H:i:s'),
@@ -56,6 +54,12 @@ class BidManager extends Eloquent {
                         'itemLink'             => $item->getUrl()
                     ]
                 );
+
+                }
+                $this->bidderId = $newUserId;
+
+                $this->setShippingService($shipping, $shippingCost, $service);
+
             }
         }
         $this->save();
@@ -102,18 +106,23 @@ class BidManager extends Eloquent {
 
                 $this->maxBid = $newMaxBid;
                 $this->increment = $newIncrement;
+
+                if($this->bidderId) {
+
+                    EmailHelper::sendPreviousAuctionWinnerEmail(User::find($this->bidderId), $item,
+                        [
+                            'currentBid'           => $this->currentBid, 
+                            'currentBidTimestamp'  => (new DateTime('now'))->format('Y-m-d H:i:s'), 
+                            'endAuctionTimestamp'  => (new DateTime($item->endDateTime))->format('Y-m-d H:i:s'), 
+                            'itemLink'             => $item->getUrl()
+                        ]
+                    );
+
+                }
                 $this->bidderId = $newUserId;
 
                 $this->setShippingService($shipping, $shippingCost, $service);
 
-                EmailHelper::sendPreviousAuctionWinnerEmail(User::find($newUserId), $item,
-                    [
-                        'currentBid'           => $this->currentBid, 
-                        'currentBidTimestamp'  => (new DateTime('now'))->format('Y-m-d H:i:s'), 
-                        'endAuctionTimestamp'  => (new DateTime($item->endDateTime))->format('Y-m-d H:i:s'), 
-                        'itemLink'             => $item->getUrl()
-                    ]
-                );
             }
         }
         $this->save();
