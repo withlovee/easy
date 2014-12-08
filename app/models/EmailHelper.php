@@ -164,7 +164,7 @@ class EmailHelper{
           "feedbackUrl"       => URL::to('transaction/'.$transaction->id)
         );
 
-      $subject = "ยืนยันการชำระเงิน - ".$item->name;
+      $subject = "การซื้อขายสำเร็จแล้ว โปรดให้ความคิดเห็นของคุณ - ".$item->name;
 
       Mail::send('emails.FeedbackRequest', $data, function($message) use ($data, $subject) {
         $message->to($data['email'], $data['fullName'])
