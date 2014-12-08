@@ -71,7 +71,12 @@ class SellAuctionItemController extends Controller
 		$bidManager = BidManager::find($item->bidManagerId);
 		$item->delete();
 		$bidManager->delete();
-		return Redirect::to('listItemSeller?show=all')->with('notice','ลบสินค้าเรียบร้อยแล้วค่ะ');		
+
+		if(is_admin()) {
+			return Redirect::to('/')->with('notice', 'ลบสินค้า #'.$id." เรียบร้อย!");
+		} else {
+			return Redirect::to('listItemSeller?show=all')->with('notice','ลบสินค้าเรียบร้อยแล้วค่ะ');		
+		}
 	}
 
 	public function endAuction($job,$args){

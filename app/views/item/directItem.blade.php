@@ -29,7 +29,7 @@
 				@if(is_buyer() && $item->quantity >0)
 				{{ Form::button('ซื้อสินค้า',['class'=>"btn btn-primary", "data-toggle"=>"modal", "data-target"=>"#myModal"])}}
 				@endif
-				@if(Auth::user()!=null && $item->sellerId==Auth::user()->id)
+				@if(Auth::user()!=null && $item->sellerId==Auth::user()->id || is_admin())
 				{{ Form::button('ลบสินค้าชิ้นนี้',['class'=>"btn btn-danger", "data-toggle"=>"modal", "data-target"=>"#myModal$item->id"])}}
 				@endif
 			</p>
