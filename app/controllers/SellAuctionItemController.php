@@ -55,7 +55,7 @@ class SellAuctionItemController extends Controller
 			$inputDate = Carbon::createFromFormat('Y-m-d H:i',$this->item->endDateTime, "Asia/Bangkok");
 			var_dump($inputDate);
 			// $inputDate=Carbon::now()->addMinutes(10); 
-			Queue::later($inputDate, 'SellAuctionItemController@endAuction', array('itemId' => "".$this->item->id));
+			Queue::later($inputDate, 'EndAuctionItemController@endAuction', array('itemId' => "".$this->item->id));
 
 			return Redirect::to('item/'.$newItem->id)->with('notice','ระบบเพิ่มสินค้าของท่านเรียบร้อยแล้วค่ะ');		
 		}
