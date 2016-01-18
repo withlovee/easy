@@ -1,5 +1,9 @@
 EASY
 ====
+## Description
+Click to view: 
+
+[![Presentation](https://dl.dropboxusercontent.com/u/13791126/github_SE-Slides.jpg)](https://dl.dropboxusercontent.com/u/13791126/github_SE-Slides.pdf)
 
 ## Installation
 1. Copy app/config/app.php.sample to config/app.php
